@@ -154,7 +154,7 @@ let forward = {
     RunicGuidance: { RuneMastery: 2 },
     FreeEnergy: { },
     RunicFlare: { },
-    WiseCher: { },
+    WiseChef: { },
     InfernoRune: { },
     BlizzardRune: { },
     GalvanicRune: { },
