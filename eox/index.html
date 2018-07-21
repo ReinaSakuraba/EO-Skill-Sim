@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+  <title>Etrian Odyssey X Skill Simulator</title>
+  <meta charset="utf-8">
+  <script type="text/javascript" src="../js/lz-string.min.js"></script>
+  <script type="text/javascript" src="../js/simulator.js"></script>
+  <script type="text/javascript" src="../js/eoxsimulator.js"></script>
+  <script type="text/javascript" src="../data/eox/skills.js"></script>
+  <script type="text/javascript" src="../data/eox/forward.js"></script>
+  <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+<body>
+  <div id="header">
+    <div>
+      <img src="../resources/eox-logo.png" height="140px" />
+    </div>
+
+    <div id="header-main">
+      <div>
+        <div>
+          <strong>Level</strong>
+          <select id="level">
+            <option value="0">0</option>
+          </select>
+        </div>
+
+        <br>
+
+        <div>
+          <strong>Level Cap</strong>
+          <select id="level-cap">
+            <option value="0">0</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <strong>Retire Level</strong>
+          <select id="retire">
+            <option value="N/A">N/A</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <div>
+          <strong>Class</strong>
+          <select id="class-selector-primary">
+            <option value="None">None</option>
+          </select>
+        </div>
+
+        <br>
+
+        <div>
+          <strong>Subclass</strong>
+          <select id="class-selector-secondary">
+            <option value="None">None</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <strong>Points Used<br><p id="points-current"></p>/<p id="points-total"></p></strong>
+      </div>
+    </div>
+  </div>
+
+  <div id="main">
+    <div class="tree" id="tree-primary"></div>
+    <div class="tree" id="tree-secondary"></div>
+  </div>
+</body>
+</html>
