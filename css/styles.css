@@ -49,19 +49,19 @@ p {
 }
 
 #main {
-  position: absolute;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: calc(100% - 164px);
+  margin-top: 10px;
 }
 
 .tree {
   position: relative;
   height: 304px;
-  width: 1250px;
+  width: 620px;
 }
 
 .skill {
