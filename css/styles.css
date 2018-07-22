@@ -48,6 +48,20 @@ p {
   margin: 0px 15px 0px 15px;
 }
 
+#header-links {
+  display: flex;
+  flex-direction: column;
+}
+
+#header-links a {
+  flex: 1;
+}
+
+#header-links svg {
+  width: 30px;
+  fill: #8DDEFD;
+}
+
 #main {
   display: flex;
   justify-content: center;
