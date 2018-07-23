@@ -902,6 +902,96 @@ let skills = {
       dep: { },
       maxLevel: 6,
       coords: { x: 1, y: 6 }
+    },
+    etherMastery: {
+      name_en: "Ether Mastery",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 0 }
+    },
+    tpUp: {
+      name_en: "TP Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 3, y: 0 }
+    },
+    binaryFire: {
+      name_en: "Binary Fire",
+      dep: { fireStar: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 1 }
+    },
+    binaryIce: {
+      name_en: "Binary Ice",
+      dep: { iceStar: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 2 }
+    },
+    binaryVolt: {
+      name_en: "Binary Volt",
+      dep: { voltStar: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 3 }
+    },
+    restoreEther: {
+      name_en: "Restore Ether",
+      dep: { ethericCharge: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4 }
+    },
+    antiEther: {
+      name_en: "Anti Ether",
+      dep: { restoreEther: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 4 }
+    },
+    darkEther: {
+      name_en: "Dark Ether",
+      dep: { ethericReturn: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    ethericShoot: {
+      name_en: "Etheric Shoot",
+      dep: { darkEther: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 5 }
+    },
+    fireProphecy: {
+      name_en: "Fire Prophecy",
+      dep: { binaryFire: 2 },
+      maxLevel: 4,
+      coords: { x: 4, y: 1 }
+    },
+    iceProphecy: {
+      name_en: "Ice Prophecy",
+      dep: { binaryIce: 2 },
+      maxLevel: 4,
+      coords: { x: 4, y: 2 }
+    },
+    voltProphecy: {
+      name_en: "Volt Prophecy",
+      dep: { binaryVolt: 2 },
+      maxLevel: 4,
+      coords: { x: 4, y: 3 }
+    },
+    freeEnergy: {
+      name_en: "Free Energy",
+      dep: { fireProphecy: 1, iceProphecy: 1, voltProphecy: 1 },
+      maxLevel: 6,
+      coords: { x: 5, y: 2 }
+    },
+    spreadEther: {
+      name_en: "Spread Ether",
+      dep: { antiEther: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 4 }
+    },
+    meteor: {
+      name_en: "Meteor",
+      dep: { horoscope: 3, ethericShoot: 2 },
+      maxLevel: 10,
+      coords: { x: 4, y: 5.5 }
     }
   },
   Ninja: {

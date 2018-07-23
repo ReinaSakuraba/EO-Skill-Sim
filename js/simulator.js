@@ -343,7 +343,7 @@ class Simulator {
 
       if (deps.length > 1) {
         let x = skill.coords.x * (200 + 150) - 35;
-        let y = skills[className][deps[0][0]].coords.y * 45 + 15;
+        let y = Math.min(...deps.map(dep => skills[className][dep[0]].coords.y)) * 45 + 15;
         this.drawVerticalLine(tree, x, y, 45 * (deps.length - 1));
       }
     }
