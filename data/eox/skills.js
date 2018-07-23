@@ -312,6 +312,90 @@ let skills = {
       dep: { },
       maxLevel: 6,
       coords: { x: 1, y: 6 }
+    },
+    helmSplitter: {
+      name_en: "Helm Splitter",
+      dep: { upwardSlash: 1 },
+      maxLevel: 10,
+      coords: { x: 2, y: 1 }
+    },
+    flameGrater: {
+      name_en: "Flame Grater",
+      dep: { helmSplitter: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1 }
+    },
+    hazeSlash: {
+      name_en: "Haze Slash",
+      dep: { chargingThrust: 1 },
+      maxLevel: 10,
+      coords: { x: 2, y: 2 }
+    },
+    lightningStab: {
+      name_en: "Lightning Stab",
+      dep: { hazeSlash: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 2 }
+    },
+    horizontalSlice: {
+      name_en: "Horizontal Slice",
+      dep: { sheathStrike: 1 },
+      maxLevel: 10,
+      coords: { x: 2, y: 3 }
+    },
+    frigidSlash: {
+      name_en: "Frigid Slash",
+      dep: { horizontalSlice: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 3 }
+    },
+    duel: {
+      name_en: "Duel",
+      dep: { airSlash: 2, armStrike: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4.5 }
+    },
+    physAtkUp: {
+      name_en: "Phys ATK Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    swallowStrike: {
+      name_en: "Swallow Strike",
+      dep: { flameGrater: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1 }
+    },
+    bluntingStab: {
+      name_en: "Blunting Stab",
+      dep: { lightningStab: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 2 }
+    },
+    petalScatter: {
+      name_en: "Petal Scatter",
+      dep: { frigidSlash: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 3 }
+    },
+    proofOfMastery: {
+      name_en: "Proof of Mastery",
+      dep: { },
+      maxLevel: 10,
+      coords: { x: 4, y: 4 }
+    },
+    risingSpirit: {
+      name_en: "Rising Spirit",
+      dep: { proofOfMastery: 2 },
+      maxLevel: 4,
+      coords: { x: 5, y: 4 }
+    },
+    speedUp: {
+      name_en: "Speed Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 5 }
     }
   },
   Medic: {
@@ -1430,6 +1514,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    massiveEdge: {
+      name_en: "Massive Edge",
+      dep: { bloodEdge: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 1 }
+    },
+    coolEdge: {
+      name_en: "Cool Edge",
+      dep: { massiveEdge: 2 },
+      maxLevel: 4,
+      coords: { x: 3, y: 1 }
+    },
+    tripEdge: {
+      name_en: "Trip Edge",
+      dep: { bloodEdge: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
+    },
+    impulseEdge: {
+      name_en: "Impulse Edge",
+      dep: { tripEdge: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 2 }
+    },
+    intercooler: {
+      name_en: "Intercooler",
+      dep: { heatSink: 1, overheatGuard: 1 },
+      maxLevel: 10,
+      coords: { x: 2, y: 4 }
+    },
+    flameDrive: {
+      name_en: "Flame Drive",
+      dep: { intercooler: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 3 }
+    },
+    freezeDrive: {
+      name_en: "Freeze Drive",
+      dep: { intercooler: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 4 }
+    },
+    shockDrive: {
+      name_en: "Shock Drive",
+      dep: { intercooler: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 5 }
+    },
+    curbDefUp: {
+      name_en: "Curb DEF Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    chargeEdge: {
+      name_en: "Charge Edge",
+      dep: { coolEdge: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1 }
+    },
+    forceEdge: {
+      name_en: "Force Edge",
+      dep: { impulseEdge: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 2 }
+    },
+    hpBoost: {
+      name_en: "HP Boost",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 3 }
+    },
+    accelDrive: {
+      name_en: "Accel Drive",
+      dep: { flameDrive: 1, freezeDrive: 1, shockDrive: 1 },
+      maxLevel: 10,
+      coords: { x: 4, y: 4 }
+    },
+    absorber: {
+      name_en: "Absorber",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 4, y: 5 }
+    },
+    elemAtkUp: {
+      name_en: "Elem ATK Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 6 }
     }
   },
   Pugilist: {
