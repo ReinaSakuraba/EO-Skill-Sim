@@ -146,7 +146,7 @@ let skills = {
     forceGifter: {
       name_en: "Force Gifter",
       dep: { },
-      maxLevel: 3,
+      maxLevel: 6,
       coords: { x: 4, y: 3 }
     },
     forceSaver: {
