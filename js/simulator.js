@@ -92,6 +92,7 @@ class Simulator {
     document.getElementById("class-selector-primary").value = value;
     this.disableSecondaryClasses(value);
     this.createSkillNodes("primary", value);
+    this.updateSkillPoints();
   }
 
   get secondaryClass() {
@@ -102,6 +103,7 @@ class Simulator {
     document.getElementById("class-selector-secondary").value = value;
     this.disablePrimaryClasses(value);
     this.createSkillNodes("secondary", value);
+    this.updateSkillPoints();
   }
 
   setDefault() {
@@ -364,7 +366,7 @@ class Simulator {
     tree.appendChild(line);
   }
 
-	changeSkillLevel(section, className, skillName, level) {
+  changeSkillLevel(section, className, skillName, level) {
     console.log(section, className, skillName, level);
     let old = this.state[section][skillName];
     if (level == old) return;
@@ -398,7 +400,7 @@ class Simulator {
     resolve(skillName);
 
     this.updateNodes(section, className);
-	}
+  }
 
   updateNodes(section, className) {
     for (let [skillName, skillLevel] of Object.entries(this.state[section])) {
@@ -424,6 +426,8 @@ class Simulator {
 
   updateSkillPoints() {
     let points = 2 + this.currentLevel;
+
+    if (this.secondaryClass && this.secondaryClass != "None") points += 5;
 
     if (this.retireLevel != "N/A") points += this.retireBonuses[this.retireLevel];
 
