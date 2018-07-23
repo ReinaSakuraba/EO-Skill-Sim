@@ -70,6 +70,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    shadowCharge: {
+      name_en: "Shadow Charge",
+      dep: { mirageSword: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 1 }
+    },
+    shadowBenefit: {
+      name_en: "Shadow Benefit",
+      dep: { shadowCharge: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1 }
+    },
+    shockSpark: {
+      name_en: "Shock Spark",
+      dep: { freezingSlash: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
+    },
+    burstBlade: {
+      name_en: "Burst Blade",
+      dep: { shockSpark: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 2 }
+    },
+    herosProof: {
+      name_en: "Hero's Proof",
+      dep: { herosBonds: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 3 }
+    },
+    greatCourage: {
+      name_en: "Great Courage",
+      dep: { herosProof: 1 },
+      maxLevel: 8,
+      coords: { x: 3, y: 3 }
+    },
+    shieldMateria: {
+      name_en: "Shield Material",
+      dep: { shieldArts: 2 },
+      maxLevel: 10,
+      coords: { x: 2, y: 4 }
+    },
+    fervor: {
+      name_en: "Fervor",
+      dep: { clearMind: 1 },
+      maxLevel: 4,
+      coords: { x: 2, y: 5 }
+    },
+    newChallenger: {
+      name_en: "New Challenger",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 2, y: 6 }
+    },
+    thickShadow: {
+      name_en: "Thick Shadow",
+      dep: { shadowBenefit: 3 },
+      maxLevel: 10,
+      coords: { x: 4, y: 1 }
+    },
+    actBreaker: {
+      name_en: "Act Breaker",
+      dep: { burstBlade: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 2 }
+    },
+    regimentRave: {
+      name_en: "Regiment Rave",
+      dep: { actBreaker: 3 },
+      maxLevel: 8,
+      coords: { x: 5, y: 2 }
+    },
+    forceGifter: {
+      name_en: "Force Gifter",
+      dep: { },
+      maxLevel: 3,
+      coords: { x: 4, y: 3 }
+    },
+    forceSaver: {
+      name_en: "Force Saver",
+      dep: { forceGifter: 3 },
+      maxLevel: 4,
+      coords: { x: 5, y: 3 }
+    },
+    guardRush: {
+      name_en: "Guard Rush",
+      dep: { shieldMateria: 3 },
+      maxLevel: 10,
+      coords: { x: 4, y: 4 }
     }
   },
   Protector: {
@@ -642,15 +732,15 @@ let skills = {
       maxLevel: 10,
       coords: { x: 1, y: 4 }
     },
-    royalBell: {
-      name_en: "Royal Bell",
+    royalVeil: {
+      name_en: "Royal Veil",
       dep: { },
       maxLevel: 4,
       coords: { x: 0, y: 5 }
     },
     monarchMarch: {
       name_en: "Monarch March",
-      dep: { royalBell: 2 },
+      dep: { royalVeil: 2 },
       maxLevel: 4,
       coords: { x: 1, y: 5 }
     },
@@ -661,8 +751,8 @@ let skills = {
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     },
-    exchange: {
-      name_en: "Exchange",
+    negotiation: {
+      name_en: "Negotiation",
       dep: { },
       maxLevel: 6,
       coords: { x: 1, y: 6 }
@@ -677,8 +767,8 @@ let skills = {
       maxLevel: 0,
       coords: { x: 0, y: 0 }
     },
-    shadowWarrior: {
-      name_en: "Shadow Warrior",
+    bodyDouble: {
+      name_en: "Body Double",
       unique: true,
       type: "Break",
       dep: { battleFormation: 0 },
@@ -946,8 +1036,8 @@ let skills = {
       maxLevel: 4,
       coords: { x: 0, y: 5 }
     },
-    naturalInstinct: {
-      name_en: "Natural Instinct",
+    harvestry: {
+      name_en: "Harvestry",
       unique: true,
       dep: { },
       maxLevel: 1,
@@ -1214,8 +1304,8 @@ let skills = {
       maxLevel: 8,
       coords: { x: 1, y: 1.5 }
     },
-    readGuard: {
-      name_en: "Read Guard",
+    rearGuard: {
+      name_en: "Rear Guard",
       dep: { },
       maxLevel: 6,
       coords: { x: 0, y: 3 }

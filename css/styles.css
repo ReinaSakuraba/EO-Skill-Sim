@@ -33,6 +33,7 @@ p {
   display: flex;
   flex-direction: row;
   padding: 10px;
+  height: 164px;
 }
 
 #header-main {
@@ -75,7 +76,7 @@ p {
 .tree {
   position: relative;
   height: 304px;
-  width: 620px;
+  width: 2040px;
 }
 
 .skill {

@@ -55,6 +55,7 @@ class Simulator {
     } else {
       this.setDefault();
     }
+    this.resizeTree();
   }
 
   get currentLevel() {
@@ -309,7 +310,13 @@ class Simulator {
       let startX = skill.coords.x * (200 + 150) + 269;
       let startY = skill.coords.y * (45) + 15;
 
-      this.drawHorizontalLine(tree, startX, startY, 42);
+      let length = 42;
+
+      let forwardX = skills[className][forwards[0][0]].coords.x;
+      let xDiff = forwardX - skill.coords.x;
+      if (xDiff > 1) length += ((xDiff - 1) * 350);
+
+      this.drawHorizontalLine(tree, startX, startY, length);
 
       if (forwards.length > 1) {
         let x = skill.coords.x * (200 + 150) + 315;
@@ -460,6 +467,17 @@ class Simulator {
     this.updateNodes("fixed", "Common");
     this.updateNodes("primary", this.primaryClass);
     this.updateNodes("secondary", this.secondaryClass);
+  }
+
+  resizeTree() {
+    let main = document.getElementById("main");
+    let scale = main.clientWidth / 2040;
+
+    let trees = document.querySelectorAll(".tree");
+
+    for (let tree of trees) {
+      tree.style.transform = `scale(${scale})`;
+    }
   }
 }
 
