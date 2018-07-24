@@ -735,15 +735,15 @@ let skills = {
       maxLevel: 8,
       coords: { x: 3, y: 1 }
     },
-    doubleShot: {
-      name_en: "Double Shot",
+    multiShot: {
+      name_en: "Multi-Shot",
       dep: { flameArrow: 3 },
       maxLevel: 10,
       coords: { x: 2, y: 2 }
     },
     dropShot: {
       name_en: "Drop Shot",
-      dep: { doubleShot: 3 },
+      dep: { multiShot: 3 },
       maxLevel: 8,
       coords: { x: 3, y: 2 }
     },
@@ -1312,8 +1312,8 @@ let skills = {
       maxLevel: 0,
       coords: { x: 0, y: 0 }
     },
-    nobilityProof: {
-      name_en: "Nobility Proof",
+    proofOfNobility: {
+      name_en: "Proof of Nobility",
       unique: true,
       type: "Break",
       dep: { victoryVow: 0 },
@@ -1380,6 +1380,90 @@ let skills = {
       dep: { },
       maxLevel: 6,
       coords: { x: 1, y: 6 }
+    },
+    majesty: {
+      name_en: "Majesty",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 2, y: 0 }
+    },
+    royalLineage: {
+      name_en: "Royal Lineage",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 3, y: 0 }
+    },
+    elementalBombI: {
+      name_en: "Elemental Bomb I",
+      dep: { fireArms: 1, freezeArms: 1, shockArms: 1 },
+      maxLevel: 10,
+      coords: { x: 2, y: 2 }
+    },
+    rallyOrder: {
+      name_en: "Rally Order",
+      dep: { reinforce: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 3.5 }
+    },
+    protectOrder: {
+      name_en: "Protect Order",
+      dep: { reinforce: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4.5 }
+    },
+    preventOrder: {
+      name_en: "Prevent Order",
+      dep: { rallyOrder: 2, protectOrder: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 4 }
+    },
+    pairOrder: {
+      name_en: "Pair Order",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 3, y: 5 }
+    },
+    healOrder: {
+      name_en: "Heal Order",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 3, y: 6 }
+    },
+    statusDefUp: {
+      name_en: "Status DEF Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 0 }
+    },
+    elementalBombII: {
+      name_en: "Elemental Bomb II",
+      dep: { elementalBombI: 3 },
+      maxLevel: 10,
+      coords: { x: 4, y: 2 }
+    },
+    clearance: {
+      name_en: "Clearance",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 4, y: 3 }
+    },
+    dauntlessOrder: {
+      name_en: "Dauntless Order",
+      dep: { preventOrder: 1 },
+      maxLevel: 8,
+      coords: { x: 4, y: 4 }
+    },
+    lastOrder: {
+      name_en: "Last Order",
+      dep: { pairOrder: 2, healOrder: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 5.5 }
+    },
+    reorder: {
+      name_en: "Re-order",
+      dep: { lastOrder: 3 },
+      maxLevel: 10,
+      coords: { x: 5, y: 5.5 }
     }
   },
   Shogun: {
@@ -1562,27 +1646,27 @@ let skills = {
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
-    ethericShine: {
-      name_en: "Etheric Shine",
+    ethericGleam: {
+      name_en: "Etheric Gleam",
       dep: { },
       maxLevel: 8,
       coords: { x: 0, y: 2 }
     },
     fireStar: {
       name_en: "Fire Star",
-      dep: { ethericShine: 1 },
+      dep: { ethericGleam: 1 },
       maxLevel: 10,
       coords: { x: 1, y: 1 }
     },
     iceStar: {
       name_en: "Ice Star",
-      dep: { ethericShine: 1 },
+      dep: { ethericGleam: 1 },
       maxLevel: 10,
       coords: { x: 1, y: 2 }
     },
     voltStar: {
       name_en: "Volt Star",
-      dep: { ethericShine: 1 },
+      dep: { ethericGleam: 1 },
       maxLevel: 10,
       coords: { x: 1, y: 3 }
     },
@@ -1709,60 +1793,60 @@ let skills = {
     }
   },
   Ninja: {
-    shinobazu: {
-      name_en: "Shinobazu",
+    insolence: {
+      name_en: "Insolence",
       unique: true,
       type: "Boost",
       dep: { },
       maxLevel: 0,
       coords: { x: 0, y: 0 }
     },
-    poisonMist: {
-      name_en: "Poison Mist",
+    ninpoPoisonMist: {
+      name_en: "Ninpo: Poison Mist",
       unique: true,
       type: "Break",
-      dep: { shinobazu: 0 },
+      dep: { insolence: 0 },
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
-    fukubari: {
-      name_en: "Fukubari",
+    ninpoDaggers: {
+      name_en: "Ninpo: Daggers",
       dep: { },
       maxLevel: 10,
       coords: { x: 0, y: 1 }
     },
-    makibishi: {
-      name_en: "Makibishi",
-      dep: { fukubari: 3 },
+    ninpoCaltrops: {
+      name_en: "Ninpo: Caltrops",
+      dep: { ninpoDaggers: 3 },
       maxLevel: 6,
       coords: { x: 1, y: 1 }
     },
-    kagenui: {
-      name_en: "Kagenui",
+    shadowBind: {
+      name_en: "Shadow Bind",
       dep: { },
       maxLevel: 8,
       coords: { x: 0, y: 2 }
     },
     boneCrusher: {
       name_en: "Bone Crusher",
-      dep: { kagenui: 3 },
+      dep: { shadowBind: 3 },
       maxLevel: 8,
       coords: { x: 1, y: 2 }
     },
-    karuwaza: {
-      name_en: "Karuwaza",
+    acrobatics: {
+      name_en: "Acrobatics",
       dep: { },
       maxLevel: 4,
       coords: { x: 0, y: 4 }
     },
-    senpuku: {
-      name_en: "Senpuku",
-      dep: { karuwaza: 2 },
+    concealment: {
+      name_en: "Concealment",
+      dep: { acrobatics: 2 },
       maxLevel: 10,
       coords: { x: 1, y: 4 }
     },
-    kagerou: {
-      name_en: "Kagerou",
+    ninpoMirage: {
+      name_en: "Ninpo: Mirage",
       dep: { },
       maxLevel: 6,
       coords: { x: 0, y: 5 }
@@ -1774,11 +1858,101 @@ let skills = {
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     },
-    proficiency: {
-      name_en: "Proficiency",
+    ninpoMastery: {
+      name_en: "Ninpo Mastery",
       dep: { },
       maxLevel: 4,
       coords: { x: 1, y: 6 }
+    },
+    ninpoMirror: {
+      name_en: "Ninpo: Mirror",
+      dep: { ninpoCaltrops: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 1 }
+    },
+    foxDrop: {
+      name_en: "Fox Drop",
+      dep: { boneCrusher: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
+    },
+    hawkStrike: {
+      name_en: "Hawk Strike",
+      dep: { foxDrop: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 2 }
+    },
+    selfDestruct: {
+      name_en: "Self Destruct",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 2, y: 3 }
+    },
+    ninpoClone: {
+      name_en: "Ninpo: Clone",
+      dep: { selfDestruct: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 3 }
+    },
+    beheading: {
+      name_en: "Beheading",
+      dep: { concealment: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    ninpoFlight: {
+      name_en: "Ninpo: Flight",
+      dep: { },
+      maxLevel: 10,
+      coords: { x: 3, y: 4 }
+    },
+    autoMirage: {
+      name_en: "Auto Mirage",
+      dep: { ninpoMirage: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    statusAtkUp: {
+      name_en: "Status ATK Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    ninpoShock: {
+      name_en: "Ninpo: Shock",
+      dep: { ninpoMirror: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1 }
+    },
+    eyeForAnEye: {
+      name_en: "Eye for an Eye",
+      dep: { ninpoShock: 2 },
+      maxLevel: 6,
+      coords: { x: 5, y: 1 }
+    },
+    schadenfreude: {
+      name_en: "Schadenfreude",
+      dep: { hawkStrike: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 2 }
+    },
+    drawingSlice: {
+      name_en: "Drawing Slice",
+      dep: { schadenfreude: 2, ninpoFlight: 2 },
+      maxLevel: 8,
+      coords: { x: 5, y: 2.5 }
+    },
+    ninpoSmoke: {
+      name_en: "Ninpo: Smoke",
+      dep: { ninpoFlight: 2 },
+      maxLevel: 10,
+      coords: { x: 4, y: 4 }
+    },
+    smokePowder: {
+      name_en: "Smoke Powder",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 4, y: 5 }
     }
   },
   Farmer: {
@@ -1790,8 +1964,8 @@ let skills = {
       maxLevel: 0,
       coords: { x: 0, y: 0 }
     },
-    finalStratagem: {
-      name_en: "Final Stratagem",
+    finalTrick: {
+      name_en: "Final Trick",
       unique: true,
       type: "Break",
       dep: { itemAgain: 0 },
@@ -1852,6 +2026,96 @@ let skills = {
       dep: { },
       maxLevel: 10,
       coords: { x: 1, y: 6 }
+    },
+    rottenEggs: {
+      name_en: "Rotten Eggs",
+      dep: { strangeSeeds: 3, playPossum: 1 },
+      maxLevel: 6,
+      coords: { x: 2, y: 1.5 }
+    },
+    persistence: {
+      name_en: "Persistence",
+      dep: { rottenEggs: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 1.5 }
+    },
+    wasteNot: {
+      name_en: "Waste Not",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 3, y: 2.5 }
+    },
+    strokeOfLuck: {
+      name_en: "Stroke of Luck",
+      dep: { searchSkill: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 3 }
+    },
+    rainOrShin: {
+      name_en: "Rain or Shine",
+      dep: { flee: 1 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4 }
+    },
+    safeStroll: {
+      name_en: "Safe Stroll",
+      dep: { rainOrShin: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 4 }
+    },
+    sharingIsCaring: {
+      name_en: "Sharing is Caring",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 5 }
+    },
+    braveHeart: {
+      name_en: "Brave Heart",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 3, y: 5 }
+    },
+    survivalSkills: {
+      name_en: "Survival Skills",
+      dep: { earthsBounty: 3 },
+      maxLevel: 6,
+      coords: { x: 2, y: 6 }
+    },
+    lullaby: {
+      name_en: "Lullaby",
+      dep: { persistence: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1.5 }
+    },
+    songOfLabour: {
+      name_en: "Song of Labour",
+      dep: { lullaby: 3 },
+      maxLevel: 8,
+      coords: { x: 5, y: 1.5 }
+    },
+    dissection: {
+      name_en: "Dissection",
+      dep: { wasteNot: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 2.5 }
+    },
+    harvestFestival: {
+      name_en: "Harvest Festival",
+      dep: { },
+      maxLevel: 10,
+      coords: { x: 4, y: 3.5 }
+    },
+    naturesBounty: {
+      name_en: "Nature's Bounty",
+      dep: { survivalSkills: 2 },
+      maxLevel: 4,
+      coords: { x: 4, y: 6 }
+    },
+    doubleChop: {
+      name_en: "Double Chop",
+      dep: { naturesBounty: 2 },
+      maxLevel: 8,
+      coords: { x: 5, y: 6 }
     }
   },
   Landsknecht: {
@@ -2193,8 +2457,8 @@ let skills = {
       maxLevel: 8,
       coords: { x: 3, y: 5 }
     },
-    curbDefUp: {
-      name_en: "Curb DEF Up",
+    statusDefUp: {
+      name_en: "Status DEF Up",
       dep: { },
       maxLevel: 8,
       coords: { x: 2, y: 6 }
@@ -2211,8 +2475,8 @@ let skills = {
       maxLevel: 6,
       coords: { x: 4, y: 2 }
     },
-    hpBoost: {
-      name_en: "HP Boost",
+    hpUp: {
+      name_en: "HP Up",
       dep: { },
       maxLevel: 8,
       coords: { x: 4, y: 3 }
