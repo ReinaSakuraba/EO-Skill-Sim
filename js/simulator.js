@@ -304,24 +304,31 @@ class Simulator {
     let deps = Object.entries(skill.dep);
     let forwards = Object.entries(forward[className][skillName]);
 
+    let nodeHeight = 30;
+    let nodeWidth = 265;
+    let nodeBorder = 2;
+
+    let horizontalPadding = 85;
+    let verticalPadding = 15;
+
     if (forwards.length > 0) {
       let multi = forwards.length > 1;
 
-      let startX = skill.coords.x * (200 + 150) + 269;
-      let startY = skill.coords.y * (45) + 15;
+      let startX = skill.coords.x * (nodeWidth + horizontalPadding) + nodeWidth + nodeBorder * 2;
+      let startY = skill.coords.y * (nodeHeight + verticalPadding) + nodeHeight / 2;
 
-      let length = 42;
+      let length = horizontalPadding / 2;
 
       let forwardX = skills[className][forwards[0][0]].coords.x;
-      let xDiff = forwardX - skill.coords.x;
-      if (xDiff > 1) length += ((xDiff - 1) * 350);
+      let xDiff = forwardX - skill.coords.x - 1;
+      if (xDiff > 0) length += xDiff * (nodeWidth + horizontalPadding);
 
       this.drawHorizontalLine(tree, startX, startY, length);
 
       if (forwards.length > 1) {
-        let x = skill.coords.x * (200 + 150) + 315;
-        let y = skills[className][forwards[0][0]].coords.y * 45 + 15;
-        this.drawVerticalLine(tree, x, y, 45 * (forwards.length - 1));
+        let x = forwardX * (nodeWidth + horizontalPadding) - horizontalPadding / 2 + nodeBorder * 2;
+        let y = skills[className][forwards[0][0]].coords.y * (nodeHeight + verticalPadding) + nodeHeight / 2;
+        this.drawVerticalLine(tree, x, y, (nodeHeight + verticalPadding) * (forwards.length - 1));
       }
 
       let level = forwards[0][1];
@@ -336,15 +343,15 @@ class Simulator {
     }
 
     if (deps.length > 0) {
-      let startX = skill.coords.x * (200 + 150) - 35;
-      let startY = skill.coords.y * (45) + 15;
+      let startX = skill.coords.x * (nodeWidth + horizontalPadding) - horizontalPadding / 2 + nodeBorder * 4;
+      let startY = skill.coords.y * (nodeHeight + verticalPadding) + nodeHeight / 2;
 
-      this.drawHorizontalLine(tree, startX, startY, 32);
+      this.drawHorizontalLine(tree, startX, startY, horizontalPadding / 2 - nodeBorder * 6);
 
       if (deps.length > 1) {
-        let x = skill.coords.x * (200 + 150) - 35;
-        let y = Math.min(...deps.map(dep => skills[className][dep[0]].coords.y)) * 45 + 15;
-        this.drawVerticalLine(tree, x, y, 45 * (deps.length - 1));
+        let x = skill.coords.x * (nodeWidth + horizontalPadding) - horizontalPadding / 2 + nodeBorder * 2;
+        let y = Math.min(...deps.map(dep => skills[className][dep[0]].coords.y)) * (nodeHeight + verticalPadding) + nodeHeight / 2;
+        this.drawVerticalLine(tree, x, y, (nodeHeight + verticalPadding) * (deps.length - 1));
       }
     }
   }
