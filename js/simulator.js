@@ -478,12 +478,21 @@ class Simulator {
 
   resizeTree() {
     let main = document.getElementById("main");
-    let scale = main.clientWidth / 2040;
+    let scale = main.clientWidth / 2019;
 
     let trees = document.querySelectorAll(".tree");
 
     for (let tree of trees) {
       tree.style.transform = `scale(${scale})`;
+    }
+
+    let treeContainers = document.querySelectorAll(".tree-container");
+
+    for (let container of treeContainers) {
+      let width = scale * 2019;
+      let height = scale * 304;
+      container.style.width = `${width}px`;
+      container.style.height = `${height}px`;
     }
   }
 }
