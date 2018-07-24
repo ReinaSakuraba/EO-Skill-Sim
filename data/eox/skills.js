@@ -815,8 +815,8 @@ let skills = {
     }
   },
   Gunner: {
-    actBoost: {
-      name_en: "Act Boost",
+    actionBoost: {
+      name_en: "Action Boost",
       unique: true,
       type: "Boost",
       dep: { },
@@ -827,7 +827,7 @@ let skills = {
       name_en: "Supreme Bolt",
       unique: true,
       type: "Break",
-      dep: { actBoost: 0 },
+      dep: { actionBoost: 0 },
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
@@ -885,6 +885,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    leadingShot: {
+      name_en: "Leading Shot",
+      dep: { spreadShot: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 1 }
+    },
+    wildShot: {
+      name_en: "Wild Shot",
+      dep: { leadingShot: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1 }
+    },
+    headSnipe: {
+      name_en: "Head Snipe",
+      dep: { armSnipe: 2 },
+      maxLevel: 10,
+      coords: { x: 2, y: 2 }
+    },
+    actQuick: {
+      name_en: "Act Quick",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 2, y: 3 }
+    },
+    chargedShot: {
+      name_en: "Charged Shot",
+      dep: { actQuick: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 3 }
+    },
+    preemptiveShot: {
+      name_en: "Preemptive Shot",
+      dep: { shellShock: 1 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4 }
+    },
+    autoFlare: {
+      name_en: "Auto Flare",
+      dep: { popFlares: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    penetrator: {
+      name_en: "Penetrator",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    tpUp: {
+      name_en: "TP Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 3, y: 6 }
+    },
+    ricochet: {
+      name_en: "Ricochet",
+      dep: { wildShot: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1 }
+    },
+    chargedFire: {
+      name_en: "Charged Fire",
+      dep: { chargedShot: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 2 }
+    },
+    chargedIce: {
+      name_en: "Charged Ice",
+      dep: { chargedShot: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 3 }
+    },
+    chargedVolt: {
+      name_en: "Charged Volt",
+      dep: { chargedShot: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 4 }
+    },
+    physAtkUp: {
+      name_en: "Phys ATK Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 5 }
+    },
+    doubleAction: {
+      name_en: "Double Action",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 6 }
     }
   },
   "War Magus": {
@@ -958,6 +1048,96 @@ let skills = {
       dep: { },
       maxLevel: 8,
       coords: { x: 1, y: 6 }
+    },
+    warRevive: {
+      name_en: "War Revive",
+      dep: { warHealLine: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 1.5 }
+    },
+    artery: {
+      name_en: "Artery",
+      dep: { warRevive: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 1 }
+    },
+    warResponse: {
+      name_en: "War Response",
+      dep: { warRevive: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 2 }
+    },
+    headcut: {
+      name_en: "Headcut",
+      dep: { strengthSlash: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 3 }
+    },
+    armcut: {
+      name_en: "Armcut",
+      dep: { guardSlash: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    legcut: {
+      name_en: "Legcut",
+      dep: { headcut: 2, armcut: 2 },
+      maxLevel: 8,
+      coords: { x: 3, y: 3.5 }
+    },
+    rouse: {
+      name_en: "Rouse",
+      dep: { vampire: 2 },
+      maxLevel: 4,
+      coords: { x: 2, y: 5 }
+    },
+    hpUp: {
+      name_en: "HP Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    statusDefUp: {
+      name_en: "Status DEF Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 3, y: 6 }
+    },
+    warHealAll: {
+      name_en: "War Heal All",
+      dep: { artery: 2, warResponse: 2 },
+      maxLevel: 10,
+      coords: { x: 4, y: 1.5 }
+    },
+    barrier: {
+      name_en: "Barrier",
+      dep: { warHealAll: 3 },
+      maxLevel: 10,
+      coords: { x: 5, y: 1.5 }
+    },
+    ailingSlash: {
+      name_en: "Ailing Slash",
+      dep: { headcut: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 3.5 }
+    },
+    spiritDrain: {
+      name_en: "Spirit Drain",
+      dep: { rouse: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 5 }
+    },
+    plague: {
+      name_en: "Plague",
+      dep: { spiritDrain: 3 },
+      maxLevel: 4,
+      coords: { x: 5, y: 5 }
+    },
+    physAtkUp: {
+      name_en: "Phys ATK Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 6 }
     }
   },
   Highlander: {
@@ -1026,11 +1206,101 @@ let skills = {
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     },
-    hpBoost: {
-      name_en: "HP Boost",
+    hpUp: {
+      name_en: "HP Up",
       dep: { },
       maxLevel: 8,
       coords: { x: 1, y: 6 }
+    },
+    headPierce: {
+      name_en: "Head Pierce",
+      dep: { spearAssist: 3 },
+      maxLevel: 6,
+      coords: { x: 2, y: 1 }
+    },
+    drainingBurst: {
+      name_en: "Draining Burst",
+      dep: { drainingThrust: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
+    },
+    delayedCharge: {
+      name_en: "Delayed Charge",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 3, y: 2 }
+    },
+    legionBurst: {
+      name_en: "Legion Burst",
+      dep: { legionBurst: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 3 }
+    },
+    bloodFortune: {
+      name_en: "Blood Fortune",
+      dep: { spiritShield: 1 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    battleInstincts: {
+      name_en: "Battle Instinct",
+      dep: { bloodFortune: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 4 }
+    },
+    bloodyOffense: {
+      name_en: "Bloody Offense",
+      dep: { bloodVeil: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 5 }
+    },
+    bloodlust: {
+      name_en: "Bloodlust",
+      dep: { bloodyOffense: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 5 }
+    },
+    physDefUp: {
+      name_en: "Phys DEF Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    spearReversal: {
+      name_en: "Spear Reversal",
+      dep: { headPierce: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1 }
+    },
+    crossCharge: {
+      name_en: "Cross Charge",
+      dep: { delayedCharge: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 2 }
+    },
+    legionCharge: {
+      name_en: "Legion Charge",
+      dep: { legionBurst: 3 },
+      maxLevel: 10,
+      coords: { x: 4, y: 3 }
+    },
+    alliedBonds: {
+      name_en: "Allied Bonds",
+      dep: { legionCharge: 2 },
+      maxLevel: 4,
+      coords: { x: 5, y: 3 }
+    },
+    blackSabbath: {
+      name_en: "Black Sabbath",
+      dep: { bloodlust: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 5 }
+    },
+    physAtkUp: {
+      name_en: "Healing Wall",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 4, y: 6 }
     }
   },
   Sovereign: {
@@ -1245,7 +1515,7 @@ let skills = {
       coords: { x: 4, y: 1 }
     },
     revengeCommand: {
-      name_en: "Revenge Command",
+      name_en: "Reprisal Command",
       dep: { blitzCommand: 3 },
       maxLevel: 6,
       coords: { x: 4, y: 2 }
