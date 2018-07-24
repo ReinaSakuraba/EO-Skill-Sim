@@ -233,6 +233,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    recoveryGuard: {
+      name_en: "Recovery Guard",
+      dep: { backGuard: 1 },
+      maxLevel: 4,
+      coords: { x: 2, y: 1 }
+    },
+    aegis: {
+      name_en: "Aegis",
+      dep: { fortify: 1 },
+      maxLevel: 10,
+      coords: { x: 2, y: 2 }
+    },
+    shieldRush: {
+      name_en: "Shield Rush",
+      dep: { shieldSmite: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 3 }
+    },
+    keepGuard: {
+      name_en: "Keep Guard",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 2, y: 4 }
+    },
+    physDefUp: {
+      name_en: "Phys DEF Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 5 }
+    },
+    elemDefUp: {
+      name_en: "Elem DEF Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    fireWall: {
+      name_en: "Fire Wall",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 3, y: 4 }
+    },
+    iceWall: {
+      name_en: "Ice Wall",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 3, y: 5 }
+    },
+    voltWall: {
+      name_en: "Volt Wall",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 3, y: 6 }
+    },
+    hpUp: {
+      name_en: "HP Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 0 }
+    },
+    healGuard: {
+      name_en: "Heal Guard",
+      dep: { recoveryGuard: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1 }
+    },
+    lineDivide: {
+      name_en: "Line Divide",
+      dep: { aegis: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 2 }
+    },
+    autoguard: {
+      name_en: "Autoguard",
+      dep: { lineDivide: 3 },
+      maxLevel: 10,
+      coords: { x: 5, y: 2 }
+    },
+    shieldFlare: {
+      name_en: "Shield Flare",
+      dep: { shieldRush: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 3 }
+    },
+    fullGuard: {
+      name_en: "Full Guard",
+      dep: { fireWall: 2, iceWall: 2, voltWall: 2 },
+      maxLevel: 10,
+      coords: { x: 4, y: 5 }
     }
   },
   Ronin: {
@@ -469,6 +559,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    delayedHeal: {
+      name_en: "Delayed Heal",
+      dep: { lineHeal: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 1.5 }
+    },
+    unbind: {
+      name_en: "Unbind",
+      dep: { refresh: 2 },
+      maxLevel: 4,
+      coords: { x: 2, y: 3 }
+    },
+    groupTherapy: {
+      name_en: "Group Therapy",
+      dep: { unbind: 1 },
+      maxLevel: 8,
+      coords: { x: 3, y: 3 }
+    },
+    phoenix: {
+      name_en: "Phoenix",
+      dep: { revive: 3 },
+      maxLevel: 4,
+      coords: { x: 2, y: 4 }
+    },
+    autoRevive: {
+      name_en: "Auto-Revive",
+      dep: { phoenix: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 4 }
+    },
+    starDrop: {
+      name_en: "Star Drop",
+      dep: { headDrop: 3 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    medicalRod: {
+      name_en: "Medical Rod",
+      dep: { starDrop: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 5 }
+    },
+    patrol: {
+      name_en: "Patrol",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 2, y: 6 }
+    },
+    elemDefUp: {
+      name_en: "Elem DEF Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 3, y: 6 }
+    },
+    partyHeal: {
+      name_en: "Party Heal",
+      dep: { delayedHeal: 3 },
+      maxLevel: 10,
+      coords: { x: 4, y: 1 }
+    },
+    chaseHeal: {
+      name_en: "Chase Heal",
+      dep: { delayedHeal: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 2 }
+    },
+    overheal: {
+      name_en: "Overheal",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 4, y: 3 }
+    },
+    healDejaVu: {
+      name_en: "Heal Deja Vu",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 4 }
+    },
+    heavyStrike: {
+      name_en: "Heavy Strike",
+      dep: { medicalRod: 3 },
+      maxLevel: 10,
+      coords: { x: 4, y: 5 }
+    },
+    staffMastery: {
+      name_en: "Staff Mastery",
+      dep: { heavyStrike: 1 },
+      maxLevel: 8,
+      coords: { x: 5, y: 5 }
     }
   },
   Survivalist: {
@@ -509,18 +689,18 @@ let skills = {
     chainDance: {
       name_en: "Chain Dance",
       dep: { blindArrow: 3 },
-      maxLevel: 6,
+      maxLevel: 10,
       coords: { x: 1, y: 3 }
     },
-    stalker: {
-      name_en: "Stalker",
+    patrol: {
+      name_en: "Patrol",
       dep: { },
       maxLevel: 6,
       coords: { x: 0, y: 4 }
     },
     riskPerception: {
       name_en: "Risk Perception",
-      dep: { stalker: 2 },
+      dep: { patrol: 2 },
       maxLevel: 6,
       coords: { x: 1, y: 4 }
     },
@@ -542,6 +722,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    flankShot: {
+      name_en: "Flank Shot",
+      dep: { flameArrow: 3 },
+      maxLevel: 8,
+      coords: { x: 2, y: 1 }
+    },
+    finishingArrow: {
+      name_en: "Finishing Arrow",
+      dep: { flankShot: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1 }
+    },
+    doubleShot: {
+      name_en: "Double Shot",
+      dep: { flameArrow: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 2 }
+    },
+    dropShot: {
+      name_en: "Drop Shot",
+      dep: { doubleShot: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 2 }
+    },
+    trickStep: {
+      name_en: "Trick Step",
+      dep: { chainDance: 2 },
+      maxLevel: 10,
+      coords: { x: 2, y: 3 }
+    },
+    stalker: {
+      name_en: "Stalker",
+      dep: { riskPerception: 1 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4 }
+    },
+    efficiency: {
+      name_en: "Efficiency",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 2, y: 5 }
+    },
+    speedUp: {
+      name_en: "Speed Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    swapStep: {
+      name_en: "Swap Step",
+      dep: { speedUp: 2 },
+      maxLevel: 4,
+      coords: { x: 3, y: 6 }
+    },
+    disablingShot: {
+      name_en: "Disabling Shot",
+      dep: { finishingArrow: 1 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1 }
+    },
+    saggitariusShot: {
+      name_en: "Saggitarius Shot",
+      dep: { dropShot: 3 },
+      maxLevel: 10,
+      coords: { x: 4, y: 2 }
+    },
+    hazyShot: {
+      name_en: "Hazy Shot",
+      dep: { trickStep: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 3 }
+    },
+    naturesBounty: {
+      name_en: "Nature's Bounty",
+      dep: { stalker: 2 },
+      maxLevel: 4,
+      coords: { x: 4, y: 4 }
+    },
+    scapegoat: {
+      name_en: "Scapegoat",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 4, y: 5 }
+    },
+    sneakAttack: {
+      name_en: "Sneak Attack",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 4, y: 6 }
     }
   },
   Gunner: {
@@ -859,20 +1129,20 @@ let skills = {
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
-    doubleSlash: {
-      name_en: "Double Slash",
+    parryingBlade: {
+      name_en: "Parrying Blade",
       dep: { },
       maxLevel: 10,
       coords: { x: 0, y: 1 }
     },
-    echoingFlow: {
-      name_en: "Echoing Flow",
+    spiritFlow: {
+      name_en: "Spirit Flow",
       dep: { doubleSlash: 2 },
       maxLevel: 10,
       coords: { x: 1, y: 1 }
     },
-    zangetsu: {
-      name_en: "Zangetsu",
+    counterCommand: {
+      name_en: "Counter Command",
       dep: { },
       maxLevel: 6,
       coords: { x: 1, y: 2 }
@@ -889,15 +1159,15 @@ let skills = {
       maxLevel: 4,
       coords: { x: 1, y: 4 }
     },
-    daifuhensha: {
-      name_en: "Daifuhensha",
+    greatGeneral: {
+      name_en: "Great General",
       dep: { },
       maxLevel: 6,
       coords: { x: 0, y: 5 }
     },
-    assassinEnspirit: {
-      name_en: "Assassin Enspirit",
-      dep: { daifuhensha: 2 },
+    assassinGathering: {
+      name_en: "Assassin Gathering",
+      dep: { greatGeneral: 2 },
       maxLevel: 6,
       coords: { x: 1, y: 5 }
     },
@@ -913,6 +1183,96 @@ let skills = {
       dep: { },
       maxLevel: 4,
       coords: { x: 1, y: 6 }
+    },
+    twinSparrow: {
+      name_en: "Twin Sparrow",
+      dep: { spiritFlow: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 1 }
+    },
+    baitCommand: {
+      name_en: "Bait Command",
+      dep: { counterCommand: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 2 }
+    },
+    blitzCommand: {
+      name_en: "Blitz Command",
+      dep: { baitCommand: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 2 }
+    },
+    morningStar: {
+      name_en: "Morning Star",
+      dep: { boltSlash: 3 },
+      maxLevel: 6,
+      coords: { x: 2, y: 3 }
+    },
+    dusk: {
+      name_en: "Dusk",
+      dep: { sight: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4 }
+    },
+    bloodyLance: {
+      name_en: "Bloody Lance",
+      dep: { dusk: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 4 }
+    },
+    reincarnation: {
+      name_en: "Reincarnation",
+      dep: { },
+      maxLevel: 10,
+      coords: { x: 3, y: 5 }
+    },
+    fellingBird: {
+      name_en: "Felling Bird",
+      dep: { },
+      maxLevel: 10,
+      coords: { x: 2, y: 6 }
+    },
+    ritualSuicide: {
+      name_en: "Ritual Suicide",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 3, y: 6 }
+    },
+    fiveRingSword: {
+      name_en: "Five Ring Sword",
+      dep: { twinSparrow: 4 },
+      maxLevel: 10,
+      coords: { x: 4, y: 1 }
+    },
+    revengeCommand: {
+      name_en: "Revenge Command",
+      dep: { blitzCommand: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 2 }
+    },
+    warriorMight: {
+      name_en: "Warrior Might",
+      dep: { revengeCommand: 2 },
+      maxLevel: 10,
+      coords: { x: 5, y: 2 }
+    },
+    curseStrike: {
+      name_en: "Curse Strike",
+      dep: { bloodyLance: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 4 }
+    },
+    mercyKill: {
+      name_en: "Mercy Kill",
+      dep: { curseStrike: 3 },
+      maxLevel: 4,
+      coords: { x: 5, y: 4 }
+    },
+    foreHonor: {
+      name_en: "Fore Honor",
+      dep: { reincarnation: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 5 }
     }
   },
   Zodiac: {
@@ -962,8 +1322,8 @@ let skills = {
       maxLevel: 8,
       coords: { x: 0, y: 4.5 }
     },
-    ethericCharge: {
-      name_en: "Etheric Charge",
+    focusEther: {
+      name_en: "Focus Ether",
       dep: { singularity: 3 },
       maxLevel: 6,
       coords: { x: 1, y: 4 }
@@ -1019,7 +1379,7 @@ let skills = {
     },
     restoreEther: {
       name_en: "Restore Ether",
-      dep: { ethericCharge: 2 },
+      dep: { focusEther: 2 },
       maxLevel: 6,
       coords: { x: 2, y: 4 }
     },
