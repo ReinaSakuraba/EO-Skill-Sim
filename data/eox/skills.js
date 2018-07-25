@@ -108,7 +108,7 @@ let skills = {
       coords: { x: 3, y: 3 }
     },
     shieldMateria: {
-      name_en: "Shield Material",
+      name_en: "Shield Materia",
       dep: { shieldArts: 2 },
       maxLevel: 10,
       coords: { x: 2, y: 4 }
@@ -783,8 +783,8 @@ let skills = {
       maxLevel: 8,
       coords: { x: 4, y: 1 }
     },
-    saggitariusShot: {
-      name_en: "Saggitarius Shot",
+    sagittariusShot: {
+      name_en: "Sagittarius Shot",
       dep: { dropShot: 3 },
       maxLevel: 10,
       coords: { x: 4, y: 2 }
