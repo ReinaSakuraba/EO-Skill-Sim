@@ -2147,20 +2147,20 @@ let skills = {
       maxLevel: 8,
       coords: { x: 1, y: 1 }
     },
-    fireLink: {
-      name_en: "Fire Link",
+    blazingLink: {
+      name_en: "Blazing Link",
       dep: { },
       maxLevel: 10,
       coords: { x: 1, y: 2 }
     },
-    iceLink: {
-      name_en: "Ice Link",
+    freezingLink: {
+      name_en: "Freezing Link",
       dep: { },
       maxLevel: 10,
       coords: { x: 1, y: 3 }
     },
-    voltLink: {
-      name_en: "Volt Link",
+    electricLink: {
+      name_en: "Electric Link",
       dep: { },
       maxLevel: 10,
       coords: { x: 1, y: 4 }
@@ -2189,6 +2189,96 @@ let skills = {
       dep: { },
       maxLevel: 8,
       coords: { x: 1, y: 6 }
+    },
+    doubleStrike: {
+      name_en: "Double Strike",
+      dep: { sonicRaid: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 1 }
+    },
+    spiralSlice: {
+      name_en: "Spiral Slice",
+      dep: { doubleStrike: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 0.5 }
+    },
+    penetrate: {
+      name_en: "Penetrate",
+      dep: { doubleStrike: 3 },
+      maxLevel: 8,
+      coords: { x: 3, y: 1.5 }
+    },
+    improvedLink: {
+      name_en: "Improved Link",
+      dep: { blazingLink: 3, freezingLink: 3, electricLink: 3 },
+      maxLevel: 4,
+      coords: { x: 2, y: 3 }
+    },
+    linkSmash: {
+      name_en: "Link Smash",
+      dep: { improvedLink: 1 },
+      maxLevel: 10,
+      coords: { x: 3, y: 3 }
+    },
+    guardBreak: {
+      name_en: "Guard Break",
+      dep: { powerBreak: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    speedBreak: {
+      name_en: "Speed Break",
+      dep: { guardBreak: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 5 }
+    },
+    initiative: {
+      name_en: "Initiative",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 2, y: 6 }
+    },
+    statusDefUp: {
+      name_en: "Status DEF Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 3, y: 6 }
+    },
+    swordTempest: {
+      name_en: "Sword Tempest",
+      dep: { spiralSlice: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 0.5 }
+    },
+    randomStab: {
+      name_en: "Random Stab",
+      dep: { penetrate: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1.5 }
+    },
+    linkMastery: {
+      name_en: "Link Mastery",
+      dep: { linkSmash: 2 },
+      maxLevel: 10,
+      coords: { x: 4, y: 3 }
+    },
+    linkEnd: {
+      name_en: "Link End",
+      dep: { linkMastery: 2 },
+      maxLevel: 6,
+      coords: { x: 5, y: 3 }
+    },
+    fullBreak: {
+      name_en: "Full Break",
+      dep: { speedBreak: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 5 }
+    },
+    singleDevote: {
+      name_en: "Single Devote",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 4, y: 6 }
     }
   },
   Nightseeker: {
@@ -2262,6 +2352,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    curseThrow: {
+      name_en: "Curse Throw",
+      dep: { sleepThrow: 3 },
+      maxLevel: 6,
+      coords: { x: 2, y: 1 }
+    },
+    nerveThrow: {
+      name_en: "Nerve Throw",
+      dep: { curseThrow: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 1 }
+    },
+    shadowBite: {
+      name_en: "Shadow Bite",
+      dep: { sleepThrow: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 2 }
+    },
+    autoCloak: {
+      name_en: "Auto-Cloak",
+      dep: { bidingSlice: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 3 }
+    },
+    backstab: {
+      name_en: "Backstab",
+      dep: { autoCloak: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 3 }
+    },
+    sneakAttack: {
+      name_en: "Sneak Attack",
+      dep: { proficiency: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 4 }
+    },
+    foulMastery: {
+      name_en: "Foul Mastery",
+      dep: { sneakAttack: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 4 }
+    },
+    speedUp: {
+      name_en: "Speed Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    spreadThrow: {
+      name_en: "Spread Throw",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 3, y: 6 }
+    },
+    venomThrow: {
+      name_en: "Venom Throw",
+      dep: { nerveThrow: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 1 }
+    },
+    swiftEdge: {
+      name_en: "Swift Edge",
+      dep: { shadowBite: 3 },
+      maxLevel: 10,
+      coords: { x: 4, y: 2 }
+    },
+    assassinate: {
+      name_en: "Assassinate",
+      dep: { backstab: 3 },
+      maxLevel: 8,
+      coords: { x: 4, y: 3 }
+    },
+    returnCloak: {
+      name_en: "Return Cloak",
+      dep: { assassinate: 3 },
+      maxLevel: 8,
+      coords: { x: 5, y: 3 }
+    },
+    followTrace: {
+      name_en: "Follow Trace",
+      dep: { bladeFlurry: 4 },
+      maxLevel: 10,
+      coords: { x: 4, y: 5 }
+    },
+    autoSpread: {
+      name_en: "Auto-Spread",
+      dep: { spreadThrow: 2 },
+      maxLevel: 6,
+      coords: { x: 4, y: 6 }
     }
   },
   Arcanist: {
@@ -2335,6 +2515,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    dismissRevive: {
+      name_en: "Dismiss Revive",
+      dep: { dismissHeal: 2 },
+      maxLevel: 10,
+      coords: { x: 2, y: 1 }
+    },
+    dismissBlow: {
+      name_en: "Dismiss Blow",
+      dep: { dismissRevive: 3 },
+      maxLevel: 10,
+      coords: { x: 3, y: 1 }
+    },
+    hoodCircle: {
+      name_en: "Hood Circle",
+      dep: { snareCircle: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 2 }
+    },
+    sleepCircle: {
+      name_en: "Sleep Circle",
+      dep: { curseCircle: 2 },
+      maxLevel: 8,
+      coords: { x: 2, y: 3 }
+    },
+    charmEye: {
+      name_en: "Charm Eye",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 2, y: 4 }
+    },
+    atrophicEye: {
+      name_en: "Atrophic Eye",
+      dep: { charmEye: 2 },
+      maxLevel: 6,
+      coords: { x: 3, y: 4 }
+    },
+    statusAtkUp: {
+      name_en: "Status ATK Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 5 }
+    },
+    tameGround: {
+      name_en: "Tame Ground",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 2, y: 6 }
+    },
+    wardingMist: {
+      name_en: "Warding Mist",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 3, y: 6 }
+    },
+    dismissBlast: {
+      name_en: "Dismiss Blast",
+      dep: { dismissBlow: 2 },
+      maxLevel: 10,
+      coords: { x: 4, y: 1 }
+    },
+    circleMastery: {
+      name_en: "Circle Mastery",
+      dep: { dismissBlast: 3 },
+      maxLevel: 6,
+      coords: { x: 5, y: 1 }
+    },
+    poisonCircle: {
+      name_en: "Poison Circle",
+      dep: { sleepCircle: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 2.5 }
+    },
+    chaosCircle: {
+      name_en: "Chaos Circle",
+      dep: { sleepCircle: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 3.5 }
+    },
+    dismissTremor: {
+      name_en: "Dismiss Tremor",
+      dep: { poisonCircle: 3, chaosCircle: 3 },
+      maxLevel: 10,
+      coords: { x: 5, y: 3 }
+    },
+    tpReturn: {
+      name_en: "TP Return",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 4, y: 6 }
     }
   },
   Imperial: {
