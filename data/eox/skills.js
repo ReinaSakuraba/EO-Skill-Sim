@@ -1938,7 +1938,7 @@ let skills = {
     },
     drawingSlice: {
       name_en: "Drawing Slice",
-      dep: { schadenfreude: 2, ninpoFlight: 2 },
+      dep: { schadenfreude: 2, ninpoClone: 2 },
       maxLevel: 8,
       coords: { x: 5, y: 2.5 }
     },

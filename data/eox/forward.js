@@ -286,7 +286,7 @@ let forward = {
     fireStar: { binaryFire: 3 },
     iceStar: { binaryIce: 3 },
     voltStar: { binaryVolt: 3 },
-    singularity: { focusEther: 3, etherReturn: 3 },
+    singularity: { focusEther: 3, ethericReturn: 3 },
     focusEther: { restoreEther: 2 },
     ethericReturn: { darkEther: 2 },
     mine: { },
