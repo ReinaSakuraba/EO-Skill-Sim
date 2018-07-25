@@ -45,6 +45,8 @@ class Simulator {
       self.currentLevel = this.value;
     });
 
+    window.addEventListener("resize", () => this.resizeTree());
+
     this.setPrimaryClasses();
     this.setSecondaryClasses();
 
