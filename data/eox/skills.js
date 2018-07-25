@@ -2836,11 +2836,101 @@ let skills = {
       maxLevel: 1,
       coords: { x: 0, y: 6 }
     },
-    hpBoost: {
-      name_en: "HP Boost",
+    hpUp: {
+      name_en: "HP Up",
       dep: { },
       maxLevel: 8,
       coords: { x: 1, y: 6 }
+    },
+    devilsFist: {
+      name_en: "Devil's Fist",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 1 }
+    },
+    fightingSpirit: {
+      name_en: "Fighting Spirit",
+      dep: { devilsFist: 3 },
+      maxLevel: 6,
+      coords: { x: 3, y: 1 }
+    },
+    addedBlow: {
+      name_en: "Added Blow",
+      dep: { oneTwoPunch: 2, corkscrew: 2 },
+      maxLevel: 10,
+      coords: { x: 2, y: 2.75 }
+    },
+    leadingBlow: {
+      name_en: "Leading Blow",
+      dep: { addedBlow: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 2.75 }
+    },
+    breather: {
+      name_en: "Breather",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 2, y: 4 }
+    },
+    faultBlocker: {
+      name_en: "Fault Blocker",
+      dep: { },
+      maxLevel: 4,
+      coords: { x: 2, y: 5 }
+    },
+    clinch: {
+      name_en: "Clinch",
+      dep: { breather: 1, faultBlocker: 1 },
+      maxLevel: 6,
+      coords: { x: 3, y: 4.5 }
+    },
+    statusAtkUp: {
+      name_en: "Status ATK Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 2, y: 6 }
+    },
+    crossCounter: {
+      name_en: "Cross Counter",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 3, y: 6 }
+    },
+    thunderFist: {
+      name_en: "Thunder Fist",
+      dep: { fightingSpirit: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 1 }
+    },
+    lashOut: {
+      name_en: "Lash Out",
+      dep: { leadingBlow: 3 },
+      maxLevel: 6,
+      coords: { x: 4, y: 2.75 }
+    },
+    meditation: {
+      name_en: "Meditation",
+      dep: { clinch: 3 },
+      maxLevel: 4,
+      coords: { x: 4, y: 4.5 }
+    },
+    ragingWaves: {
+      name_en: "Raging Waves",
+      dep: { meditation: 2 },
+      maxLevel: 10,
+      coords: { x: 5, y: 4.5 }
+    },
+    millionLash: {
+      name_en: "Million Lash",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 6 }
+    },
+   resonanceBlow: {
+      name_en: "Resonance Blow",
+      dep: { millionLash: 3 },
+      maxLevel: 6,
+      coords: { x: 5, y: 6 }
     }
   },
   Harbinger: {
@@ -2872,21 +2962,21 @@ let skills = {
       maxLevel: 10,
       coords: { x: 0, y: 2 }
     },
-    sluggishMiasma: {
-      name_en: "Sluggish Miasma",
+    slowingMiasma: {
+      name_en: "Slowing Miasma",
       dep: { erodingMiasma: 2, stiflingMiasma: 2 },
       maxLevel: 10,
       coords: { x: 1, y: 1.5 }
     },
-    paralysisReap: {
-      name_en: "Paralysis Reap",
+    paralyzingReap: {
+      name_en: "Paralyzing Reap",
       dep: { },
       maxLevel: 6,
       coords: { x: 0, y: 3 }
     },
     toxicReap: {
       name_en: "Toxic Reap",
-      dep: { paralysisReap: 3 },
+      dep: { paralyzingReap: 3 },
       maxLevel: 6,
       coords: { x: 1, y: 3 }
     },
@@ -2914,6 +3004,96 @@ let skills = {
       dep: { },
       maxLevel: 1,
       coords: { x: 0, y: 6 }
+    },
+    wiltingMiasma: {
+      name_en: "Wilting Miasma",
+      dep: { slowingMiasma: 3 },
+      maxLevel: 10,
+      coords: { x: 2, y: 1.5 }
+    },
+    arrestingMiasma: {
+      name_en: "Arresting Miasma",
+      dep: { wiltingMiasma: 2 },
+      maxLevel: 10,
+      coords: { x: 3, y: 1.5 }
+    },
+    darknessReap: {
+      name_en: "Darkness Reap",
+      dep: { toxicReap: 2 },
+      maxLevel: 6,
+      coords: { x: 2, y: 3 }
+    },
+    chaosReap: {
+      name_en: "Chaos Reap",
+      dep: { darknessReap: 3 },
+      maxLevel: 6,
+      coords: { x: 3, y: 3 }
+    },
+    blackShroud: {
+      name_en: "Black Shroud",
+      dep: { endlessShroud: 1 },
+      maxLevel: 8,
+      coords: { x: 2, y: 4 }
+    },
+    soulTransfer: {
+      name_en: "Soul Transfer",
+      dep: { atonement: 3 },
+      maxLevel: 6,
+      coords: { x: 2, y: 5 }
+    },
+    blackWave: {
+      name_en: "Black Wave",
+      dep: { soulTransfer: 1 },
+      maxLevel: 4,
+      coords: { x: 3, y: 5 }
+    },
+    spiritAbsorb: {
+      name_en: "Spirit Absorb",
+      dep: { },
+      maxLevel: 6,
+      coords: { x: 2, y: 6 }
+    },
+    statusAtkUp: {
+      name_en: "Status ATK Up",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 3, y: 6 }
+    },
+    deathsAsylum: {
+      name_en: "Death's Asylum",
+      dep: { },
+      maxLevel: 8,
+      coords: { x: 4, y: 1 }
+    },
+    ephemeralReap: {
+      name_en: "Ephemeral Reap",
+      dep: { },
+      maxLevel: 10,
+      coords: { x: 4, y: 2 }
+    },
+    fatalReap: {
+      name_en: "Fatal Reap",
+      dep: { chaosReap: 2 },
+      maxLevel: 8,
+      coords: { x: 4, y: 3 }
+    },
+    miasmaWall: {
+      name_en: "Miasma Wall",
+      dep: { blackWave: 1 },
+      maxLevel: 6,
+      coords: { x: 4, y: 4.5 }
+    },
+    soulFixation: {
+      name_en: "Soul Fixation",
+      dep: { blackWave: 1 },
+      maxLevel: 6,
+      coords: { x: 4, y: 5.5 }
+    },
+    residualMiasma: {
+      name_en: "Residual Miasma",
+      dep: { miasmaWall: 2, soulFixation: 2 },
+      maxLevel: 4,
+      coords: { x: 5, y: 5 }
     }
   }
 };
