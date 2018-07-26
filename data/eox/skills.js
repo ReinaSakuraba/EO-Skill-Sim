@@ -1967,7 +1967,7 @@ let skills = {
       name_en: "Spirit Flow",
       name_jp: "谺流し",
       desc: "Deals melee damage to one target with equipped Katana at the start of turn, and attacks again after the target acts. If a second weapon is equipped, that weapon is used for the second attack.",
-      dep: { doubleSlash: 2 },
+      dep: { parryingBlade: 2 },
       maxLevel: 10,
       coords: { x: 1, y: 1 }
     },
