@@ -1973,7 +1973,7 @@ let skills = {
     },
     counterCommand: {
       name_en: "Counter Command",
-      name_jp: "無明の極",
+      name_jp: "斬月居合陣",
       desc: "This turn, when selected ally is attacked, all front row allies will counterattack with their weapons. Does not activate against counterattacks.",
       dep: { },
       maxLevel: 6,
@@ -1981,7 +1981,7 @@ let skills = {
     },
     boltSlash: {
       name_en: "Bolt Slash",
-      name_jp: "大武辺者",
+      name_jp: "雷切",
       desc: "Deals melee cut+volt damage to one target.",
       dep: { },
       maxLevel: 8,
@@ -1989,7 +1989,7 @@ let skills = {
     },
     sight: {
       name_en: "Sight",
-      name_jp: "刺客寄せ",
+      name_jp: "無明の極",
       desc: "Increase user's attack at night or when user is blinded.",
       dep: { },
       maxLevel: 4,
@@ -1997,7 +1997,7 @@ let skills = {
     },
     greatGeneral: {
       name_en: "Great General",
-      name_jp: "斬月居合陣",
+      name_jp: "大武辺者",
       desc: "For 3 turns, increase physical attack and chance of being targetted for one ally.",
       dep: { },
       maxLevel: 6,
@@ -2005,8 +2005,8 @@ let skills = {
     },
     assassinGathering: {
       name_en: "Assassin Gathering",
-      name_jp: "For a certain number of steps, increase encounter rate and experience gain from defeating enemies.",
-      desc: "雷切",
+      name_jp: "刺客寄せ",
+      desc: "For a certain number of steps, increase encounter rate and experience gain from defeating enemies.",
       dep: { greatGeneral: 2 },
       maxLevel: 6,
       coords: { x: 1, y: 5 }
@@ -2078,7 +2078,7 @@ let skills = {
     },
     reincarnation: {
       name_en: "Reincarnation",
-      name_jp: "飛鳥落とし",
+      name_jp: "仮死再生",
       desc: "On the turn when user's HP becomes 0, there is a chance that they may revive on the end of that turn.",
       dep: { },
       maxLevel: 10,
@@ -2086,7 +2086,7 @@ let skills = {
     },
     fellingBird: {
       name_en: "Felling Bird",
-      name_jp: "仮死再生",
+      name_jp: "飛鳥落とし",
       desc: "Increase damage dealt based on the number of attacks user had made on this turn.",
       dep: { },
       maxLevel: 10,
@@ -2108,7 +2108,7 @@ let skills = {
       maxLevel: 10,
       coords: { x: 4, y: 1 }
     },
-    revengeCommand: {
+    reprisalCommand: {
       name_en: "Reprisal Command",
       name_jp: "報復射撃陣",
       desc: "This turn, when selected row is attacked, all allies equipped with a bow or gun will counterattack with their weapons. Does not activate against counterattacks.",
@@ -2120,7 +2120,7 @@ let skills = {
       name_en: "Warrior Might",
       name_jp: "一騎当千",
       desc: "This turn, user will chase all attacks from all allies, but will lose HP for every chase. The HP loss can kill the user. Links, chases and counterattacks cannot be chased. Only one chase will be made for each action.",
-      dep: { revengeCommand: 2 },
+      dep: { reprisalCommand: 2 },
       maxLevel: 10,
       coords: { x: 5, y: 2 }
     },
