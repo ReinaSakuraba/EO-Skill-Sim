@@ -246,10 +246,18 @@ class Simulator {
       node.style.left = `${x}px`;
       node.style.top = `${y}px`;
 
+      let skillInfo = document.createElement("div");
+      skillInfo.classList.add("skill-info");
+
+      let skillDescription = document.createElement("div");
+      skillDescription.textContent = skill.desc;
+      skillInfo.appendChild(skillDescription);
+
+      node.appendChild(skillInfo);
+
       let nameDiv = document.createElement("div");
       nameDiv.classList.add("skill-name");
       nameDiv.classList.add("skill-name-en");
-      //nameDiv.textContent = `${skill.coords["x"]}-${skill.coords["y"]}`;
       nameDiv.textContent = skill.name_en;
       node.appendChild(nameDiv);
 
@@ -267,10 +275,6 @@ class Simulator {
       levelNode.appendChild(maxLevel);
 
       node.appendChild(levelNode);
-
-      node.addEventListener("click", function() {});
-
-      node.addEventListener("mouseout", function() {});
 
       sectionLayer.appendChild(node);
 
