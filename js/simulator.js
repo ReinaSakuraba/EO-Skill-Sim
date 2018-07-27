@@ -443,7 +443,7 @@ class Simulator {
         }
       }
 
-      skillNode.childNodes[1].childNodes[0].textContent = skillLevel;
+      skillNode.childNodes[2].childNodes[0].textContent = skillLevel;
 
       skillNode.classList.remove(`skill-available`);
       skillNode.classList.remove(`skill-unavailable`);
