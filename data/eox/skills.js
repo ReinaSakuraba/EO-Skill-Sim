@@ -1557,7 +1557,7 @@ let skills = {
       maxLevel: 6,
       coords: { x: 1, y: 2 }
     },
-    legionThust: {
+    legionThrust: {
       name_en: "Legion Thrust",
       name_jp: "レギオンスラスト",
       desc: "Consumes HP of all allies other than the user to deal melee stab damage to enemy front row.",
@@ -1626,7 +1626,7 @@ let skills = {
       name_en: "Legion Burst",
       name_jp: "レギオンバースト",
       desc: "Consumes HP of all allies other than the user to deal melee stab damage to all enemies.",
-      dep: { legionBurst: 2 },
+      dep: { legionThrust: 2 },
       maxLevel: 8,
       coords: { x: 2, y: 3 }
     },
@@ -1711,7 +1711,7 @@ let skills = {
       coords: { x: 4, y: 5 }
     },
     physAtkUp: {
-      name_en: "Healing Wall",
+      name_en: "Phys ATK Up",
       name_jp: "物理攻撃ブースト",
       desc: "Increase physical attack.",
       dep: { },
