@@ -1,3 +1,15 @@
+const allStyles = getComputedStyle(document.documentElement);
+
+const nodeWidth = parseInt(allStyles.getPropertyValue("--node-width").trim().slice(0, -2));
+const nodeHeight = parseInt(allStyles.getPropertyValue("--node-height").trim().slice(0, -2));
+const nodeBorder = parseInt(allStyles.getPropertyValue("--node-border").trim().slice(0, -2));
+const horizontalPadding = parseInt(allStyles.getPropertyValue("--node-horizontal-padding").trim().slice(0, -2));
+const verticalPadding = parseInt(allStyles.getPropertyValue("--node-vertical-padding").trim().slice(0, -2));
+
+const treeWidth = nodeWidth * 6 + horizontalPadding * 5 + nodeBorder * 2;
+const treeHeight = nodeHeight * 7 + verticalPadding * 6 + nodeBorder * 2;
+
+
 class Simulator {
   get defaultClass() {
     return "Landsknecht";
@@ -223,8 +235,8 @@ class Simulator {
       this.state[section][skillName] = 0;
       if (skill.unique && section == "secondary") continue;
 
-      let x = skill.coords["x"] * 350;
-      let y = skill.coords["y"] * 45;
+      let x = skill.coords["x"] * (nodeWidth + horizontalPadding);
+      let y = skill.coords["y"] * (nodeHeight + verticalPadding);
 
       let a = true;
 
@@ -306,13 +318,6 @@ class Simulator {
   drawLines(tree, className, skillName, skill) {
     let deps = Object.entries(skill.dep);
     let forwards = Object.entries(forward[className][skillName]);
-
-    let nodeHeight = 30;
-    let nodeWidth = 265;
-    let nodeBorder = 2;
-
-    let horizontalPadding = 85;
-    let verticalPadding = 15;
 
     if (forwards.length > 0) {
       let multi = forwards.length > 1;
@@ -523,7 +528,7 @@ class Simulator {
 
   resizeTree() {
     let main = document.getElementById("main");
-    let scale = main.clientWidth / 2019;
+    let scale = main.clientWidth / treeWidth;
 
     let trees = document.querySelectorAll(".tree");
 
@@ -534,11 +539,10 @@ class Simulator {
     let treeContainers = document.querySelectorAll(".tree-container");
 
     for (let container of treeContainers) {
-      let width = scale * 2019;
-      let height = scale * 304;
+      let width = scale * treeWidth;
+      let height = scale * treeHeight;
       container.style.width = `${width}px`;
       container.style.height = `${height}px`;
     }
   }
 }
-

@@ -1,3 +1,11 @@
+:root {
+  --node-width: 265px;
+  --node-height: 30px;
+  --node-border: 2px;
+  --node-horizontal-padding: 85px;
+  --node-vertical-padding: 15px;
+}
+
 .skill-available {
   --highlight: #A3DAD4;
   --background: #0D4A90;
@@ -72,21 +80,16 @@ p {
   margin: 10px 2.5%;
 }
 
-.tree-container {
-  height: 304px;
-  width: 2019px;
-}
-
 .tree {
   position: absolute;
 }
 
 .skill {
   position: absolute;
-  width: 265px;
-  height: 30px;
+  width: var(--node-width);
+  height: var(--node-height);
   background-color: var(--background);
-  border: solid 2px var(--highlight);
+  border: solid var(--node-border) var(--highlight);
   border-radius: 17px;
 }
 
@@ -147,7 +150,7 @@ p {
 
 .skill .skill-info {
   visibility: hidden;
-  width: 265px;
+  width: var(--node-width);
   background-color: rgba(0, 0, 0, 0.9);
   color: var(--highlight);
   text-align: center;
@@ -157,9 +160,8 @@ p {
   z-index: 1;
   bottom: 125%;
   left: 50%;
-  margin-left: -132.5px;
+  margin-left: calc(var(--node-width) / -2);
   opacity: 0;
-  transition: opacity 0.3s;
 }
 
 .skill .skill-info:before {
