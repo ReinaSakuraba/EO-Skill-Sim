@@ -50,13 +50,10 @@ class Simulator {
     this.setPrimaryClasses();
     this.setSecondaryClasses();
 
-    let query = window.location.search.slice(1)
+    let query = window.location.search.slice(1);
 
-    if (query !== "") {
-      this.loadSaveData(query);
-    } else {
-      this.setDefault();
-    }
+    query !== "" ? this.loadSaveData(query) : this.setDefault();
+
     this.resizeTree();
   }
 
@@ -395,7 +392,7 @@ class Simulator {
   }
 
   changeSkillLevel(section, className, skillName, level) {
-    console.log(section, className, skillName, level);
+    level = parseInt(level);
     let old = this.state[section][skillName];
     if (level == old) return;
 
@@ -471,7 +468,38 @@ class Simulator {
   }
 
   generateSaveData() {
-    let saveData = `${this.primaryClass}|${this.secondaryClass}|${this.currentLevel}|${this.levelCap}|${this.retireLevel}|${JSON.stringify(this.state)}`
+    let saveData = `${this.primaryClass}|${this.secondaryClass}|${this.currentLevel}|${this.levelCap}|${this.retireLevel}`
+
+    for (let [category, className] of [["fixed", "common"], ["primary", this.primaryClass], ["secondary", this.secondaryClass]]) {
+      if (className === null || className == "N/A") continue;
+
+      let leveledSkills = [];
+
+      for (let [skill, level] of Object.entries(this.state[category])) {
+        if (level == 0) continue;
+
+        let forwardSkills = Object.entries(forward[className][skill]);
+
+        if (forwardSkills.length == 0) {
+          leveledSkills.push(`${skill},${level}`);
+          continue;
+        }
+
+        for (let [forwardSkill, forwardLevel] of forwardSkills) {
+          if (level !== forwardLevel) {
+            leveledSkills.push(`${skill},${level}`);
+            break;
+          }
+
+          if (level == forwardLevel && this.state[category][forwardSkill] === 0) {
+            leveledSkills.push(`${skill},${level}`);
+            break;
+          }
+        }
+      }
+      saveData += `|${leveledSkills.join(';')}`;
+    }
+
     return LZString.compressToEncodedURIComponent(saveData);
   }
 
@@ -483,11 +511,14 @@ class Simulator {
     this.currentLevel = decoded.splice(0, 1)[0];
     this.levelCap = decoded.splice(0, 1)[0];
     this.retireLevel = decoded.splice(0, 1)[0];
-    this.state = JSON.parse(decoded.splice(0));
 
-    this.updateNodes("fixed", "Common");
-    this.updateNodes("primary", this.primaryClass);
-    this.updateNodes("secondary", this.secondaryClass);
+    for (let [category, className] of [["fixed", "common"], ["primary", this.primaryClass], ["secondary", this.secondaryClass]]) {
+      let leveledSkills = decoded.splice(0, 1)[0];
+      if (leveledSkills.length === 0) continue;
+      for (let skill of leveledSkills.split(';')) {
+        this.changeSkillLevel(category, className, ...skill.split(","));
+      }
+    }
   }
 
   resizeTree() {
