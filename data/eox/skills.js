@@ -1610,7 +1610,7 @@ let skills = {
       name_en: "Draining Burst",
       name_jp: "シングルバースト",
       desc: "Consumes user's HP to deal melee stab damage to all enemies.",
-      dep: { drainingThrust: 3 },
+      dep: { drainingThrust: 2 },
       maxLevel: 8,
       coords: { x: 2, y: 2 }
     },
@@ -2813,7 +2813,7 @@ let skills = {
       desc: "This turn, user is fully immune to any hostile effects from enemies. Until the end of next turn, increase user's attack and action speed.",
       unique: true,
       type: "Break",
-      dep: { vanguard: 0 },
+      dep: { trinity: 0 },
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
@@ -3977,7 +3977,7 @@ let skills = {
       name_en: "Arresting Miasma",
       name_jp: "縛弱の瘴気",
       desc: "For 3 turns, decrease all enemies' resistance and rate of recovery to binds. Higher level increases duration.",
-      dep: { wiltingMiasma: 2 },
+      dep: { wiltingMiasma: 3 },
       maxLevel: 10,
       coords: { x: 3, y: 1.5 }
     },
