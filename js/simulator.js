@@ -6,6 +6,9 @@ const nodeBorder = parseInt(allStyles.getPropertyValue("--node-border").trim().s
 const horizontalPadding = parseInt(allStyles.getPropertyValue("--node-horizontal-padding").trim().slice(0, -2));
 const verticalPadding = parseInt(allStyles.getPropertyValue("--node-vertical-padding").trim().slice(0, -2));
 
+const horizontalBuffer = nodeWidth + horizontalPadding;
+const verticalBuffer = nodeHeight + verticalPadding;
+
 const treeWidth = nodeWidth * 6 + horizontalPadding * 5 + nodeBorder * 2;
 const treeHeight = nodeHeight * 7 + verticalPadding * 6 + nodeBorder * 2;
 
@@ -235,8 +238,8 @@ class Simulator {
       this.state[section][skillName] = 0;
       if (skill.unique && section == "secondary") continue;
 
-      let x = skill.coords["x"] * (nodeWidth + horizontalPadding);
-      let y = skill.coords["y"] * (nodeHeight + verticalPadding);
+      let x = skill.coords["x"] * horizontalBuffer;
+      let y = skill.coords["y"] * verticalBuffer;
 
       let a = true;
 
@@ -328,14 +331,13 @@ class Simulator {
     if (forwards.length > 0) {
       let multi = forwards.length > 1;
 
-      let startX = skill.coords.x * (nodeWidth + horizontalPadding) + nodeWidth + nodeBorder * 2;
-      let startY = skill.coords.y * (nodeHeight + verticalPadding) + nodeHeight / 2;
-
-      let length = horizontalPadding / 2;
+      let startX = skill.coords.x * horizontalBuffer + nodeWidth + nodeBorder * 2;
+      let startY = skill.coords.y * verticalBuffer + nodeHeight / 2;
 
       let forwardX = skills[className][forwards[0][0]].coords.x;
       let xDiff = forwardX - skill.coords.x - 1;
-      if (xDiff > 0) length += xDiff * (nodeWidth + horizontalPadding);
+
+      let length = horizontalPadding / 2 + xDiff * horizontalBuffer;;
 
       this.drawHorizontalLine(tree, startX, startY, length);
 
@@ -344,9 +346,9 @@ class Simulator {
         let minY = Math.min(...forwardYs);
         let maxY = Math.max(...forwardYs);
 
-        let x = forwardX * (nodeWidth + horizontalPadding) - horizontalPadding / 2 + nodeBorder * 2;
-        let y = minY * (nodeHeight + verticalPadding) + nodeHeight / 2;
-        this.drawVerticalLine(tree, x, y, (nodeHeight + verticalPadding) * (maxY - minY));
+        let x = forwardX * horizontalBuffer - horizontalPadding / 2 + nodeBorder * 2;
+        let y = minY * verticalBuffer + nodeHeight / 2;
+        this.drawVerticalLine(tree, x, y, verticalBuffer * (maxY - minY));
       }
 
       let level = forwards[0][1];
@@ -361,8 +363,8 @@ class Simulator {
     }
 
     if (deps.length > 0) {
-      let startX = skill.coords.x * (nodeWidth + horizontalPadding) - horizontalPadding / 2 + nodeBorder * 4;
-      let startY = skill.coords.y * (nodeHeight + verticalPadding) + nodeHeight / 2;
+      let startX = skill.coords.x * horizontalBuffer - horizontalPadding / 2 + nodeBorder * 4;
+      let startY = skill.coords.y * verticalBuffer + nodeHeight / 2;
 
       this.drawHorizontalLine(tree, startX, startY, horizontalPadding / 2 - nodeBorder * 6);
 
@@ -371,9 +373,9 @@ class Simulator {
         let minY = Math.min(...depYs);
         let maxY = Math.max(...depYs);
 
-        let x = skill.coords.x * (nodeWidth + horizontalPadding) - horizontalPadding / 2 + nodeBorder * 2;
-        let y = minY * (nodeHeight + verticalPadding) + nodeHeight / 2;
-        this.drawVerticalLine(tree, x, y, (nodeHeight + verticalPadding) * (maxY - minY));
+        let x = skill.coords.x * horizontalBuffer - horizontalPadding / 2 + nodeBorder * 2;
+        let y = minY * verticalBuffer + nodeHeight / 2;
+        this.drawVerticalLine(tree, x, y, verticalBuffer * (maxY - minY));
       }
     }
   }
