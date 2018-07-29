@@ -103,6 +103,25 @@ p {
   font-size: 20px;
 }
 
+.skill-type {
+  color: var(--background);
+  font-weight: bold;
+  padding-top: 4px;
+  padding-left: 5px;
+  font-stretch: condensed;
+  font-size: 15px;
+  position: relative;
+  width: 55px;
+  right: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 21px;
+  border-radius: 12.5px;
+  overflow: hidden;
+  background-color: var(--highlight);
+  float: right;
+}
+
 .skill-level {
   position: relative;
   width: 60px;

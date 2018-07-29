@@ -270,18 +270,24 @@ class Simulator {
       nameDiv.textContent = skill.name_en;
       node.appendChild(nameDiv);
 
-      let levelNode = document.createElement("div");
-      levelNode.classList.add("skill-level");
+      let levelNode = document.createElement("div");;
 
-      let currentLevel = document.createElement("div");
-      currentLevel.classList.add("skill-current-level");
-      currentLevel.textContent = "0";
-      levelNode.appendChild(currentLevel);
+      if (["Boost", "Break"].includes(skill.type)) {
+        levelNode.classList.add("skill-type");
+        levelNode.textContent = skill.type.toUpperCase();
+      } else {
+        levelNode.classList.add("skill-level");
 
-      let maxLevel = document.createElement("div");
-      maxLevel.classList.add("skill-max-level");
-      maxLevel.textContent = skillMax;
-      levelNode.appendChild(maxLevel);
+        let currentLevel = document.createElement("div");
+        currentLevel.classList.add("skill-current-level");
+        currentLevel.textContent = "0";
+        levelNode.appendChild(currentLevel);
+
+        let maxLevel = document.createElement("div");
+        maxLevel.classList.add("skill-max-level");
+        maxLevel.textContent = skillMax;
+        levelNode.appendChild(maxLevel);
+      }
 
       node.appendChild(levelNode);
 
