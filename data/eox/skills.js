@@ -670,7 +670,7 @@ let skills = {
       name_jp: "ヒーリング",
       desc: "Restores HP to one ally.",
       dep: { },
-      maxLevel: 6,
+      maxLevel: 10,
       coords: { x: 0, y: 1.5 }
     },
     lineHeal: {
@@ -678,7 +678,7 @@ let skills = {
       name_jp: "ラインヒール",
       desc: "Restores HP to one row.",
       dep: { healing: 3 },
-      maxLevel: 6,
+      maxLevel: 10,
       coords: { x: 1, y: 1.5 }
     },
     patchUp: {
@@ -1245,7 +1245,7 @@ let skills = {
       name_jp: "跳弾",
       desc: "Deals 2-5 instances of ranged stab damage to random targets. Low accuracy. Higher level increases number of attacks.",
       dep: { wildShot: 2 },
-      maxLevel: 6,
+      maxLevel: 10,
       coords: { x: 4, y: 1 }
     },
     chargedFire: {
@@ -1619,7 +1619,7 @@ let skills = {
       name_jp: "ディレイチャージ",
       desc: "Consumes user's HP. 2 turns after using this skill, deals melee stab damage to one target at the end of turn. Damage is increased based on the number of turns passed before its activation. Ineffective if user dies before the skill activates.",
       dep: { },
-      maxLevel: 6,
+      maxLevel: 10,
       coords: { x: 3, y: 2 }
     },
     legionBurst: {
@@ -1707,7 +1707,7 @@ let skills = {
       name_jp: "ブラックサバス",
       desc: "Deals ranged almighty damage to all enemies, and restores all party member's HP based on damage dealt.",
       dep: { bloodlust: 3 },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 4, y: 5 }
     },
     physAtkUp: {
@@ -1874,7 +1874,7 @@ let skills = {
       name_jp: "ペアオーダー",
       desc: "This turn, allies with buffs will restore TP based on damage taken when they are attacked.",
       dep: { },
-      maxLevel: 8,
+      maxLevel: 6,
       coords: { x: 3, y: 5 }
     },
     healOrder: {
@@ -2314,7 +2314,7 @@ let skills = {
       name_jp: "エーテルシュート",
       desc: "Deals ranged, INT-based damage to one enemy with user's weapon.",
       dep: { darkEther: 2 },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 3, y: 5 }
     },
     fireProphecy: {
@@ -2822,7 +2822,7 @@ let skills = {
       name_jp: "剣士の心得",
       desc: "After the user makes an attack, all further attacks on the enemies attacked by the user will have increased damage and accuracy.",
       dep: { },
-      maxLevel: 6,
+      maxLevel: 4,
       coords: { x: 0, y: 1 }
     },
     sonicRaid: {
@@ -3819,7 +3819,7 @@ let skills = {
       name_jp: "クロスカウンター",
       desc: "This turn, when a party member on user`s row is attacked, counterattack with melee bash damage and attempts to inflict corresponding bind on the target. Does not activate if counterattack cannot reach the enemy.",
       dep: { },
-      maxLevel: 8,
+      maxLevel: 6,
       coords: { x: 3, y: 6 }
     },
     thunderFist: {
