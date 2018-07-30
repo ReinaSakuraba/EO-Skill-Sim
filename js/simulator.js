@@ -157,12 +157,7 @@ class Simulator {
       levelSelect.appendChild(option);
     }
 
-    if (this.currentLevel > maxLevel) {
-      this.currentLevel = maxLevel;
-      this.resetPoints();
-    } else {
-      this.currentLevel = this.currentLevel;
-    }
+    this.currentLevel = this.currentLevel > maxLevel ? maxLevel : this.currentLevel;
   }
 
   setPrimaryClasses() {
@@ -452,6 +447,8 @@ class Simulator {
           break;
         }
       }
+
+      if (["Boost", "Break"].includes(skills[className][skillName].type)) continue;
 
       skillNode.childNodes[2].childNodes[0].textContent = skillLevel;
 
