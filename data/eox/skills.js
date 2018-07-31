@@ -55,7 +55,7 @@ let skills = {
     encouragement: {
       name_en: "Encouragement",
       name_jp: "鼓舞",
-      desc: "When the user attacks with a skill, restore HP to all party members. HP restored is based on each party member's max HP.",
+      desc: "When the user attacks with a skill, restore HP to all party members. HP restored is based on user's maxHP. Does not activate for links, chases or counterattacks.",
       dep: { },
       maxLevel: 8,
       coords: { x: 0, y: 3 }
@@ -120,7 +120,7 @@ let skills = {
     burstBlade: {
       name_en: "Burst Blade",
       name_jp: "バーストブレイド",
-      desc: "Deals 2-3 instances of cut damage to one target. Number of hits increase based on the number of enemies present.",
+      desc: "Deals 2-3 instances of melee cut damage to one target. Number of hits increase based on the number of enemies present.",
       dep: { shockSpark: 2 },
       maxLevel: 8,
       coords: { x: 3, y: 2 }
@@ -781,7 +781,7 @@ let skills = {
     starDrop: {
       name_en: "Star Drop",
       name_jp: "スタードロップ",
-      desc: "Deals melee bash damage to one target. Reduces physical defense.",
+      desc: "Deals melee bash damage to one target. Reduces physical defense for 3 turns.",
       dep: { headDrop: 3 },
       maxLevel: 6,
       coords: { x: 2, y: 5 }
@@ -789,7 +789,7 @@ let skills = {
     medicalRod: {
       name_en: "Medical Rod",
       name_jp: "メディカルロッド",
-      desc: "Deals melee bash damage to one target. Reduces elemental defense.",
+      desc: "Deals melee bash damage to one target. Reduces elemental defense for 3 turns.",
       dep: { starDrop: 2 },
       maxLevel: 6,
       coords: { x: 3, y: 5 }
@@ -829,7 +829,7 @@ let skills = {
     overheal: {
       name_en: "Overheal",
       name_jp: "オーバーヒール",
-      desc: "Healing skills in battle can restore HP over party members` maximum HP by a certain precentage. The overhealed amount is removed at the end of turn.",
+      desc: "Medic skills in battle can restore HP over party members` maximum HP by a certain precentage. The overhealed amount is removed at the end of turn.",
       dep: { },
       maxLevel: 6,
       coords: { x: 4, y: 3 }
@@ -1209,7 +1209,7 @@ let skills = {
       coords: { x: 3, y: 3 }
     },
     preemptiveShot: {
-      name_en: "Preemptive Shot",
+      name_en: "Preemptive Shell",
       name_jp: "先制撹乱",
       desc: "If Shell Shock is learned, there is a chance to automatically cast it at the start of battle. Cannot activate if another ally activated it first.",
       dep: { shellShock: 1 },
@@ -1966,7 +1966,7 @@ let skills = {
     spiritFlow: {
       name_en: "Spirit Flow",
       name_jp: "谺流し",
-      desc: "Deals melee damage to one target with equipped Katana at the start of turn, and attacks again after the target acts. If a second weapon is equipped, that weapon is used for the second attack.",
+      desc: "Deals melee damage to one target with equipped Katana at the start of turn. If two weapons are equipped, attacks again with the other weapon after the target acts.",
       dep: { parryingBlade: 2 },
       maxLevel: 10,
       coords: { x: 1, y: 1 }
@@ -2127,7 +2127,7 @@ let skills = {
     curseStrike: {
       name_en: "Curse Strike",
       name_jp: "祟り打ち",
-      desc: "Deals melee bash damage to one target. Attempts to inflict Curse.",
+      desc: "Deals melee bash damage to one target. Attempts to inflict curse and arm bind.",
       dep: { bloodyLance: 2 },
       maxLevel: 8,
       coords: { x: 4, y: 4 }
@@ -2510,7 +2510,7 @@ let skills = {
     },
     ninpoFlight: {
       name_en: "Ninpo: Flight",
-      name_jp: "抑制攻撃ブースト",
+      name_jp: "忍法　猿飛",
       desc: "This turn, user has a high chance of evading physical attacks.",
       dep: { },
       maxLevel: 10,
@@ -2518,7 +2518,7 @@ let skills = {
     },
     autoMirage: {
       name_en: "Auto Mirage",
-      name_jp: "忍法　猿飛",
+      name_jp: "先制陽炎",
       desc: "If Ninpo: Mirage is learned, there is a chance to automatically cast it at the start of battle. Cannot activate if another ally activated it first.",
       dep: { ninpoMirage: 2 },
       maxLevel: 6,
@@ -2526,7 +2526,7 @@ let skills = {
     },
     statusAtkUp: {
       name_en: "Status ATK Up",
-      name_jp: "先制陽炎",
+      name_jp: "抑制攻撃ブースト",
       desc: "Increase chance of inflicting binds and ailments.",
       dep: { },
       maxLevel: 8,
@@ -2613,7 +2613,7 @@ let skills = {
     strangeSeeds: {
       name_en: "Strange Seeds",
       name_jp: "不思議な種",
-      desc: "At the end of this turn, attempts to inflict head bind, arm bind and leg bind to all enemies.",
+      desc: "At the end of this turn, attempts to inflict one of head bind, arm bind and leg bind to all enemies.",
       dep: { sympathyPain: 1 },
       maxLevel: 10,
       coords: { x: 1, y: 1 }
@@ -2836,7 +2836,7 @@ let skills = {
     blazingLink: {
       name_en: "Blazing Link",
       name_jp: "リンクフレイム",
-      desc: "Deals melee cut/stab+fire damage to one target. If the target is attacked again after, follow up with another attack of the same element.",
+      desc: "Deals melee cut/stab+fire damage to one target. If the target is attacked again after, follow up with another attack of the same element. Chance of follow up decreases with each hit.",
       dep: { },
       maxLevel: 10,
       coords: { x: 1, y: 2 }
@@ -2844,7 +2844,7 @@ let skills = {
     freezingLink: {
       name_en: "Freezing Link",
       name_jp: "リンクフリーズ",
-      desc: "Deals melee cut/stab+ice damage to one target. If the target is attacked again after, follow up with another attack of the same element.",
+      desc: "Deals melee cut/stab+ice damage to one target. If the target is attacked again after, follow up with another attack of the same element. Chance of follow up decreases with each hit.",
       dep: { },
       maxLevel: 10,
       coords: { x: 1, y: 3 }
@@ -2852,7 +2852,7 @@ let skills = {
     electricLink: {
       name_en: "Electric Link",
       name_jp: "リンクサンダー",
-      desc: "Deals melee cut/stab+volt damage to one target. If the target is attacked again after, follow up with another attack of the same element.",
+      desc: "Deals melee cut/stab+volt damage to one target. If the target is attacked again after, follow up with another attack of the same element. Chance of follow up decreases with each hit.",
       dep: { },
       maxLevel: 10,
       coords: { x: 1, y: 4 }
@@ -2917,7 +2917,7 @@ let skills = {
     improvedLink: {
       name_en: "Improved Link",
       name_jp: "リンクプラス",
-      desc: "For 3 turns, increases the number of follow-ups that can be made from link skills used by the user.",
+      desc: "For 3 turns, increases the number of follow-ups that can be made from link skills used by the user, as well as chance of follow-up. Each action may trigger at most 4 links.",
       dep: { blazingLink: 3, freezingLink: 3, electricLink: 3 },
       maxLevel: 4,
       coords: { x: 2, y: 3 }
@@ -2971,7 +2971,7 @@ let skills = {
       coords: { x: 4, y: 0.5 }
     },
     randomStab: {
-      name_en: "Random Stab",
+      name_en: "Swift Stab",
       name_jp: "ハヤブサ突き",
       desc: "Deals 2-3 instances of melee stab damage to random targets.",
       dep: { penetrate: 2 },
@@ -3156,7 +3156,7 @@ let skills = {
     foulMastery: {
       name_en: "Foul Mastery",
       name_jp: "闇討マスタリ",
-      desc: "Increase attack every time user inflicts an ailment.",
+      desc: "Increase attack every time user inflicts an ailment. Bonus stacks up to 3 times, and is reset if user dies.",
       dep: { sneakAttack: 2 },
       maxLevel: 10,
       coords: { x: 3, y: 4 }
