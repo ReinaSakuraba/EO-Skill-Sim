@@ -498,7 +498,7 @@ let skills = {
       maxLevel: 4,
       coords: { x: 1, y: 3 }
     },
-    airSlash: {
+    airBlade: {
       name_en: "Air Blade",
       name_jp: "空刃",
       desc: "Deals ranged cut damage to one target. Critical hit if used during any stance.",
@@ -583,7 +583,7 @@ let skills = {
       name_en: "Duel",
       name_jp: "果し合い",
       desc: "Increase damage when attacking enemies that the user attacked last turn.",
-      dep: { airSlash: 2, armStrike: 2 },
+      dep: { airBlade: 2, armStrike: 2 },
       maxLevel: 6,
       coords: { x: 2, y: 4.5 }
     },
@@ -762,7 +762,7 @@ let skills = {
       maxLevel: 8,
       coords: { x: 3, y: 3 }
     },
-    phoenix: {
+    finalGift: {
       name_en: "Final Gift",
       name_jp: "最後の癒し",
       desc: "When the user dies, restores HP to all allies.",
@@ -774,7 +774,7 @@ let skills = {
       name_en: "Auto-Revive",
       name_jp: "オートリザレクト",
       desc: "When an ally dies, there is a chance to automatically revive that ally.",
-      dep: { phoenix: 2 },
+      dep: { finalGift: 2 },
       maxLevel: 10,
       coords: { x: 3, y: 4 }
     },
@@ -1208,7 +1208,7 @@ let skills = {
       maxLevel: 10,
       coords: { x: 3, y: 3 }
     },
-    preemptiveShot: {
+    preemptiveShell: {
       name_en: "Preemptive Shell",
       name_jp: "先制撹乱",
       desc: "If Shell Shock is learned, there is a chance to automatically cast it at the start of battle. Cannot activate if another ally activated it first.",
@@ -1935,7 +1935,7 @@ let skills = {
     }
   },
   Shogun: {
-    battleFormation: {
+    fullCombatForm: {
       name_en: "Full Combat Form",
       name_jp: "力戦陣形",
       desc: "For 3 turns, increase maximum HP and attack for all party members.",
@@ -1951,7 +1951,7 @@ let skills = {
       desc: "This turn, all party members will negate any hostile action once.",
       unique: true,
       type: "Break",
-      dep: { battleFormation: 0 },
+      dep: { fullCombatForm: 0 },
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
@@ -2970,7 +2970,7 @@ let skills = {
       maxLevel: 8,
       coords: { x: 4, y: 0.5 }
     },
-    randomStab: {
+    swiftStab: {
       name_en: "Swift Stab",
       name_jp: "ハヤブサ突き",
       desc: "Deals 2-3 instances of melee stab damage to random targets.",
@@ -3032,8 +3032,8 @@ let skills = {
       maxLevel: 0,
       coords: { x: 1, y: 0 }
     },
-    blindThrow: {
-      name_en: "Blind Throw",
+    sandThrow: {
+      name_en: "Sand Throw",
       name_jp: "盲目の投刃",
       desc: "Deals ranged cut damage to one target. Attempts to inflict blind on the target.",
       dep: { },
@@ -3044,7 +3044,7 @@ let skills = {
       name_en: "Sleep Throw",
       name_jp: "睡眠の投刃",
       desc: "Deals ranged cut damage to one target. Attempts to inflict sleep on the target.",
-      dep: { blindThrow: 2 },
+      dep: { sandThrow: 2 },
       maxLevel: 6,
       coords: { x: 1, y: 1.5 }
     },
@@ -3685,7 +3685,7 @@ let skills = {
       maxLevel: 8,
       coords: { x: 0, y: 1 }
     },
-    armCrusher: {
+    armBreaker: {
       name_en: "Arm Breaker",
       name_jp: "アームブレイク",
       desc: "Deals melee bash damage to one target. Attempts to inflict arm bind on the target.",
@@ -3705,7 +3705,7 @@ let skills = {
       name_en: "One-Two Punch",
       name_jp: "ワンツー",
       desc: "Deals melee bash damage to one target. May follow up with Concussion, Arm Breaker, and Low Blow if the target does not have the respective bind. Follow-up skills deal reduced damage.",
-      dep: { concussion: 2, armCrusher: 2, lowBlow: 2 },
+      dep: { concussion: 2, armBreaker: 2, lowBlow: 2 },
       maxLevel: 10,
       coords: { x: 1, y: 2 }
     },
