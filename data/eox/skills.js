@@ -499,7 +499,7 @@ let skills = {
       coords: { x: 1, y: 3 }
     },
     airSlash: {
-      name_en: "Air Slash",
+      name_en: "Air Blade",
       name_jp: "空刃",
       desc: "Deals ranged cut damage to one target. Critical hit if used during any stance.",
       dep: { },
@@ -763,7 +763,7 @@ let skills = {
       coords: { x: 3, y: 3 }
     },
     phoenix: {
-      name_en: "Phoenix",
+      name_en: "Final Gift",
       name_jp: "最後の癒し",
       desc: "When the user dies, restores HP to all allies.",
       dep: { revive: 3 },
@@ -1936,7 +1936,7 @@ let skills = {
   },
   Shogun: {
     battleFormation: {
-      name_en: "Battle Formation",
+      name_en: "Full Combat Form",
       name_jp: "力戦陣形",
       desc: "For 3 turns, increase maximum HP and attack for all party members.",
       unique: true,
@@ -3686,7 +3686,7 @@ let skills = {
       coords: { x: 0, y: 1 }
     },
     armCrusher: {
-      name_en: "Arm Crusher",
+      name_en: "Arm Breaker",
       name_jp: "アームブレイク",
       desc: "Deals melee bash damage to one target. Attempts to inflict arm bind on the target.",
       dep: { },
