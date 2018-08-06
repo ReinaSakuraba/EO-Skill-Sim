@@ -64,7 +64,7 @@ let skills = {
       name_en: "Hero's Bonds",
       name_jp: "勇者の絆",
       desc: "When all party members' HP is above a certain precentage, increase user's attack and action speed.",
-      dep: {encouragement: 1 },
+      dep: { encouragement: 1 },
       maxLevel: 6,
       coords: { x: 1, y: 3 }
     },
