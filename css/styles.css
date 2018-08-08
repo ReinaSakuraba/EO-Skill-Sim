@@ -4,24 +4,38 @@
   --node-border: 2px;
   --node-horizontal-padding: 85px;
   --node-vertical-padding: 15px;
+  --yellow: #FFFF99;
+}
+
+.blue-theme {
+  --body-background: #18515F;
+  --header-background: #002A2B;
+
+  --available-highlight: #A3DAD4;
+  --available-background: #0D4A90;
+  --available-midtone: #6EA2BB;
+
+  --unavailable-highlight: #A9A9A9;
+  --unavailable-background: #394B61;
+  --unavailable-midtone: #778898;
 }
 
 .skill-available {
-  --highlight: #A3DAD4;
-  --background: #0D4A90;
-  --midtone: #6EA2BB;
+  --highlight: var(--available-highlight);
+  --background: var(--available-background);
+  --midtone: var(--available-midtone);
 }
 
 .skill-unavailable {
-  --highlight: #A9A9A9;
-  --background: #394B61;
-  --midtone: #778898;
+  --highlight: var(--unavailable-highlight);
+  --background: var(--unavailable-background);
+  --midtone: var(--unavailable-midtone);
 }
 
 body {
-  background-color: #18515F;
+  background-color: var(--body-background);
   font-family: Helvetica, Arial;
-  color: #8DDEFD;
+  color: var(--available-highlight);
   margin: 0px;
   -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -36,7 +50,7 @@ p {
 }
 
 #header {
-  background-color: #002A2B;
+  background-color: var(--header-background);
   flex-grow: 0;
   display: flex;
   flex-direction: row;
@@ -68,7 +82,7 @@ p {
 
 #header-links svg {
   width: 30px;
-  fill: #8DDEFD;
+  fill: var(--available-highlight);
 }
 
 #main {
@@ -200,7 +214,7 @@ p {
 
 .line {
   position: absolute;
-  background-color: #A3DAD4;
+  background-color: var(--available-highlight);
 }
 
 .level-req {
@@ -210,7 +224,7 @@ p {
   justify-content: center;
   font-size: 20px;
   font-weight: bold;
-  color: #FFFF99;
+  color: var(--yellow);
   text-shadow: -1px -1px 0 #105068, 1px -1px 0  #105068, -1px 1px 0 #105068, 1px 1px 0  #105068;
   text-align: center;
   width: 30px;
