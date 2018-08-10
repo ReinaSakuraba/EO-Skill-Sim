@@ -4073,6 +4073,8 @@ let skills = {
       name_jp: "アクセルドライブ",
       desc: "Deals melee cut+almighty damage to one target, and enters overheat cooldown for 9 turns. Cannot be used during cooldown. Low action speed, and the user's defense lowers until the skill activates.",
       stats: ["STR"],
+      weapon: ["Drive Blade"],
+      bodyParts: ["Arms"],
       dep: { flameDrive: 1, freezeDrive: 1, shockDrive: 1 },
       maxLevel: 10,
       coords: { x: 4, y: 4 }
