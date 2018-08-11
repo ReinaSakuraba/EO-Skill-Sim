@@ -253,15 +253,6 @@ class Simulator {
       node.style.left = `${x}px`;
       node.style.top = `${y}px`;
 
-      let skillInfo = document.createElement("div");
-      skillInfo.classList.add("skill-info");
-
-      let skillDescription = document.createElement("div");
-      skillDescription.textContent = skill.desc;
-      skillInfo.appendChild(skillDescription);
-
-      node.appendChild(skillInfo);
-
       let nameDiv = document.createElement("div");
       nameDiv.classList.add("skill-name");
       nameDiv.classList.add("skill-name-en");
@@ -315,6 +306,140 @@ class Simulator {
         let level = Math.max(self.state[section][skillName] - 1, 0);
 
         self.changeSkillLevel(section, className, skillName, level);
+      });
+
+      node.addEventListener("mouseover", function(e) {
+        let previousInfo = document.querySelector(".skill-info");
+        let tree = document.getElementById(`tree-${section}`);
+
+        if (previousInfo) tree.removeChild(previousInfo);
+
+        let [_, className, skillName] = node.id.split("-");
+        let skill = skills[className][skillName];
+
+        let levelInfo;
+        let maxLevel = 0;
+
+        try {
+          levelInfo = levels[className][skillName];
+          maxLevel = Object.values(levelInfo)[0].length;
+        } catch (error) { }
+
+        let tableLength = levelInfo ? 2 + maxLevel : 4;
+
+        let skillInfo = document.createElement("div");
+        skillInfo.classList.add("skill-info");
+
+        let infoTable = document.createElement("table");
+
+        let nameTitleRow = document.createElement("tr");
+
+        let enNameTitle = document.createElement("th");
+        enNameTitle.textContent = "Name";
+        nameTitleRow.appendChild(enNameTitle);
+
+        let jpNameTitle = document.createElement("th");
+        jpNameTitle.textContent = "名前";
+        nameTitleRow.appendChild(jpNameTitle);
+
+        let usesTitle = document.createElement("th");
+        usesTitle.textContent = "Uses";
+        usesTitle.colSpan = maxLevel;
+        nameTitleRow.appendChild(usesTitle);
+
+        infoTable.appendChild(nameTitleRow);
+
+        let nameRow = document.createElement("tr");
+
+        let enName = document.createElement("td");
+        enName.textContent = skill.name_en;
+        nameRow.appendChild(enName);
+
+        let jpName = document.createElement("td");
+        jpName.textContent = skill.name_jp;
+        nameRow.appendChild(jpName);
+
+        let usesText = skill.stats.concat(skill.weapon || []).concat(skill.bodyParts || []).join(", ") || "N/A";
+
+        let uses = document.createElement("td");
+        uses.textContent = usesText;
+        uses.colSpan = tableLength - 2;
+        nameRow.appendChild(uses);
+
+        infoTable.appendChild(nameRow);
+
+        let descriptionRow = document.createElement("tr");
+
+        let description = document.createElement("td");
+        description.classList.add("skill-description");
+        description.textContent = skill.desc;
+        description.colSpan = tableLength;
+        descriptionRow.appendChild(description);
+
+        infoTable.appendChild(descriptionRow);
+
+        if (levelInfo) {
+          let levelHeader = document.createElement("tr");
+
+          let levelType = document.createElement("th");
+          levelType.textContent = ["Boost", "Break"].includes(skill.type) ? "Stage" : "Level";
+          levelType.colSpan = 2;
+          levelHeader.appendChild(levelType);
+
+          for (let i of [...Array(maxLevel).keys()].map(i => ++i)) {
+            let level = document.createElement("th");
+            level.textContent = i;
+            levelHeader.appendChild(level);
+          }
+          infoTable.appendChild(levelHeader);
+
+          for (let [attName, attValues] of Object.entries(levelInfo)) {
+            let attributeRow = document.createElement("tr");
+            let attributeName = document.createElement("th");
+            attributeName.textContent = attName;
+            attributeName.colSpan = 2;
+            attributeRow.appendChild(attributeName);
+
+            let currentLevel = 0;
+            while (currentLevel + 1 <= attValues.length) {
+              let attributeCell = document.createElement("td");
+              let attributeValue = attValues[currentLevel];
+              let colspan = 1;
+
+              while (attValues[++currentLevel] == attributeValue) ++colspan;
+
+              attributeCell.colSpan = colspan;
+              attributeCell.textContent = attributeValue;
+              attributeRow.appendChild(attributeCell);
+            }
+            infoTable.appendChild(attributeRow);
+          }
+        }
+        skillInfo.appendChild(infoTable);
+
+        let skillNode = document.getElementById(`skill-${className}-${skillName}`);
+
+        tree.appendChild(skillInfo);
+
+        let infoRect = skillInfo.getBoundingClientRect();
+        let width = infoRect.width;
+
+        let posX = parseInt(skillNode.style.left.slice(0, -2));
+        let posY = parseInt(skillNode.style.top.slice(0, -2)) + nodeHeight + verticalPadding;
+
+        if (treeWidth < posX + width) {
+          posX -= width;
+        }
+
+        skillInfo.style.top = `${posY}px`;
+        skillInfo.style.left = `${posX}px`;
+      });
+
+      node.addEventListener("mouseout", function() {
+        let info = document.querySelector(".skill-info");
+        let tree = document.getElementById(`tree-${section}`);
+
+        if (info) tree.removeChild(info);
       });
     }
   }
@@ -450,7 +575,7 @@ class Simulator {
 
       if (["Boost", "Break"].includes(skills[className][skillName].type)) continue;
 
-      skillNode.childNodes[2].childNodes[0].textContent = skillLevel;
+      skillNode.childNodes[1].childNodes[0].textContent = skillLevel;
 
       skillNode.classList.remove(`skill-available`);
       skillNode.classList.remove(`skill-unavailable`);
