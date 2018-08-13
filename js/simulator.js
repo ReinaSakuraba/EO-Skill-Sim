@@ -312,7 +312,7 @@ class Simulator {
         let previousInfo = document.querySelector(".skill-info");
         let tree = document.getElementById(`tree-${section}`);
 
-        if (previousInfo) tree.removeChild(previousInfo);
+        if (previousInfo) document.body.removeChild(previousInfo);
 
         let [_, className, skillName] = node.id.split("-");
         let skill = skills[className][skillName];
@@ -372,7 +372,6 @@ class Simulator {
 
         let description = document.createElement("td");
         description.classList.add("skill-description");
-        description.textContent = skill.desc;
         description.colSpan = tableLength;
         descriptionRow.appendChild(description);
 
@@ -419,27 +418,32 @@ class Simulator {
 
         let skillNode = document.getElementById(`skill-${className}-${skillName}`);
 
-        tree.appendChild(skillInfo);
+        document.body.appendChild(skillInfo);
 
+        let skillRect = skillNode.getBoundingClientRect();
         let infoRect = skillInfo.getBoundingClientRect();
+        let treeRect = document.querySelector(".tree-container").getBoundingClientRect();
+
         let width = infoRect.width;
 
-        let posX = parseInt(skillNode.style.left.slice(0, -2));
-        let posY = parseInt(skillNode.style.top.slice(0, -2)) + nodeHeight + verticalPadding;
+        let posX = skillRect.left + 7;
+        let posY = skillRect.top + nodeHeight + verticalPadding;
 
-        if (treeWidth < posX + width) {
-          posX -= width;
+        if (treeRect.left + treeRect.width < posX + width) {
+          posX = treeRect.left + treeRect.width - width + 8;
         }
 
+        skillInfo.style.width = `${width}px`;
         skillInfo.style.top = `${posY}px`;
         skillInfo.style.left = `${posX}px`;
+
+        description.textContent = skill.desc;
       });
 
       node.addEventListener("mouseout", function() {
         let info = document.querySelector(".skill-info");
-        let tree = document.getElementById(`tree-${section}`);
 
-        if (info) tree.removeChild(info);
+        if (info) document.body.removeChild(info);
       });
     }
   }

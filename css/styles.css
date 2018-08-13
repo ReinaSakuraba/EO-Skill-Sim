@@ -50,13 +50,14 @@ p {
 }
 
 table {
-  min-width: calc(var(--node-width) * 2);
   border-spacing: 1px;
   white-space: nowrap;
 }
 
 .skill-description {
+  line-height: 1.4em;
   white-space: initial;
+  text-align: left;
 }
 
 th {
@@ -85,7 +86,7 @@ td {
   padding: 5px;
   font-size: 10pt;
   background: var(--available-background);
-  color: #FFF;
+  color: #E5FFF8;
 }
 
 #header {
@@ -221,6 +222,7 @@ td {
 .skill-unavailable .skill-max-level { color: var(--background); }
 
 .skill-info {
+  min-width: calc(var(--node-width) * 1.5);
   padding: 0;
   margin: 0;
   background-color: #000000;
