@@ -132,7 +132,7 @@ td {
 
 #main {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-direction: column;
   align-items: center;
   height: 600px;
