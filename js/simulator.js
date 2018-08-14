@@ -60,8 +60,6 @@ class Simulator {
       self.currentLevel = this.value;
     });
 
-    window.addEventListener("resize", () => this.resizeTree());
-
     this.setPrimaryClasses();
     this.setSecondaryClasses();
 
@@ -69,7 +67,12 @@ class Simulator {
 
     query !== "" ? this.loadSaveData(query) : this.setDefault();
 
-    this.resizeTree();
+    let trees = document.querySelectorAll(".tree");
+    for (let tree of trees) {
+      tree.style.width = `${treeWidth}px`;
+      tree.style.height = `${treeHeight}px`;
+    }
+    document.body.style.minWidth = `${treeWidth}px`;
   }
 
   get currentLevel() {
@@ -261,11 +264,13 @@ class Simulator {
 
       let levelNode = document.createElement("div");;
 
+      levelNode.classList.add("skill-type");
+
       if (["Boost", "Break"].includes(skill.type)) {
-        levelNode.classList.add("skill-type");
+        levelNode.classList.add("skill-type-special");
         levelNode.textContent = skill.type.toUpperCase();
       } else {
-        levelNode.classList.add("skill-level");
+        levelNode.classList.add("skill-type-normal");
 
         let currentLevel = document.createElement("div");
         currentLevel.classList.add("skill-current-level");
@@ -318,14 +323,14 @@ class Simulator {
         let skill = skills[className][skillName];
 
         let levelInfo;
-        let maxLevel = 0;
+        let maxLevel = 2;
 
         try {
           levelInfo = levels[className][skillName];
           maxLevel = Object.values(levelInfo)[0].length;
         } catch (error) { }
 
-        let tableLength = levelInfo ? 2 + maxLevel : 4;
+        let tableLength = 2 + maxLevel;
 
         let skillInfo = document.createElement("div");
         skillInfo.classList.add("skill-info");
@@ -422,12 +427,12 @@ class Simulator {
 
         let skillRect = skillNode.getBoundingClientRect();
         let infoRect = skillInfo.getBoundingClientRect();
-        let treeRect = document.querySelector(".tree-container").getBoundingClientRect();
+        let treeRect = document.querySelector(".tree").getBoundingClientRect();
 
         let width = infoRect.width;
 
         let posX = skillRect.left + 7;
-        let posY = skillRect.top + nodeHeight + verticalPadding;
+        let posY = skillRect.top + nodeHeight + verticalPadding + window.scrollY;
 
         if (treeRect.left + treeRect.width < posX + width) {
           posX = treeRect.left + treeRect.width - width + 8;
@@ -480,7 +485,7 @@ class Simulator {
         let levelReq = document.createElement("div");
         levelReq.textContent = `Lv${level}`;
         levelReq.classList.add("level-req");
-        levelReq.style.left = `${startX + 5}px`;
+        levelReq.style.left = `${startX}px`;
         levelReq.style.top = `${startY - 10}px`;
         tree.appendChild(levelReq);
       }
@@ -657,26 +662,6 @@ class Simulator {
       for (let skill of leveledSkills.split(';')) {
         this.changeSkillLevel(category, className, ...skill.split(","));
       }
-    }
-  }
-
-  resizeTree() {
-    let main = document.getElementById("main");
-    let scale = main.clientWidth / treeWidth;
-
-    let trees = document.querySelectorAll(".tree");
-
-    for (let tree of trees) {
-      tree.style.transform = `scale(${scale})`;
-    }
-
-    let treeContainers = document.querySelectorAll(".tree-container");
-
-    for (let container of treeContainers) {
-      let width = scale * treeWidth;
-      let height = scale * treeHeight;
-      container.style.width = `${width}px`;
-      container.style.height = `${height}px`;
     }
   }
 }
