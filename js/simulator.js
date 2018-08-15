@@ -427,15 +427,13 @@ class Simulator {
 
         let skillRect = skillNode.getBoundingClientRect();
         let infoRect = skillInfo.getBoundingClientRect();
-        let treeRect = document.querySelector(".tree").getBoundingClientRect();
-        let mainRect = document.getElementById("main").getBoundingClientRect();
 
         let width = infoRect.width;
 
-        let posX = skillRect.left + 7;
+        let posX = skillRect.left + 7 + window.scrollX;
         let posY = skillRect.top + nodeHeight + verticalPadding + window.scrollY;
 
-        if (treeRect.left + treeRect.width < posX + width) posX = treeRect.left + treeRect.width - width + 8;
+        if (window.innerWidth < posX + width) posX = window.innerWidth + window.scrollX - width - 17;
 
         skillInfo.style.width = `${width}px`;
         skillInfo.style.left = `${posX}px`;
@@ -445,7 +443,7 @@ class Simulator {
         infoRect = skillInfo.getBoundingClientRect();
         let height = infoRect.height;
 
-        if (mainRect.top + mainRect.height < posY + height) posY = skillRect.top - height - verticalPadding + 5;
+        if (window.innerHeight < posY + height) posY = skillRect.top + window.scrollY - height - verticalPadding + 5;
         skillInfo.style.top = `${posY}px`;
       });
 
