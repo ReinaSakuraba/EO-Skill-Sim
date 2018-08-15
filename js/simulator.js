@@ -313,148 +313,156 @@ class Simulator {
         self.changeSkillLevel(section, className, skillName, level);
       });
 
-      node.addEventListener("mouseover", function(e) {
-        let previousInfo = document.querySelector(".skill-info");
-        let tree = document.getElementById(`tree-${section}`);
-
-        if (previousInfo) document.body.removeChild(previousInfo);
-
-        let [_, className, skillName] = node.id.split("-");
-        let skill = skills[className][skillName];
-
-        let levelInfo;
-        let maxLevel = 2;
-
-        try {
-          levelInfo = levels[className][skillName];
-          maxLevel = Object.values(levelInfo)[0].length;
-        } catch (error) { }
-
-        let tableLength = 2 + maxLevel;
-
-        let skillInfo = document.createElement("div");
-        skillInfo.classList.add("skill-info");
-
-        let infoTable = document.createElement("table");
-
-        let nameTitleRow = document.createElement("tr");
-
-        let enNameTitle = document.createElement("th");
-        enNameTitle.textContent = "Name";
-        nameTitleRow.appendChild(enNameTitle);
-
-        let jpNameTitle = document.createElement("th");
-        jpNameTitle.textContent = "名前";
-        nameTitleRow.appendChild(jpNameTitle);
-
-        let usesTitle = document.createElement("th");
-        usesTitle.textContent = "Uses";
-        usesTitle.colSpan = maxLevel;
-        nameTitleRow.appendChild(usesTitle);
-
-        infoTable.appendChild(nameTitleRow);
-
-        let nameRow = document.createElement("tr");
-
-        let enName = document.createElement("td");
-        enName.textContent = skill.name_en;
-        nameRow.appendChild(enName);
-
-        let jpName = document.createElement("td");
-        jpName.textContent = skill.name_jp;
-        nameRow.appendChild(jpName);
-
-        let usesText = skill.stats.concat(skill.weapon || []).concat(skill.bodyParts || []).join(", ") || "N/A";
-
-        let uses = document.createElement("td");
-        uses.textContent = usesText;
-        uses.colSpan = tableLength - 2;
-        nameRow.appendChild(uses);
-
-        infoTable.appendChild(nameRow);
-
-        let descriptionRow = document.createElement("tr");
-
-        let description = document.createElement("td");
-        description.classList.add("skill-description");
-        description.colSpan = tableLength;
-        descriptionRow.appendChild(description);
-
-        infoTable.appendChild(descriptionRow);
-
-        if (levelInfo) {
-          let levelHeader = document.createElement("tr");
-
-          let levelType = document.createElement("th");
-          levelType.textContent = ["Boost", "Break"].includes(skill.type) ? "Stage" : "Level";
-          levelType.colSpan = 2;
-          levelHeader.appendChild(levelType);
-
-          for (let i of [...Array(maxLevel).keys()].map(i => ++i)) {
-            let level = document.createElement("th");
-            level.textContent = i;
-            levelHeader.appendChild(level);
-          }
-          infoTable.appendChild(levelHeader);
-
-          for (let [attName, attValues] of Object.entries(levelInfo)) {
-            let attributeRow = document.createElement("tr");
-            let attributeName = document.createElement("th");
-            attributeName.textContent = attName;
-            attributeName.colSpan = 2;
-            attributeRow.appendChild(attributeName);
-
-            let currentLevel = 0;
-            while (currentLevel + 1 <= attValues.length) {
-              let attributeCell = document.createElement("td");
-              let attributeValue = attValues[currentLevel];
-              let colspan = 1;
-
-              while (attValues[++currentLevel] == attributeValue) ++colspan;
-
-              attributeCell.colSpan = colspan;
-              attributeCell.textContent = attributeValue;
-              attributeRow.appendChild(attributeCell);
-            }
-            infoTable.appendChild(attributeRow);
-          }
-        }
-        skillInfo.appendChild(infoTable);
-
-        let skillNode = document.getElementById(`skill-${className}-${skillName}`);
-
-        document.body.appendChild(skillInfo);
-
-        let skillRect = skillNode.getBoundingClientRect();
-        let infoRect = skillInfo.getBoundingClientRect();
-        let treeRect = document.querySelector(".tree").getBoundingClientRect();
-        let mainRect = document.getElementById("main").getBoundingClientRect();
-
-        let width = infoRect.width;
-
-        let posX = skillRect.left + 7;
-        let posY = skillRect.top + nodeHeight + verticalPadding + window.scrollY;
-
-        if (treeRect.left + treeRect.width < posX + width) posX = treeRect.left + treeRect.width - width + 8;
-
-        skillInfo.style.width = `${width}px`;
-        skillInfo.style.left = `${posX}px`;
-
-        description.textContent = skill.desc;
-
-        infoRect = skillInfo.getBoundingClientRect();
-        let height = infoRect.height;
-
-        if (mainRect.top + mainRect.height < posY + height) posY = skillRect.top - height - verticalPadding + 5;
-        skillInfo.style.top = `${posY}px`;
+      node.addEventListener("mouseover", function() {
+        self.createInfoNode(section, node);
       });
 
       node.addEventListener("mouseout", function() {
-        let info = document.querySelector(".skill-info");
-
-        if (info) document.body.removeChild(info);
+        self.removeInfoNode();
       });
     }
+  }
+  
+  createInfoNode(section, node) {
+    this.removeInfoNode();
+    let tree = document.getElementById(`tree-${section}`);
+
+    let [_, className, skillName] = node.id.split("-");
+    let skill = skills[className][skillName];
+
+    let levelInfo;
+    let maxLevel = 2;
+
+    try {
+      levelInfo = levels[className][skillName];
+      maxLevel = Object.values(levelInfo)[0].length;
+    } catch (error) { }
+
+    let tableLength = 2 + maxLevel;
+
+    let skillInfo = document.createElement("div");
+    skillInfo.classList.add("skill-info");
+
+    let infoTable = document.createElement("table");
+
+    let nameTitleRow = document.createElement("tr");
+
+    let enNameTitle = document.createElement("th");
+    enNameTitle.textContent = "Name";
+    nameTitleRow.appendChild(enNameTitle);
+
+    let jpNameTitle = document.createElement("th");
+    jpNameTitle.textContent = "名前";
+    nameTitleRow.appendChild(jpNameTitle);
+
+    let usesTitle = document.createElement("th");
+    usesTitle.textContent = "Uses";
+    usesTitle.colSpan = maxLevel;
+    nameTitleRow.appendChild(usesTitle);
+
+    infoTable.appendChild(nameTitleRow);
+
+    let nameRow = document.createElement("tr");
+
+    let enName = document.createElement("td");
+    enName.textContent = skill.name_en;
+    nameRow.appendChild(enName);
+
+    let jpName = document.createElement("td");
+    jpName.textContent = skill.name_jp;
+    nameRow.appendChild(jpName);
+
+    let usesText = skill.stats.concat(skill.weapon || []).concat(skill.bodyParts || []).join(", ") || "N/A";
+
+    let uses = document.createElement("td");
+    uses.textContent = usesText;
+    uses.colSpan = tableLength - 2;
+    nameRow.appendChild(uses);
+
+    infoTable.appendChild(nameRow);
+
+    let descriptionRow = document.createElement("tr");
+
+    let description = document.createElement("td");
+    description.classList.add("skill-description");
+    description.colSpan = tableLength;
+    descriptionRow.appendChild(description);
+
+    infoTable.appendChild(descriptionRow);
+
+    if (levelInfo) {
+      let curLevel = this.state[section][skillName];
+      let levelHeader = document.createElement("tr");
+
+      let levelType = document.createElement("th");
+      levelType.textContent = ["Boost", "Break"].includes(skill.type) ? "Stage" : "Level";
+      levelType.colSpan = 2;
+      levelHeader.appendChild(levelType);
+
+      for (let i of [...Array(maxLevel).keys()].map(i => ++i)) {
+        let level = document.createElement("th");
+        level.textContent = i;
+        if (i == curLevel) level.classList.add("info-current-level");
+        levelHeader.appendChild(level);
+      }
+      infoTable.appendChild(levelHeader);
+
+      for (let [attName, attValues] of Object.entries(levelInfo)) {
+        let attributeRow = document.createElement("tr");
+        let attributeName = document.createElement("th");
+        attributeName.textContent = attName;
+        attributeName.colSpan = 2;
+        attributeRow.appendChild(attributeName);
+
+        let currentLevel = 0;
+        while (currentLevel + 1 <= attValues.length) {
+          let attributeCell = document.createElement("td");
+          let attributeValue = attValues[currentLevel];
+          let colspan = 1;
+
+          while (attValues[++currentLevel] == attributeValue) ++colspan;
+    
+          if (curLevel >= currentLevel + 1 - colspan && currentLevel + 1 > curLevel) attributeCell.classList.add("info-current-level");
+
+          attributeCell.colSpan = colspan;
+          attributeCell.textContent = attributeValue;
+          attributeRow.appendChild(attributeCell);
+        }
+        infoTable.appendChild(attributeRow);
+      }
+    }
+    skillInfo.appendChild(infoTable);
+
+    let skillNode = document.getElementById(`skill-${className}-${skillName}`);
+
+    document.body.appendChild(skillInfo);
+
+    let skillRect = skillNode.getBoundingClientRect();
+    let infoRect = skillInfo.getBoundingClientRect();
+
+    let width = infoRect.width;
+
+    let posX = skillRect.left + 7 + window.scrollX;
+    let posY = skillRect.top + nodeHeight + verticalPadding + window.scrollY;
+
+    if (window.innerWidth < posX + width) posX = window.innerWidth + window.scrollX - width - 17;
+
+    skillInfo.style.width = `${width}px`;
+    skillInfo.style.left = `${posX}px`;
+
+    description.textContent = skill.desc;
+
+    infoRect = skillInfo.getBoundingClientRect();
+    let height = infoRect.height;
+
+    if (window.innerHeight < posY + height) posY = skillRect.top + window.scrollY - height - verticalPadding + 5;
+    skillInfo.style.top = `${posY}px`;
+  }
+  
+  removeInfoNode() {
+    let info = document.querySelector(".skill-info");
+
+    if (info) document.body.removeChild(info);
   }
 
   drawLines(tree, className, skillName, skill) {
@@ -570,6 +578,8 @@ class Simulator {
     }
     resolve(skillName);
 
+    let node = document.getElementById(`skill-${className}-${skillName}`);
+    this.createInfoNode(section, node);
     this.updateNodes(section, className);
   }
 
