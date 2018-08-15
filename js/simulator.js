@@ -313,16 +313,16 @@ class Simulator {
         self.changeSkillLevel(section, className, skillName, level);
       });
 
-      node.addEventListener("mouseover", function() {
+      node.addEventListener("mouseenter", function() {
         self.createInfoNode(section, node);
       });
 
-      node.addEventListener("mouseout", function() {
+      node.addEventListener("mouseleave", function() {
         self.removeInfoNode();
       });
     }
   }
-  
+
   createInfoNode(section, node) {
     this.removeInfoNode();
     let tree = document.getElementById(`tree-${section}`);
@@ -421,7 +421,7 @@ class Simulator {
           let colspan = 1;
 
           while (attValues[++currentLevel] == attributeValue) ++colspan;
-    
+
           if (curLevel >= currentLevel + 1 - colspan && currentLevel + 1 > curLevel) attributeCell.classList.add("info-current-level");
 
           attributeCell.colSpan = colspan;
@@ -458,7 +458,7 @@ class Simulator {
     if (window.innerHeight < posY + height) posY = skillRect.top + window.scrollY - height - verticalPadding + 5;
     skillInfo.style.top = `${posY}px`;
   }
-  
+
   removeInfoNode() {
     let info = document.querySelector(".skill-info");
 
