@@ -226,6 +226,11 @@ td {
   position: absolute;
 }
 
+.info-current-level {
+  font-weight: bold;
+  color: var(--yellow);
+}
+
 .line {
   position: absolute;
   background-color: var(--available-highlight);
