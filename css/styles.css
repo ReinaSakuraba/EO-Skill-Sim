@@ -144,49 +144,55 @@ td {
 
 .skill {
   position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   width: var(--node-width);
   height: var(--node-height);
-  background-color: var(--background);
   border: solid var(--node-border) var(--highlight);
-  border-radius: 17px;
-  line-height: 20px;
+  border-radius: 100px;
+  background-color: var(--background);
 }
 
 .skill-name-en {
+  margin-left: 4px;
   color: var(--highlight);
-  display: inline-block;
-  position: relative;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
   font-size: 15px;
 }
 
 .skill-type {
   position: relative;
-  width: 45px;
-  right: 3px;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 19px;
-  border-radius: 12.5px;
+  display: flex;
+  flex-direction: row;
   overflow: hidden;
+  width: calc(var(--node-width) * 0.225);
+  height: calc(var(--node-height) - 4px);
+  margin-right: 2px;
+  border-radius: 100px;
   background-color: var(--highlight);
-  float: right;
+  text-align: center;
 }
 
 .skill-type-special {
+  align-items: center;
+  justify-content: center;
   color: var(--background);
   font-weight: bold;
   font-stretch: condensed;
   font-size: 12px;
-  text-align: center;
+}
+
+.skill-type-normal {
+  align-items: baseline;
+  justify-content: space-between;
 }
 
 .skill-type-normal:before {
   content: '';
   position: absolute;
   left: 28%;
+  flex-basis: 100%;
   width: 100%;
   height: 100%;
   background-color: var(--midtone);
@@ -194,23 +200,17 @@ td {
 }
 
 .skill-current-level {
-  color: var(--background);
-  top: 50%;
-  left: 4%;
-  position: absolute;
-  font-size: 16px;
   width: 23px;
-  text-align: center;
-  transform: translateY(-50%);
+  margin: 1px;
+  color: var(--background);
+  font-size: 16px;
 }
 
 .skill-max-level {
-  font-size: 12px;
-  position: absolute;
-  top: 1px;
-  left: 27px;
+  position: relative;
   width: 15px;
-  text-align: center;
+  margin-right: 2px;
+  font-size: 12px;
 }
 
 .skill-available .skill-max-level { color: var(--highlight); }
