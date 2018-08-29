@@ -134,7 +134,7 @@ let skills = {
     burstBlade: {
       name_en: "Burst Blade",
       name_jp: "バーストブレイド",
-      desc: "Deals 2-3 instances of melee cut damage to one target. Number of hits increases based on the number of enemies present.",
+      desc: "Deals multiple instances of melee cut damage to one target. Number of attacks is a random number between 2, and 3 plus the number of enemies present.",
       stats: ["STR"],
       dep: { shockSpark: 2 },
       maxLevel: 8,
@@ -206,7 +206,7 @@ let skills = {
     regimentRave: {
       name_en: "Regiment Rave",
       name_jp: "レジメントレイブ",
-      desc: "At the end of turn, deals melee cut+fire damage to one target. Damage increases based on damage dealt to the target by all party members on this turn.",
+      desc: "At the end of turn, deals melee cut+fire damage to one target. Adds 40% of all damage dealt to the target by all party members to this attack's damage, up to a set limit.",
       stats: ["STR"],
       dep: { actBreaker: 3 },
       maxLevel: 8,
@@ -485,7 +485,7 @@ let skills = {
     steadyHands: {
       name_en: "Steady Hands",
       name_jp: "集中治療",
-      desc: "For 3 turns, increases healing power and action speed of healing skills (including items), and reduces their TP cost by half.",
+      desc: "For 3 turns, increases action speed of all actions, and healing power of healing skills (including items), and reduces their TP cost by half.",
       stats: [],
       unique: true,
       type: "Boost",
@@ -1170,7 +1170,7 @@ let skills = {
     petalScatter: {
       name_en: "Petal Scatter",
       name_jp: "散華",
-      desc: "Requires Stance. Deals ranged cut damage to all targets. Removes stance after use, and disables skills on the next turn. Critical hit if used during Drawing Stance.",
+      desc: "Requires Stance. Deals ranged cut damage to all targets. Removes stance after use, and disables skills on the next turn. Critical hit if used during Drawing Stance. Deals less damage based on the number of targets.",
       stats: ["STR"],
       dep: { frigidSlash: 3 },
       maxLevel: 6,
