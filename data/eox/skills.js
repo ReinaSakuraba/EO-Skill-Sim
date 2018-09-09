@@ -2560,7 +2560,7 @@ let skills = {
       coords: { x: 2, y: 3 }
     },
     restoreEther: {
-      name_en: "Restores Ether",
+      name_en: "Restore Ether",
       name_jp: "レストアエーテル",
       desc: "Increases attack based on the number of TP spent on the previous turn. Does not activate if TP spent last turn is too low.",
       stats: [],
