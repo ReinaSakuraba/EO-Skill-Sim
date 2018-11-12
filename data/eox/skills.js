@@ -1682,7 +1682,7 @@ let skills = {
       desc: "Increases physical attack.",
       stats: [],
       dep: { },
-      maxLevel: 6,
+      maxLevel: 8,
       coords: { x: 4, y: 6 }
     }
   },
