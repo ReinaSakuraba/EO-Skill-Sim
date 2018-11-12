@@ -35,7 +35,6 @@ class Simulator {
       throw new TypeError('Abstract class "Simulator" cannot be instantiated directly.');
     }
 
-    this.language = "en";
     this.state = { fixed: { }, primary: { }, secondary: { } };
 
     this.setLevelCaps();
@@ -134,7 +133,7 @@ class Simulator {
 
   setLevelCaps() {
     let levelCapSelect = document.getElementById("level-cap");
-    while ( levelCapSelect.lastChild ) { levelCapSelect.removeChild(levelCapSelect.lastChild) };
+    while (levelCapSelect.lastChild) levelCapSelect.removeChild(levelCapSelect.lastChild);
 
     for (let i of this.levelCaps) {
       let option = document.createElement("option");
@@ -151,7 +150,7 @@ class Simulator {
 
   setLevels(maxLevel) {
     let levelSelect = document.getElementById("level");
-    while (levelSelect.lastChild) { levelSelect.removeChild(levelSelect.lastChild) };
+    while (levelSelect.lastChild) levelSelect.removeChild(levelSelect.lastChild);
 
     for (let i = 1; i <= maxLevel; i++) {
       let option = document.createElement("option");
@@ -165,10 +164,10 @@ class Simulator {
 
   setPrimaryClasses() {
     let primarySelect = document.getElementById("class-selector-primary");
-    while ( primarySelect.lastChild ) { primarySelect.removeChild(primarySelect.lastChild) };
+    while (primarySelect.lastChild) primarySelect.removeChild(primarySelect.lastChild);
 
     for ( let c in skills ) {
-      if (c == "Common") continue;
+      if (c === "Common") continue;
       let option = document.createElement("option");
       option.value = c;
       option.textContent = c;
@@ -185,7 +184,7 @@ class Simulator {
     let secondarySelect = document.getElementById("class-selector-secondary");
 
     for ( let c in skills ) {
-      if (c == "Common") continue;
+      if (c === "Common") continue;
       let option = document.createElement("option");
       option.value = c;
       option.textContent = c;
@@ -204,7 +203,7 @@ class Simulator {
       option.disabled = false;
     }
 
-    if (secondaryClass != "None") {
+    if (secondaryClass !== "None") {
       document.querySelector(`#class-selector-primary option[value="${secondaryClass}"]`).disabled = true;
     }
   }
@@ -219,22 +218,22 @@ class Simulator {
   }
 
   createSkillNodes(section, classname) {
-    this.state[section] = {}
+    this.state[section] = {};
 
     let sectionLayer = document.getElementById(`tree-${section}`);
-    while (sectionLayer.lastChild) { sectionLayer.removeChild(sectionLayer.lastChild) };
+    while (sectionLayer.lastChild) sectionLayer.removeChild(sectionLayer.lastChild);
 
-    if (section == "secondary" && classname == "None") {
+    if (section === "secondary" && classname === "None") {
       return;
     }
 
     for (let [skillName, skill] of Object.entries(skills[classname])) {
       let skillId = `skill-${classname}-${skillName}`;
       let skillMax = skill.maxLevel || skill.max;
-      if (section == "secondary") skillMax /= this.secondaryPenalty;
+      if (section === "secondary") skillMax /= this.secondaryPenalty;
 
       this.state[section][skillName] = 0;
-      if (skill.unique && section == "secondary") continue;
+      if (skill.unique && section === "secondary") continue;
 
       let x = skill.coords["x"] * horizontalBuffer;
       let y = skill.coords["y"] * verticalBuffer;
@@ -242,7 +241,7 @@ class Simulator {
       let a = true;
 
       for (let level of Object.values(skill.dep)) {
-        if (level == 0) continue;
+        if (level === 0) continue;
         a = false;
         break;
       }
@@ -262,7 +261,7 @@ class Simulator {
       nameDiv.textContent = skill.name_en;
       node.appendChild(nameDiv);
 
-      let levelNode = document.createElement("div");;
+      let levelNode = document.createElement("div");
 
       levelNode.classList.add("skill-type");
 
@@ -298,7 +297,7 @@ class Simulator {
         let [_, className, skillName] = node.id.split("-");
         let max = skills[className][skillName].maxLevel;
 
-        if (section == "secondary") max /= self.secondaryPenalty;
+        if (section === "secondary") max /= self.secondaryPenalty;
 
         let level = Math.min(self.state[section][skillName] + 1, max);
 
@@ -325,7 +324,6 @@ class Simulator {
 
   createInfoNode(section, node) {
     this.removeInfoNode();
-    let tree = document.getElementById(`tree-${section}`);
 
     let [_, className, skillName] = node.id.split("-");
     let skill = skills[className][skillName];
@@ -402,7 +400,7 @@ class Simulator {
       for (let i of [...Array(maxLevel).keys()].map(i => ++i)) {
         let level = document.createElement("th");
         level.textContent = i;
-        if (i == curLevel) level.classList.add("info-current-level");
+        if (i === curLevel) level.classList.add("info-current-level");
         levelHeader.appendChild(level);
       }
       infoTable.appendChild(levelHeader);
@@ -420,7 +418,7 @@ class Simulator {
           let attributeValue = attValues[currentLevel];
           let colspan = 1;
 
-          while (attValues[++currentLevel] == attributeValue) ++colspan;
+          while (attValues[++currentLevel] === attributeValue) ++colspan;
 
           if (curLevel >= currentLevel + 1 - colspan && currentLevel + 1 > curLevel) attributeCell.classList.add("info-current-level");
 
@@ -470,15 +468,13 @@ class Simulator {
     let forwards = Object.entries(forward[className][skillName]);
 
     if (forwards.length > 0) {
-      let multi = forwards.length > 1;
-
       let startX = skill.coords.x * horizontalBuffer + nodeWidth + nodeBorder * 2;
       let startY = skill.coords.y * verticalBuffer + nodeHeight / 2;
 
       let forwardX = skills[className][forwards[0][0]].coords.x;
       let xDiff = forwardX - skill.coords.x - 1;
 
-      let length = horizontalPadding / 2 + xDiff * horizontalBuffer;;
+      let length = horizontalPadding / 2 + xDiff * horizontalBuffer;
 
       this.drawHorizontalLine(tree, startX, startY, length);
 
@@ -493,7 +489,7 @@ class Simulator {
       }
 
       let level = forwards[0][1];
-      if (level != 0) {
+      if (level !== 0) {
         let levelReq = document.createElement("div");
         levelReq.textContent = `Lv${level}`;
         levelReq.classList.add("level-req");
@@ -522,8 +518,6 @@ class Simulator {
   }
 
   drawVerticalLine(tree, x, y, length) {
-    let box = tree.getBoundingClientRect()
-
     let line = document.createElement("div");
     line.classList.add("line");
     line.style.width = "4px";
@@ -534,8 +528,6 @@ class Simulator {
   }
 
   drawHorizontalLine(tree, x, y, length) {
-    let box = tree.getBoundingClientRect()
-
     let line = document.createElement("div");
     line.classList.add("line");
     line.style.width = `${length + 4}px`;
@@ -548,14 +540,15 @@ class Simulator {
   changeSkillLevel(section, className, skillName, level) {
     level = parseInt(level);
     let old = this.state[section][skillName];
-    if (level == old) return;
+    if (level === old) return;
 
     this.state[section][skillName] = level;
 
     let self = this;
+    let resolve;
 
     if (level > old) {
-      var resolve = skillName => {
+      resolve = skillName => {
         let dep = skills[className][skillName].dep;
         for (let [depName, depLevel] of Object.entries(dep)) {
           if (self.state[section][depName] < depLevel) {
@@ -565,7 +558,7 @@ class Simulator {
         }
       };
     } else {
-      var resolve = skillName => {
+      resolve = skillName => {
         let level = self.state[section][skillName];
         let dep = forward[className][skillName];
         for (let [depName, depLevel] of Object.entries(dep)) {
@@ -610,9 +603,9 @@ class Simulator {
   updateSkillPoints() {
     let points = 2 + this.currentLevel;
 
-    if (this.secondaryClass && this.secondaryClass != "None") points += 5;
+    if (this.secondaryClass && this.secondaryClass !== "None") points += 5;
 
-    if (this.retireLevel != "N/A") points += this.retireBonuses[this.retireLevel];
+    if (this.retireLevel !== "N/A") points += this.retireBonuses[this.retireLevel];
 
     document.getElementById("points-total").textContent = points;
 
@@ -626,19 +619,19 @@ class Simulator {
   }
 
   generateSaveData() {
-    let saveData = `${this.primaryClass}|${this.secondaryClass}|${this.currentLevel}|${this.levelCap}|${this.retireLevel}`
+    let saveData = `${this.primaryClass}|${this.secondaryClass}|${this.currentLevel}|${this.levelCap}|${this.retireLevel}`;
 
     for (let [category, className] of [["fixed", "common"], ["primary", this.primaryClass], ["secondary", this.secondaryClass]]) {
-      if (className === null || className == "N/A") continue;
+      if (className === null || className === "N/A") continue;
 
       let leveledSkills = [];
 
       for (let [skill, level] of Object.entries(this.state[category])) {
-        if (level == 0) continue;
+        if (level === 0) continue;
 
         let forwardSkills = Object.entries(forward[className][skill]);
 
-        if (forwardSkills.length == 0) {
+        if (forwardSkills.length === 0) {
           leveledSkills.push(`${skill},${level}`);
           continue;
         }
@@ -649,7 +642,7 @@ class Simulator {
             break;
           }
 
-          if (level == forwardLevel && this.state[category][forwardSkill] === 0) {
+          if (level === forwardLevel && this.state[category][forwardSkill] === 0) {
             leveledSkills.push(`${skill},${level}`);
             break;
           }
@@ -662,7 +655,7 @@ class Simulator {
   }
 
   loadSaveData(queryString) {
-    let decoded = LZString.decompressFromEncodedURIComponent(queryString).split('|')
+    let decoded = LZString.decompressFromEncodedURIComponent(queryString).split('|');
 
     this.primaryClass = decoded.splice(0, 1)[0];
     this.secondaryClass = decoded.splice(0, 1)[0];
