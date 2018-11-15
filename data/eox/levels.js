@@ -746,7 +746,7 @@ let levels = {
     },
     plague: {
       "Infliction Chance": ["1%", "2%", "3%", "4%"],
-      "Base Poison Damage": ["20", "25%", "30", "45"]
+      "Base Poison Damage": ["20", "25", "30", "45"]
     },
     physAtkUp: {
       "Damage Dealt": ["+4%", "+5%", "+6%", "+9%", "+10%", "+11%", "+12%", "+15%"]
