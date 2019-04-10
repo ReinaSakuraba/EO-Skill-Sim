@@ -378,7 +378,6 @@ let levels = {
     },
     mirageArrow: {
       Damage: ["500%", "1200%", "1800%"],
-      Speed: ["x0.4", "x0.4", "x0.4"],
       Accuracy: ["-35%", "-35%", "-35%"]
     },
     powerShot: {
