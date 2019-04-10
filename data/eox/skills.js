@@ -737,7 +737,7 @@ let skills = {
     mirageArrow: {
       name_en: "Mirage Arrow",
       name_jp: "ミラージュアロー",
-      desc: "Deals ranged stab damage to one target. Decreases their accuracy and action speed for 3 turns.",
+      desc: "Deals ranged stab damage to one target. Decreases their accuracy and forces them to go last for 3 turns.",
       stats: ["STR"],
       unique: true,
       type: "Break",
@@ -3062,7 +3062,7 @@ let skills = {
     fellingBird: {
       name_en: "Peerless Demon",
       name_jp: "飛鳥落とし",
-      desc: "Increases damage dealt based on the number of attacks user made last turn.",
+      desc: "Increases damage dealt for each hit you make in the same turn.",
       stats: [],
       dep: { },
       maxLevel: 10,
