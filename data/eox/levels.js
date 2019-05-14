@@ -1555,7 +1555,7 @@ let levels = {
       Experience: ["x1.2", "x1.3", "x1.4", "x1.5", "x1.6", "x2"]
     },
     moraleBoost: {
-      "Healing Power": ["25%", "30%", "35%", "50%"]
+      "Static Restore": ["25", "30", "35", "50"]
     },
     twinSparrow: {
       TP: ["6", "6", "6", "6", "11", "11", "11", "11", "11", "17"],
