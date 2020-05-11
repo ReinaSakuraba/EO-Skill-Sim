@@ -107,7 +107,7 @@ class Simulator {
   set primaryClass(value) {
     this._primaryClass = value;
     document.getElementById("class-selector-primary").value = value;
-    this.disableSecondaryClasses(value);
+    this.disableClass(false);
     this.createSkillNodes("primary", value);
     this.updateSkillPoints();
   }
@@ -118,7 +118,7 @@ class Simulator {
   set secondaryClass(value) {
     this._secondaryClass = value;
     document.getElementById("class-selector-secondary").value = value;
-    this.disablePrimaryClasses(value);
+    this.disableClass(true);
     this.createSkillNodes("secondary", value);
     this.updateSkillPoints();
   }
@@ -197,24 +197,14 @@ class Simulator {
     });
   }
 
-  disablePrimaryClasses(secondaryClass) {
-    let primaryOptions = document.querySelectorAll("#class-selector-primary option[disabled]");
-    for (let option of primaryOptions) {
-      option.disabled = false;
-    }
+  disableClass(primary) {
+    const id = `#class-selector-${primary ? 'primary' : 'secondary'}`;
 
-    if (secondaryClass !== "None") {
-      document.querySelector(`#class-selector-primary option[value="${secondaryClass}"]`).disabled = true;
-    }
-  }
+    const option = document.querySelector(`${id} option[disabled]`);
+    if (option) option.disabled = false;
 
-  disableSecondaryClasses(primaryClass) {
-    let secondaryOptions = document.querySelectorAll("#class-selector-secondary option[disabled]");
-    for (let option of secondaryOptions) {
-      option.disabled = false;
-    }
-
-    document.querySelector(`#class-selector-secondary option[value="${primaryClass}"]`).disabled = true;
+    const cls = primary ? this.secondaryClass : this.primaryClass;
+    if (cls !== 'None') document.querySelector(`${id} option[value='${cls}']`).disabled = true;
   }
 
   createSkillNodes(section, classname) {
