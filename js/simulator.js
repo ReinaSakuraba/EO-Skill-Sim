@@ -89,7 +89,7 @@ class Simulator {
   set levelCap(value) {
     this._levelCap = value;
     document.getElementById("level-cap").value = value;
-    this.setLevels(value);
+    this.setLevels();
   }
 
   get retireLevel() {
@@ -148,18 +148,18 @@ class Simulator {
     });
   }
 
-  setLevels(maxLevel) {
-    let levelSelect = document.getElementById("level");
+  setLevels() {
+    const levelSelect = document.getElementById('level');
     while (levelSelect.lastChild) levelSelect.removeChild(levelSelect.lastChild);
 
-    for (let i = 1; i <= maxLevel; i++) {
-      let option = document.createElement("option");
-      option.value = i;
-      option.textContent = i;
+    for (let i = 1; i <= this.levelCap; ++i) {
+      const option = document.createElement('option');
+      option.value = i.toString();
+      option.textContent = i.toString();
       levelSelect.appendChild(option);
     }
 
-    this.currentLevel = this.currentLevel > maxLevel ? maxLevel : this.currentLevel;
+    this.currentLevel = this.currentLevel > this.levelCap ? this.levelCap : this.currentLevel;
   }
 
   setPrimaryClasses() {
