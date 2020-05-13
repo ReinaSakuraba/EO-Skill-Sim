@@ -132,19 +132,23 @@ class Simulator {
   }
 
   setLevelCaps() {
-    let levelCapSelect = document.getElementById("level-cap");
+    if (this.levelCaps.length === 1) {
+      this._levelCap = this.levelCaps[0];
+      return;
+    }
+
+    const levelCapSelect = document.getElementById('level-cap');
     while (levelCapSelect.lastChild) levelCapSelect.removeChild(levelCapSelect.lastChild);
 
-    for (let i of this.levelCaps) {
-      let option = document.createElement("option");
-      option.value = i;
-      option.textContent = i;
+    for (const i of this.levelCaps) {
+      const option = document.createElement('option');
+      option.value = i.toString();
+      option.textContent = i.toString();
       levelCapSelect.appendChild(option);
     }
 
-    let self = this;
-    levelCapSelect.addEventListener("change", function() {
-      self.levelCap = this.value;
+    levelCapSelect.addEventListener('change', ({target: {value}}) => {
+      this.levelCap = value;
     });
   }
 
