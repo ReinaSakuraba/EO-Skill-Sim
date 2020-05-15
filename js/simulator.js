@@ -37,23 +37,11 @@ class Simulator {
 
     this.state = { fixed: { }, primary: { }, secondary: { } };
 
+    this.setRetireLevels();
     this.setLevelCaps();
-
-    let retireSelect = document.getElementById("retire");
-
-    for (let levels of Object.keys(this.retireBonuses).sort()) {
-      let option = document.createElement("option");
-      option.value = levels;
-      option.textContent = levels;
-      retireSelect.appendChild(option);
-    }
 
     let levelSelect = document.getElementById("level");
     let self = this;
-
-    retireSelect.addEventListener("change", function() {
-      self.retireLevel = this.value;
-    });
 
     levelSelect.addEventListener("change", function() {
       self.currentLevel = this.value;
@@ -129,6 +117,21 @@ class Simulator {
     this.levelCap = this.levelCaps[0];
     this.currentLevel = 1;
     this.retireLevel = "N/A";
+  }
+
+  setRetireLevels() {
+    const retireSelect = document.getElementById('retire');
+
+    for (const levels of Object.keys(this.retireBonuses).sort()) {
+      const option = document.createElement('option');
+      option.value = levels;
+      option.textContent = levels;
+      retireSelect.appendChild(option);
+    }
+
+    retireSelect.addEventListener('change', ({target: {value}}) => {
+      this.retireLevel = value;
+    });
   }
 
   setLevelCaps() {
