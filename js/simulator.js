@@ -47,8 +47,7 @@ class Simulator {
       self.currentLevel = this.value;
     });
 
-    this.setPrimaryClasses();
-    this.setSecondaryClasses();
+    this.setClasses();
 
     let query = window.location.search.slice(1);
 
@@ -169,39 +168,32 @@ class Simulator {
     this.currentLevel = this.currentLevel > this.levelCap ? this.levelCap : this.currentLevel;
   }
 
-  setPrimaryClasses() {
-    let primarySelect = document.getElementById("class-selector-primary");
-    while (primarySelect.lastChild) primarySelect.removeChild(primarySelect.lastChild);
+  setClasses() {
+    for (const section of ['primary', 'secondary']) {
+      const classSelector = document.getElementById(`class-selector-${section}`);
 
-    for ( let c in skills ) {
-      if (c === "Common") continue;
-      let option = document.createElement("option");
-      option.value = c;
-      option.textContent = c;
-      primarySelect.appendChild(option);
+      while (classSelector.lastChild) classSelector.removeChild(classSelector.lastChild);
+
+      if (section === 'secondary') {
+        const option = document.createElement('option');
+        option.value = 'None';
+        option.textContent = 'None';
+        classSelector.appendChild(option);
+      }
+
+      for (const cls in skills) {
+        if (cls === 'common') continue;
+
+        const option = document.createElement('option');
+        option.value = cls;
+        option.textContent = cls;
+        classSelector.appendChild(option);
+      }
+
+      classSelector.addEventListener('change', ({target: {value}}) => {
+        this[`${section}Class`] = value;
+      });
     }
-
-    let self = this;
-    document.getElementById("class-selector-primary").addEventListener("change", function() {
-      self.primaryClass = this.value;
-    });
-  }
-
-  setSecondaryClasses() {
-    let secondarySelect = document.getElementById("class-selector-secondary");
-
-    for ( let c in skills ) {
-      if (c === "Common") continue;
-      let option = document.createElement("option");
-      option.value = c;
-      option.textContent = c;
-      secondarySelect.appendChild(option);
-    }
-
-    let self = this;
-    document.getElementById("class-selector-secondary").addEventListener("change", function() {
-      self.secondaryClass = this.value;
-    });
   }
 
   disableClass(primary) {
