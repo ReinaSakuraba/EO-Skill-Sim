@@ -635,7 +635,7 @@ let skills = {
       name_en: "Star Drop",
       name_jp: "スタードロップ",
       desc: "Deals melee bash damage to one target. Reduces their physical defense for 3 turns.",
-      stats: ["STR", "LUC"],
+      stats: ["STR"],
       dep: { headDrop: 3 },
       maxLevel: 6,
       coords: { x: 2, y: 5 }
@@ -644,7 +644,7 @@ let skills = {
       name_en: "Medical Rod",
       name_jp: "メディカルロッド",
       desc: "Deals melee bash damage to one target. Reduces their elemental defense for 3 turns.",
-      stats: ["STR", "LUC"],
+      stats: ["STR"],
       dep: { starDrop: 2 },
       maxLevel: 6,
       coords: { x: 3, y: 5 }
@@ -3836,7 +3836,7 @@ let skills = {
       maxLevel: 8,
       coords: { x: 4, y: 3.5 }
     },
-    dismissTremor: {
+    dismissQuake: {
       name_en: "Dismiss Quake",
       name_jp: "破陣：大地振盪",
       desc: "Dismisses the current circle to attempt to inflict stun on all enemies.",
@@ -4074,7 +4074,6 @@ let skills = {
       desc: "Deals melee cut+almighty damage to one target, and places the user in the overheat state for 9 turns. Cannot be used while overheated. Low action speed, and the user will take double damage until the skill activates.",
       stats: ["STR"],
       weapon: ["Drive Blade"],
-      bodyParts: ["Arms"],
       dep: { flameDrive: 1, freezeDrive: 1, shockDrive: 1 },
       maxLevel: 10,
       coords: { x: 4, y: 4 }
@@ -4429,7 +4428,7 @@ let skills = {
       name_en: "Atonement",
       name_jp: "贖いの血",
       desc: "Requires Miasma Armor. Removes Miasma Armor to restore HP to all party members and attempt to remove their ailments.",
-      stats: [],
+      stats: ["WIS"],
       dep: { miasmaArmor: 2 },
       maxLevel: 8,
       coords: { x: 1, y: 5 }

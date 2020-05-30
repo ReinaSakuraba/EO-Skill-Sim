@@ -442,9 +442,9 @@ let forward = {
     wardingMist: { },
     dismissBlast: { circleMastery: 3 },
     circleMastery: { },
-    poisonCircle: { dismissTremor: 3 },
-    chaosCircle: { dismissTremor: 3 },
-    dismissTremor: { },
+    poisonCircle: { dismissQuake: 3 },
+    chaosCircle: { dismissQuake: 3 },
+    dismissQuake: { },
     tpReturn: { }
   },
   Imperial: {
