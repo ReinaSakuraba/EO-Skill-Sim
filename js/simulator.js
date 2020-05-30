@@ -23,7 +23,15 @@ class Simulator {
   }
 
   get retireBonuses() {
-    return { "30-39": 4, "40-49": 5, "50-59": 6, "60-69": 7, "70-98": 8, "99": 10 }
+    return [
+      [0,   'N/A',  0],
+      [1, '30-39',  4],
+      [2, '40-49',  5],
+      [3, '50-59',  6],
+      [4, '60-69',  7],
+      [5, '70-98',  8],
+      [6,    '99', 10],
+    ];
   }
 
   get secondaryPenalty() {
@@ -34,6 +42,8 @@ class Simulator {
     if (this.constructor === Simulator) {
       throw new TypeError('Abstract class "Simulator" cannot be instantiated directly.');
     }
+
+    this._retireLevel = 0;
 
     this.state = { fixed: { }, primary: { }, secondary: { } };
 
@@ -80,13 +90,16 @@ class Simulator {
   }
 
   get retireLevel() {
-    return this._retireLevel;
+    return this.retireBonuses[this._retireLevel][1];
   }
   set retireLevel(value) {
-    this._retireLevel = value;
-    document.getElementById("retire").value = value;
+    if (this.retireBonuses.length !== 0) {
+      this._retireLevel = +value;
+      document.getElementById('retire').value = value.toString();
+    }
+
     this.updateSkillPoints();
- }
+  }
 
   get primaryClass() {
     return this._primaryClass;
@@ -115,15 +128,16 @@ class Simulator {
     this.secondaryClass = "None";
     this.levelCap = this.levelCaps[0];
     this.currentLevel = 1;
-    this.retireLevel = "N/A";
+    this.retireLevel = 0;
   }
 
   setRetireLevels() {
     const retireSelect = document.getElementById('retire');
+    while (retireSelect.lastChild) retireSelect.removeChild(retireSelect.lastChild);
 
-    for (const levels of Object.keys(this.retireBonuses).sort()) {
+    for (const [id, levels,] of this.retireBonuses) {
       const option = document.createElement('option');
-      option.value = levels;
+      option.value = id.toString();
       option.textContent = levels;
       retireSelect.appendChild(option);
     }
@@ -594,7 +608,7 @@ class Simulator {
 
     if (this.secondaryClass && this.secondaryClass !== "None") points += 5;
 
-    if (this.retireLevel !== "N/A") points += this.retireBonuses[this.retireLevel];
+    if (this.retireLevel !== 'N/A') points += this.retireBonuses[this._retireLevel][2];
 
     document.getElementById("points-total").textContent = points;
 
