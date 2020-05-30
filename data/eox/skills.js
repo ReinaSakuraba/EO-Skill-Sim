@@ -4073,7 +4073,6 @@ let skills = {
       name_jp: "アクセルドライブ",
       desc: "Deals melee cut+almighty damage to one target, and places the user in the overheat state for 9 turns. Cannot be used while overheated. Low action speed, and the user will take double damage until the skill activates.",
       stats: ["STR"],
-      weapon: ["Drive Blade"],
       dep: { flameDrive: 1, freezeDrive: 1, shockDrive: 1 },
       maxLevel: 10,
       coords: { x: 4, y: 4 }
