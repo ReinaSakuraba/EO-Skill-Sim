@@ -143,6 +143,9 @@ td {
 }
 
 .skill {
+  --skill-x-pos: 0;
+  --skill-y-pos: 0;
+
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -153,6 +156,9 @@ td {
   border: solid var(--node-border) var(--highlight);
   border-radius: 100px;
   background-color: var(--background);
+  box-sizing: border-box;
+  top: calc(var(--skill-y-pos) * (var(--node-height) + var(--node-vertical-padding)));
+  left: calc(var(--skill-x-pos) * (var(--node-width) + var(--node-horizontal-padding)));
 }
 
 .skill-name-en {
@@ -167,7 +173,7 @@ td {
   flex-direction: row;
   overflow: hidden;
   width: calc(var(--node-width) * 0.225);
-  height: calc(var(--node-height) - 4px);
+  height: calc(var(--node-height) - var(--node-border) * 2 - 4px);
   margin-right: 2px;
   border-radius: 100px;
   background-color: var(--highlight);
@@ -236,7 +242,41 @@ td {
   background-color: var(--available-highlight);
 }
 
+.vertical-line {
+  --vertical-line-x-pos: 0;
+  --vertical-line-min-y-pos: 0;
+  --vertical-line-max-y-pos: 0;
+
+  height: calc((var(--node-height) + var(--node-vertical-padding)) * (var(--vertical-line-max-y-pos) - var(--vertical-line-min-y-pos)) + 4px);
+  width: 4px;
+  top: calc(var(--vertical-line-min-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2 - 2px);
+  left: calc(var(--vertical-line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) - var(--node-horizontal-padding) / 2 - 2px);
+}
+
+.horizontal-line {
+  --line-x-pos: 0;
+  --line-y-pos: 0;
+
+  height: 4px;
+  top: calc(var(--line-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2 - 2px);
+}
+
+.forward-line {
+  --line-x-end-pos: 0;
+
+  width: calc(var(--node-horizontal-padding) / 2 + (var(--line-x-end-pos) - var(--line-x-pos) - 1) * (var(--node-width) + var(--node-horizontal-padding)) + 2px);
+  left: calc(var(--line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width));
+}
+
+.dep-line {
+  width: calc(var(--node-horizontal-padding) / 2 + 2px);
+  left: calc(var(--line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) - var(--node-horizontal-padding) / 2 - 2px);
+}
+
 .level-req {
+  --level-x-pos: 0;
+  --level-y-pos: 0;
+
   position: absolute;
   display: flex;
   align-items: center;
@@ -249,4 +289,6 @@ td {
   width: 30px;
   height: 20px;
   margin: 2px;
+  top: calc(var(--level-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2 - 12px);
+  left: calc(var(--level-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) - 2px);
 }

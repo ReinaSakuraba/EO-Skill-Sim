@@ -238,9 +238,6 @@ class Simulator {
       this.state[section][skillName] = 0;
       if (skill.unique && section === "secondary") continue;
 
-      let x = skill.coords["x"] * horizontalBuffer;
-      let y = skill.coords["y"] * verticalBuffer;
-
       let a = true;
 
       for (let level of Object.values(skill.dep)) {
@@ -255,8 +252,8 @@ class Simulator {
       node.classList.add(`skill-${(a ? '' : 'un') + 'available'}`);
       node.id = skillId;
 
-      node.style.left = `${x}px`;
-      node.style.top = `${y}px`;
+      node.style.setProperty('--skill-x-pos', skill.coords.x);
+      node.style.setProperty('--skill-y-pos', skill.coords.y);
 
       let nameDiv = document.createElement("div");
       nameDiv.classList.add("skill-name");
@@ -471,24 +468,16 @@ class Simulator {
     let forwards = Object.entries(forward[className][skillName]);
 
     if (forwards.length > 0) {
-      let startX = skill.coords.x * horizontalBuffer + nodeWidth + nodeBorder * 2;
-      let startY = skill.coords.y * verticalBuffer + nodeHeight / 2;
-
       let forwardX = skills[className][forwards[0][0]].coords.x;
-      let xDiff = forwardX - skill.coords.x - 1;
 
-      let length = horizontalPadding / 2 + xDiff * horizontalBuffer;
-
-      this.drawHorizontalLine(tree, startX, startY, length);
+      this.drawHorizontalLine(tree, skill.coords.x, skill.coords.y, forwardX);
 
       if (forwards.length > 1) {
         let forwardYs = forwards.map(forward => skills[className][forward[0]].coords.y);
         let minY = Math.min(...forwardYs);
         let maxY = Math.max(...forwardYs);
 
-        let x = forwardX * horizontalBuffer - horizontalPadding / 2 + nodeBorder * 2;
-        let y = minY * verticalBuffer + nodeHeight / 2;
-        this.drawVerticalLine(tree, x, y, verticalBuffer * (maxY - minY));
+        this.drawVerticalLine(tree, forwardX, minY, maxY);
       }
 
       let level = forwards[0][1];
@@ -496,47 +485,42 @@ class Simulator {
         let levelReq = document.createElement("div");
         levelReq.textContent = `Lv${level}`;
         levelReq.classList.add("level-req");
-        levelReq.style.left = `${startX}px`;
-        levelReq.style.top = `${startY - 10}px`;
+        levelReq.style.setProperty('--level-x-pos', skill.coords.x);
+        levelReq.style.setProperty('--level-y-pos', skill.coords.y);
         tree.appendChild(levelReq);
       }
     }
 
     if (deps.length > 0) {
-      let startX = skill.coords.x * horizontalBuffer - horizontalPadding / 2 + nodeBorder * 4;
-      let startY = skill.coords.y * verticalBuffer + nodeHeight / 2;
-
-      this.drawHorizontalLine(tree, startX, startY, horizontalPadding / 2 - nodeBorder * 6);
+      this.drawHorizontalLine(tree, skill.coords.x, skill.coords.y);
 
       if (deps.length > 1) {
         let depYs = deps.map(dep => skills[className][dep[0]].coords.y);
         let minY = Math.min(...depYs);
         let maxY = Math.max(...depYs);
 
-        let x = skill.coords.x * horizontalBuffer - horizontalPadding / 2 + nodeBorder * 2;
-        let y = minY * verticalBuffer + nodeHeight / 2;
-        this.drawVerticalLine(tree, x, y, verticalBuffer * (maxY - minY));
+        this.drawVerticalLine(tree, skill.coords.x, minY, maxY);
       }
     }
   }
 
-  drawVerticalLine(tree, x, y, length) {
-    let line = document.createElement("div");
-    line.classList.add("line");
-    line.style.width = "4px";
-    line.style.height = `${length + 4}px`;
-    line.style.left = `${x}px`;
-    line.style.top = `${y}px`;
+  drawVerticalLine(tree, x, minY, maxY) {
+    const line = document.createElement('div');
+    line.classList.add('line', 'vertical-line');
+    line.style.setProperty('--vertical-line-x-pos', x);
+    line.style.setProperty('--vertical-line-min-y-pos', minY);
+    line.style.setProperty('--vertical-line-max-y-pos', maxY);
     tree.appendChild(line);
   }
 
-  drawHorizontalLine(tree, x, y, length) {
-    let line = document.createElement("div");
-    line.classList.add("line");
-    line.style.width = `${length + 4}px`;
-    line.style.height = "4px";
-    line.style.left = `${x}px`;
-    line.style.top = `${y}px`;
+  drawHorizontalLine(tree, x, y, forwardX) {
+    const isDep = forwardX === undefined;
+
+    const line = document.createElement('div');
+    line.classList.add('line', 'horizontal-line', isDep ? 'dep-line' : 'forward-line');
+    line.style.setProperty('--line-x-pos', x);
+    if (!isDep) line.style.setProperty('--line-x-end-pos', forwardX);
+    line.style.setProperty('--line-y-pos', y);
     tree.appendChild(line);
   }
 
