@@ -464,44 +464,44 @@ class Simulator {
   }
 
   drawLines(tree, className, skillName, skill) {
-    let deps = Object.entries(skill.dep);
-    let forwards = Object.entries(forward[className][skillName]);
+    const deps = Object.entries(skill.dep);
+    const forwards = Object.entries(forward[className][skillName]);
 
-    if (forwards.length > 0) {
-      let forwardX = skills[className][forwards[0][0]].coords.x;
+    const {x, y} = skill.coords;
 
-      this.drawHorizontalLine(tree, skill.coords.x, skill.coords.y, forwardX);
+    if (forwards.length) {
+      const forwardX = skills[className][forwards[0][0]].coords.x;
+
+      this.drawHorizontalLine(tree, x, y, forwardX);
 
       if (forwards.length > 1) {
-        let forwardYs = forwards.map(forward => skills[className][forward[0]].coords.y);
-        let minY = Math.min(...forwardYs);
-        let maxY = Math.max(...forwardYs);
+        const {0: minY, length, [length - 1]: maxY} = forwards.map(([id]) => skills[className][id].coords.y).sort();
 
         this.drawVerticalLine(tree, forwardX, minY, maxY);
       }
 
-      let level = forwards[0][1];
-      if (level !== 0) {
-        let levelReq = document.createElement("div");
-        levelReq.textContent = `Lv${level}`;
-        levelReq.classList.add("level-req");
-        levelReq.style.setProperty('--level-x-pos', skill.coords.x);
-        levelReq.style.setProperty('--level-y-pos', skill.coords.y);
-        tree.appendChild(levelReq);
-      }
+      const level = forwards[0][1];
+      if (level) this.drawLevel(tree, x, y, level);
     }
 
-    if (deps.length > 0) {
-      this.drawHorizontalLine(tree, skill.coords.x, skill.coords.y);
+    if (deps.length) {
+      this.drawHorizontalLine(tree, x, y);
 
       if (deps.length > 1) {
-        let depYs = deps.map(dep => skills[className][dep[0]].coords.y);
-        let minY = Math.min(...depYs);
-        let maxY = Math.max(...depYs);
+        const {0: minY, length, [length - 1]: maxY} = deps.map(([id]) => skills[className][id].coords.y).sort();
 
-        this.drawVerticalLine(tree, skill.coords.x, minY, maxY);
+        this.drawVerticalLine(tree, x, minY, maxY);
       }
     }
+  }
+
+  drawLevel(tree, x, y, level) {
+    const levelReq = document.createElement('div');
+    levelReq.textContent = `Lv${level}`;
+    levelReq.classList.add('level-req');
+    levelReq.style.setProperty('--level-x-pos', x);
+    levelReq.style.setProperty('--level-y-pos', y);
+    tree.appendChild(levelReq);
   }
 
   drawVerticalLine(tree, x, minY, maxY) {
