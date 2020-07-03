@@ -230,7 +230,13 @@ class Simulator {
       return;
     }
 
-    for (let [skillName, skill] of Object.entries(skills[classname])) {
+    const skillEntries = Object.entries(skills[classname]);
+
+    for (const [skillName, skill] of skillEntries) {
+      this.drawLines(sectionLayer, classname, skillName, skill);
+    }
+
+    for (let [skillName, skill] of skillEntries) {
       let skillId = `skill-${classname}-${skillName}`;
       let skillMax = skill.maxLevel || skill.max;
       if (section === "secondary") skillMax /= this.secondaryPenalty;
@@ -285,8 +291,6 @@ class Simulator {
       node.appendChild(levelNode);
 
       sectionLayer.appendChild(node);
-
-      this.drawLines(sectionLayer, classname, skillName, skill);
     }
 
     let self = this;
