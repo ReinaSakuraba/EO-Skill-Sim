@@ -236,6 +236,10 @@ class Simulator {
       this.drawLines(sectionLayer, classname, skillName, skill);
     }
 
+    for (const [skillName, skill] of skillEntries) {
+      this.drawLevel(sectionLayer, classname, skillName, skill);
+    }
+
     for (let [skillName, skill] of skillEntries) {
       let skillId = `skill-${classname}-${skillName}`;
       let skillMax = skill.maxLevel || skill.max;
@@ -483,9 +487,6 @@ class Simulator {
 
         this.drawVerticalLine(tree, forwardX, minY, maxY);
       }
-
-      const level = forwards[0][1];
-      if (level) this.drawLevel(tree, x, y, level);
     }
 
     if (deps.length) {
@@ -499,7 +500,15 @@ class Simulator {
     }
   }
 
-  drawLevel(tree, x, y, level) {
+  drawLevel(tree, className, skillName, skill) {
+    const forwards = Object.entries(forward[className][skillName]);
+    if (!forwards.length) return;
+
+    const level = forwards[0][1];
+    if (!level) return;
+
+    const {x, y} = skill.coords;
+
     const levelReq = document.createElement('div');
     levelReq.textContent = `Lv${level}`;
     levelReq.classList.add('level-req');
