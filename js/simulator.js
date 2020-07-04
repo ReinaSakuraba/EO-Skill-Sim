@@ -228,7 +228,7 @@ class Simulator {
     const skillEntries = Object.entries(skills[classname]);
 
     for (const [skillName, skill] of skillEntries) {
-      this.drawLines(sectionLayer, classname, skillName, skill);
+      if (!skill.unique || section !== "secondary") this.drawLines(sectionLayer, classname, skillName, skill);
     }
 
     for (const [skillName, skill] of skillEntries) {
