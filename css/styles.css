@@ -278,17 +278,11 @@ td {
   --level-y-pos: 0;
 
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 16px;
   font-weight: bold;
   color: var(--yellow);
   text-shadow: -1px -1px 0 #105068, 1px -1px 0  #105068, -1px 1px 0 #105068, 1px 1px 0  #105068;
-  text-align: center;
-  width: 30px;
-  height: 20px;
-  margin: 2px;
-  top: calc(var(--level-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2 - 12px);
-  left: calc(var(--level-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) - 2px);
+  transform: translate(-50%, -50%);
+  top: calc(var(--level-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2);
+  left: calc(var(--level-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) + var(--node-horizontal-padding) / 2);
 }
