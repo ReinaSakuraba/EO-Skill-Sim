@@ -4,19 +4,19 @@
   --node-border: 2px;
   --node-horizontal-padding: 64px;
   --node-vertical-padding: 12px;
-  --yellow: #FFF133;
+  --yellow: #fff133;
 }
 
 .blue-theme {
-  --body-background: #18515F;
-  --header-background: #002A2B;
+  --body-background: #18515f;
+  --header-background: #002a2b;
 
-  --available-highlight: #A3DAD4;
-  --available-background: #003366;
-  --available-midtone: #226699;
+  --available-highlight: #a3dad4;
+  --available-background: #036;
+  --available-midtone: #269;
 
-  --unavailable-highlight: #A9A9A9;
-  --unavailable-background: #394B61;
+  --unavailable-highlight: #a9a9a9;
+  --unavailable-background: #394b61;
   --unavailable-midtone: #778898;
 }
 
@@ -91,7 +91,7 @@ td {
   padding: 5px;
   font-size: 10pt;
   background: var(--available-background);
-  color: #E5FFF8;
+  color: #e5fff8;
 }
 
 #header {
@@ -225,7 +225,7 @@ td {
 .skill-info {
   padding: 0;
   margin: 0;
-  background-color: #000000;
+  background-color: #000;
   color: var(--available-highlight);
   text-align: center;
   border-radius: 1ex;
@@ -281,7 +281,7 @@ td {
   font-size: 16px;
   font-weight: bold;
   color: var(--yellow);
-  text-shadow: -1px -1px 0 #105068, 1px -1px 0  #105068, -1px 1px 0 #105068, 1px 1px 0  #105068;
+  text-shadow: -1px -1px 0 #105068, 1px -1px 0 #105068, -1px 1px 0 #105068, 1px 1px 0 #105068;
   transform: translate(-50%, -50%);
   top: calc(var(--level-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2);
   left: calc(var(--level-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) + var(--node-horizontal-padding) / 2);
