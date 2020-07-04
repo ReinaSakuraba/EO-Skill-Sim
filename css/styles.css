@@ -33,16 +33,16 @@
 }
 
 body {
-  background-color: var(--body-background);
+  margin: 0px;
   font-family: Helvetica, Arial;
   color: var(--available-highlight);
-  margin: 0px;
   -webkit-touch-callout: none;
     -webkit-user-select: none;
      -khtml-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
+  background-color: var(--body-background);
 }
 
 p {
@@ -51,20 +51,20 @@ p {
 
 table {
   min-width: calc(var(--node-width) * 1.5);
-  border-spacing: 1px;
   white-space: nowrap;
+  border-spacing: 1px;
 }
 
 .skill-description {
   line-height: 1.4em;
-  white-space: initial;
   text-align: left;
+  white-space: initial;
 }
 
 th {
   padding: 5px;
-  background-color: var(--available-midtone);
   color: var(--available-highlight);
+  background-color: var(--available-midtone);
 }
 
 table > tr:first-child > *:first-child {
@@ -90,17 +90,17 @@ table > tr:last-child > *:only-child {
 td {
   padding: 5px;
   font-size: 10pt;
-  background: var(--available-background);
   color: #e5fff8;
+  background: var(--available-background);
 }
 
 #header {
-  background-color: var(--header-background);
-  flex-grow: 0;
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  flex-grow: 0;
   height: 164px;
+  padding: 10px;
+  background-color: var(--header-background);
 }
 
 #header-main {
@@ -132,9 +132,9 @@ td {
 
 #main {
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
   height: 600px;
 }
 
@@ -147,46 +147,46 @@ td {
   --skill-y-pos: 0;
 
   position: absolute;
+  top: calc(var(--skill-y-pos) * (var(--node-height) + var(--node-vertical-padding)));
+  left: calc(var(--skill-x-pos) * (var(--node-width) + var(--node-horizontal-padding)));
+  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: var(--node-width);
   height: var(--node-height);
+  background-color: var(--background);
   border: solid var(--node-border) var(--highlight);
   border-radius: 100px;
-  background-color: var(--background);
-  box-sizing: border-box;
-  top: calc(var(--skill-y-pos) * (var(--node-height) + var(--node-vertical-padding)));
-  left: calc(var(--skill-x-pos) * (var(--node-width) + var(--node-horizontal-padding)));
 }
 
 .skill-name-en {
   margin-left: 4px;
-  color: var(--highlight);
   font-size: 15px;
+  color: var(--highlight);
 }
 
 .skill-type {
   position: relative;
   display: flex;
   flex-direction: row;
-  overflow: hidden;
   width: calc(var(--node-width) * 0.225);
   height: calc(var(--node-height) - var(--node-border) * 2 - 4px);
   margin-right: 2px;
-  border-radius: 100px;
-  background-color: var(--highlight);
+  overflow: hidden;
   text-align: center;
+  background-color: var(--highlight);
+  border-radius: 100px;
 }
 
 .skill-type-special {
   align-items: center;
   justify-content: center;
-  color: var(--background);
+  font-size: 12px;
   font-weight: bold;
   font-stretch: condensed;
-  font-size: 12px;
+  color: var(--background);
 }
 
 .skill-type-normal {
@@ -195,12 +195,12 @@ td {
 }
 
 .skill-type-normal:before {
-  content: '';
   position: absolute;
   left: 28%;
   flex-basis: 100%;
   width: 100%;
   height: 100%;
+  content: '';
   background-color: var(--midtone);
   transform: rotate(-65deg);
 }
@@ -208,8 +208,8 @@ td {
 .skill-current-level {
   width: 23px;
   margin: 1px;
-  color: var(--background);
   font-size: 16px;
+  color: var(--background);
 }
 
 .skill-max-level {
@@ -223,13 +223,13 @@ td {
 .skill-unavailable .skill-max-level { color: var(--background); }
 
 .skill-info {
+  position: absolute;
   padding: 0;
   margin: 0;
-  background-color: #000;
   color: var(--available-highlight);
   text-align: center;
+  background-color: #000;
   border-radius: 1ex;
-  position: absolute;
 }
 
 .info-current-level {
@@ -247,30 +247,30 @@ td {
   --vertical-line-min-y-pos: 0;
   --vertical-line-max-y-pos: 0;
 
-  height: calc((var(--node-height) + var(--node-vertical-padding)) * (var(--vertical-line-max-y-pos) - var(--vertical-line-min-y-pos)) + 4px);
-  width: 4px;
   top: calc(var(--vertical-line-min-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2 - 2px);
   left: calc(var(--vertical-line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) - var(--node-horizontal-padding) / 2 - 2px);
+  width: 4px;
+  height: calc((var(--node-height) + var(--node-vertical-padding)) * (var(--vertical-line-max-y-pos) - var(--vertical-line-min-y-pos)) + 4px);
 }
 
 .horizontal-line {
   --line-x-pos: 0;
   --line-y-pos: 0;
 
-  height: 4px;
   top: calc(var(--line-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2 - 2px);
+  height: 4px;
 }
 
 .forward-line {
   --line-x-end-pos: 0;
 
-  width: calc(var(--node-horizontal-padding) / 2 + (var(--line-x-end-pos) - var(--line-x-pos) - 1) * (var(--node-width) + var(--node-horizontal-padding)) + 3px);
   left: calc(var(--line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) - 1px);
+  width: calc(var(--node-horizontal-padding) / 2 + (var(--line-x-end-pos) - var(--line-x-pos) - 1) * (var(--node-width) + var(--node-horizontal-padding)) + 3px);
 }
 
 .dep-line {
-  width: calc(var(--node-horizontal-padding) / 2 + 3px);
   left: calc(var(--line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) - var(--node-horizontal-padding) / 2 - 2px);
+  width: calc(var(--node-horizontal-padding) / 2 + 3px);
 }
 
 .level-req {
@@ -278,11 +278,11 @@ td {
   --level-y-pos: 0;
 
   position: absolute;
+  top: calc(var(--level-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2);
+  left: calc(var(--level-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) + var(--node-horizontal-padding) / 2);
   font-size: 16px;
   font-weight: bold;
   color: var(--yellow);
   text-shadow: -1px -1px 0 #105068, 1px -1px 0 #105068, -1px 1px 0 #105068, 1px 1px 0 #105068;
   transform: translate(-50%, -50%);
-  top: calc(var(--level-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2);
-  left: calc(var(--level-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) + var(--node-horizontal-padding) / 2);
 }
