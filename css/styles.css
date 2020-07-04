@@ -33,7 +33,7 @@
 }
 
 body {
-  margin: 0px;
+  margin: 0;
   font-family: Helvetica, Arial;
   color: var(--available-highlight);
   -webkit-touch-callout: none;
@@ -113,7 +113,7 @@ td {
 #header-main div, #header-main label {
   display: flex;
   flex-direction: column;
-  margin: 0px 15px 0px 15px;
+  margin: 0 15px 0 15px;
 }
 
 #header-links {
@@ -200,7 +200,7 @@ td {
   flex-basis: 100%;
   width: 100%;
   height: 100%;
-  content: '';
+  content: "";
   background-color: var(--midtone);
   transform: rotate(-65deg);
 }
