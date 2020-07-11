@@ -1,3 +1,5 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
+
 :root {
   --node-width: 200px;
   --node-height: 24px;
@@ -40,7 +42,6 @@
 
 body {
   min-width: var(--tree-width);
-  margin: 0;
   font-family: Helvetica, Arial;
   color: var(--available-highlight);
   -webkit-touch-callout: none;
