@@ -53,10 +53,6 @@ body {
   background-color: var(--body-background);
 }
 
-p {
-  display: inline;
-}
-
 table {
   min-width: calc(var(--node-width) * 1.5);
   white-space: nowrap;

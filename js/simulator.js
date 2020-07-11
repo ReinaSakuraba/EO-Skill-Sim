@@ -504,7 +504,7 @@ class Simulator {
 
     const {x, y} = skill.coords;
 
-    const levelReq = document.createElement('div');
+    const levelReq = document.createElement('span');
     levelReq.textContent = `Lv${level}`;
     levelReq.classList.add('level-req');
     levelReq.style.setProperty('--level-x-pos', x);
