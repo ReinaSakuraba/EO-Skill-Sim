@@ -204,17 +204,6 @@ class Simulator {
     if (cls !== 'None') document.querySelector(`${id} option[value='${cls}']`).disabled = true;
   }
 
-  drawTree(section) {
-    this.state[section] = {};
-
-    const sectionLayer = document.getElementById(`tree-${section}`);
-    while (sectionLayer.lastChild) sectionLayer.removeChild(sectionLayer.lastChild);
-
-    for (const node of this.drawSkillNodes(skills)) sectionLayer.appendChild(node);
-    for (const node of this.drawSkillLines(skills)) sectionLayer.appendChild(node);
-    for (const node of this.drawSkillLevels(skills)) sectionLayer.appendChild(node);
-  }
-
   createSkillNodes(section, classname) {
     this.state[section] = {};
 
