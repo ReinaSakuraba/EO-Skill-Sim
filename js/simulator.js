@@ -45,18 +45,18 @@ class Simulator {
     let self = this;
 
     levelSelect.addEventListener("change", function() {
-      self.currentLevel = this.value;
+      self.level = this.value;
     });
 
     this.setClasses();
     this.setDefault();
   }
 
-  get currentLevel() {
-    return parseInt(this._currentLevel);
+  get level() {
+    return parseInt(this._level);
   }
-  set currentLevel(value) {
-    this._currentLevel = value;
+  set level(value) {
+    this._level = value;
     document.getElementById("level").value = value;
     this.updateSkillPoints();
   }
@@ -82,22 +82,22 @@ class Simulator {
     this.updateSkillPoints();
   }
 
-  get primaryClass() {
-    return this._primaryClass;
+  get class() {
+    return this._class;
   }
-  set primaryClass(value) {
-    this._primaryClass = value;
+  set class(value) {
+    this._class = value;
     document.getElementById("class-selector-primary").value = value;
     this.disableClass(false);
     this.createSkillNodes("primary", value);
     this.updateSkillPoints();
   }
 
-  get secondaryClass() {
-    return this._secondaryClass;
+  get subclass() {
+    return this._subclass;
   }
-  set secondaryClass(value) {
-    this._secondaryClass = value;
+  set subclass(value) {
+    this._subclass = value;
     document.getElementById("class-selector-secondary").value = value;
     this.disableClass(true);
     this.createSkillNodes("secondary", value);
@@ -105,10 +105,10 @@ class Simulator {
   }
 
   setDefault() {
-    this.primaryClass = this.defaultClass;
-    this.secondaryClass = "None";
+    this.class = this.defaultClass;
+    this.subclass = "None";
     this.levelCap = this.levelCaps[0];
-    this.currentLevel = 1;
+    this.level = 1;
     this.retireLevel = 0;
   }
 
@@ -160,7 +160,7 @@ class Simulator {
       levelSelect.appendChild(option);
     }
 
-    this.currentLevel = this.currentLevel > this.levelCap ? this.levelCap : this.currentLevel;
+    this.level = this.level > this.levelCap ? this.levelCap : this.level;
   }
 
   setClasses() {
@@ -186,7 +186,7 @@ class Simulator {
       }
 
       classSelector.addEventListener('change', ({target: {value}}) => {
-        this[`${section}Class`] = value;
+        this[`${section === 'primary' ? '' : 'sub'}class`] = value;
       });
     }
   }
@@ -197,7 +197,7 @@ class Simulator {
     const option = document.querySelector(`${id} option[disabled]`);
     if (option) option.disabled = false;
 
-    const cls = primary ? this.secondaryClass : this.primaryClass;
+    const cls = primary ? this.subclass : this.class;
     if (cls !== 'None') document.querySelector(`${id} option[value='${cls}']`).disabled = true;
   }
 
@@ -582,9 +582,9 @@ class Simulator {
   }
 
   updateSkillPoints() {
-    let points = 2 + this.currentLevel;
+    let points = 2 + this.level;
 
-    if (this.secondaryClass && this.secondaryClass !== "None") points += 5;
+    if (this.subclass && this.subclass !== "None") points += 5;
 
     if (this.retireLevel !== 'N/A') points += this.retireBonuses[this._retireLevel][2];
 
