@@ -49,10 +49,7 @@ class Simulator {
     });
 
     this.setClasses();
-
-    let query = window.location.search.slice(1);
-
-    query !== "" ? this.loadSaveData(query) : this.setDefault();
+    this.setDefault();
   }
 
   get currentLevel() {
