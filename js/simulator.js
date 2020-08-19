@@ -34,6 +34,19 @@ class Simulator {
       throw new TypeError('Abstract class "Simulator" cannot be instantiated directly.');
     }
 
+    this._elements = {
+      level: document.getElementById('level'),
+      levelCap: document.getElementById('level-cap'),
+      retire: document.getElementById('retire'),
+      class: document.getElementById('class-selector-primary'),
+      subclass: document.getElementById('class-selector-secondary'),
+      pointsUsed: document.getElementById('points-current'),
+      pointsTotal: document.getElementById('points-total'),
+      classTree: document.getElementById('tree-primary'),
+      subclassTree: document.getElementById('tree-secondary'),
+    };
+    Object.freeze(this._elements);
+
     this._retireLevel = 0;
 
     this.state = { fixed: { }, primary: { }, secondary: { } };
@@ -41,9 +54,7 @@ class Simulator {
     this.setRetireLevels();
     this.setLevelCaps();
 
-    let levelSelect = document.getElementById("level");
-
-    levelSelect.addEventListener("change", ({target: {value}}) => {
+    this._elements.level.addEventListener("change", ({target: {value}}) => {
       this.level = value;
     });
 
@@ -56,7 +67,7 @@ class Simulator {
   }
   set level(value) {
     this._level = value;
-    document.getElementById("level").value = value;
+    this._elements.level.value = value;
     this.updateSkillPoints();
   }
 
@@ -65,7 +76,7 @@ class Simulator {
   }
   set levelCap(value) {
     this._levelCap = value;
-    document.getElementById("level-cap").value = value;
+    this._elements.levelCap.value = value;
     this.setLevels();
   }
 
@@ -75,7 +86,7 @@ class Simulator {
   set retireLevel(value) {
     if (this.retireBonuses.length !== 0) {
       this._retireLevel = +value;
-      document.getElementById('retire').value = value.toString();
+      this._elements.retire.value = value.toString();
     }
 
     this.updateSkillPoints();
@@ -86,7 +97,7 @@ class Simulator {
   }
   set class(value) {
     this._class = value;
-    document.getElementById("class-selector-primary").value = value;
+    this._elements.class.value = value;
     this.disableClass(false);
     this.createSkillNodes("primary", value);
     this.updateSkillPoints();
@@ -97,7 +108,7 @@ class Simulator {
   }
   set subclass(value) {
     this._subclass = value;
-    document.getElementById("class-selector-secondary").value = value;
+    this._elements.subclass.value = value;
     this.disableClass(true);
     this.createSkillNodes("secondary", value);
     this.updateSkillPoints();
@@ -112,7 +123,7 @@ class Simulator {
   }
 
   setRetireLevels() {
-    const retireSelect = document.getElementById('retire');
+    const retireSelect = this._elements.retire;
     while (retireSelect.lastChild) retireSelect.removeChild(retireSelect.lastChild);
 
     for (const [id, levels,] of this.retireBonuses) {
@@ -133,7 +144,7 @@ class Simulator {
       return;
     }
 
-    const levelCapSelect = document.getElementById('level-cap');
+    const levelCapSelect = this._elements.levelCap;
     while (levelCapSelect.lastChild) levelCapSelect.removeChild(levelCapSelect.lastChild);
 
     for (const i of this.levelCaps) {
@@ -149,7 +160,7 @@ class Simulator {
   }
 
   setLevels() {
-    const levelSelect = document.getElementById('level');
+    const levelSelect = this._elements.level;
     while (levelSelect.lastChild) levelSelect.removeChild(levelSelect.lastChild);
 
     for (let i = 1; i <= this.levelCap; ++i) {
@@ -163,12 +174,12 @@ class Simulator {
   }
 
   setClasses() {
-    for (const section of ['primary', 'secondary']) {
-      const classSelector = document.getElementById(`class-selector-${section}`);
+    for (const section of ['class', 'subclass']) {
+      const classSelector = this._elements[section];
 
       while (classSelector.lastChild) classSelector.removeChild(classSelector.lastChild);
 
-      if (section === 'secondary') {
+      if (section === 'subclass') {
         const option = document.createElement('option');
         option.value = 'None';
         option.textContent = 'None';
@@ -185,7 +196,7 @@ class Simulator {
       }
 
       classSelector.addEventListener('change', ({target: {value}}) => {
-        this[`${section === 'primary' ? '' : 'sub'}class`] = value;
+        this[section] = value;
       });
     }
   }
@@ -203,7 +214,7 @@ class Simulator {
   createSkillNodes(section, classname) {
     this.state[section] = {};
 
-    let sectionLayer = document.getElementById(`tree-${section}`);
+    let sectionLayer = this._elements[section === 'primary' ? 'classTree' : 'subclassTree'];
     while (sectionLayer.lastChild) sectionLayer.removeChild(sectionLayer.lastChild);
 
     if (section === "secondary" && classname === "None") {
@@ -587,7 +598,7 @@ class Simulator {
 
     if (this.retireLevel !== 'N/A') points += this.retireBonuses[this._retireLevel][2];
 
-    document.getElementById("points-total").textContent = points.toString();
+    this._elements.pointsTotal.textContent = points.toString();
 
     let pointsUsed = 0;
 
@@ -595,6 +606,6 @@ class Simulator {
       for (let points of Object.values(section)) pointsUsed += points;
     }
 
-    document.getElementById("points-current").textContent = pointsUsed.toString();
+    this._elements.pointsUsed.textContent = pointsUsed.toString();
   }
 }
