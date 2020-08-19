@@ -283,7 +283,7 @@ class Simulator {
 
     for (let node of nodes) {
       node.addEventListener("click", function() {
-        let [_, className, skillName] = node.id.split("-");
+        let [,className, skillName] = node.id.split("-");
         let max = skills[className][skillName].maxLevel;
 
         if (section === "secondary") max /= self.secondaryPenalty;
@@ -295,7 +295,7 @@ class Simulator {
 
       node.addEventListener("contextmenu", function(e) {
         e.preventDefault();
-        let [_, className, skillName] = node.id.split("-");
+        let [,className, skillName] = node.id.split("-");
         let level = Math.max(self.state[section][skillName] - 1, 0);
 
         self.changeSkillLevel(section, className, skillName, level);
@@ -314,7 +314,7 @@ class Simulator {
   createInfoNode(section, node) {
     this.removeInfoNode();
 
-    let [_, className, skillName] = node.id.split("-");
+    let [,className, skillName] = node.id.split("-");
     let skill = skills[className][skillName];
 
     let levelInfo;
@@ -388,7 +388,7 @@ class Simulator {
 
       for (let i of [...Array(maxLevel).keys()].map(i => ++i)) {
         let level = document.createElement("th");
-        level.textContent = i;
+        level.textContent = i.toString();
         if (i === curLevel) level.classList.add("info-current-level");
         levelHeader.appendChild(level);
       }
@@ -572,7 +572,7 @@ class Simulator {
 
       if (["Boost", "Break"].includes(skills[className][skillName].type)) continue;
 
-      skillNode.childNodes[1].childNodes[0].textContent = skillLevel;
+      skillNode.childNodes[1].childNodes[0].textContent = skillLevel.toString();
 
       skillNode.classList.remove(`skill-available`);
       skillNode.classList.remove(`skill-unavailable`);
@@ -588,7 +588,7 @@ class Simulator {
 
     if (this.retireLevel !== 'N/A') points += this.retireBonuses[this._retireLevel][2];
 
-    document.getElementById("points-total").textContent = points;
+    document.getElementById("points-total").textContent = points.toString();
 
     let pointsUsed = 0;
 
@@ -596,6 +596,6 @@ class Simulator {
       for (let points of Object.values(section)) pointsUsed += points;
     }
 
-    document.getElementById("points-current").textContent = pointsUsed;
+    document.getElementById("points-current").textContent = pointsUsed.toString();
   }
 }
