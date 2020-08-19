@@ -42,10 +42,9 @@ class Simulator {
     this.setLevelCaps();
 
     let levelSelect = document.getElementById("level");
-    let self = this;
 
-    levelSelect.addEventListener("change", function() {
-      self.level = this.value;
+    levelSelect.addEventListener("change", ({target: {value}}) => {
+      this.level = value;
     });
 
     this.setClasses();
