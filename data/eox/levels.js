@@ -2481,3 +2481,6 @@ let levels = {
     }
   }
 };
+
+
+export default levels;

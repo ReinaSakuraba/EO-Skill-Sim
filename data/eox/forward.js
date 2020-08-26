@@ -532,3 +532,6 @@ let forward = {
     residualMiasma: { }
   }
 };
+
+
+export default forward;

@@ -5,6 +5,10 @@ const verticalPadding = parseInt(allStyles.getPropertyValue("--node-vertical-pad
 
 
 class Simulator {
+  #skills;
+  #forward;
+  #levels;
+
   get defaultClass() {
     return "Landsknecht";
   }
@@ -29,10 +33,14 @@ class Simulator {
     return 1;
   }
 
-  constructor () {
+  constructor ({skills, forward, levels}) {
     if (this.constructor === Simulator) {
       throw new TypeError('Abstract class "Simulator" cannot be instantiated directly.');
     }
+
+    this.#skills = skills;
+    this.#forward = forward;
+    this.#levels = levels;
 
     this._elements = {
       level: document.getElementById('level'),
@@ -186,7 +194,7 @@ class Simulator {
         classSelector.appendChild(option);
       }
 
-      for (const cls in skills) {
+      for (const cls in this.#skills) {
         if (cls === 'common') continue;
 
         const option = document.createElement('option');
@@ -221,7 +229,7 @@ class Simulator {
       return;
     }
 
-    const skillEntries = Object.entries(skills[classname]);
+    const skillEntries = Object.entries(this.#skills[classname]);
 
     for (const [skillName, skill] of skillEntries) {
       if (!skill.unique || section !== "secondary") this.drawLines(sectionLayer, classname, skillName, skill);
@@ -292,9 +300,9 @@ class Simulator {
     let nodes = document.querySelectorAll(`.skill-${section}.skill`);
 
     for (let node of nodes) {
-      node.addEventListener("click", function() {
+      node.addEventListener("click", () => {
         let [,className, skillName] = node.id.split("-");
-        let max = skills[className][skillName].maxLevel;
+        let max = this.#skills[className][skillName].maxLevel;
 
         if (section === "secondary") max /= self.secondaryPenalty;
 
@@ -325,13 +333,13 @@ class Simulator {
     this.removeInfoNode();
 
     let [,className, skillName] = node.id.split("-");
-    let skill = skills[className][skillName];
+    let skill = this.#skills[className][skillName];
 
     let levelInfo;
     let maxLevel = 2;
 
     try {
-      levelInfo = levels[className][skillName];
+      levelInfo = this.#levels[className][skillName];
       maxLevel = Object.values(levelInfo)[0].length;
     } catch (error) { }
 
@@ -464,17 +472,17 @@ class Simulator {
 
   drawLines(tree, className, skillName, skill) {
     const deps = Object.entries(skill.dep);
-    const forwards = Object.entries(forward[className][skillName]);
+    const forwards = Object.entries(this.#forward[className][skillName]);
 
     const {x, y} = skill.coords;
 
     if (forwards.length) {
-      const forwardX = skills[className][forwards[0][0]].coords.x;
+      const forwardX = this.#skills[className][forwards[0][0]].coords.x;
 
       this.drawHorizontalLine(tree, x, y, forwardX);
 
       if (forwards.length > 1) {
-        const {0: minY, length, [length - 1]: maxY} = forwards.map(([id]) => skills[className][id].coords.y).sort();
+        const {0: minY, length, [length - 1]: maxY} = forwards.map(([id]) => this.#skills[className][id].coords.y).sort();
 
         this.drawVerticalLine(tree, forwardX, minY, maxY);
       }
@@ -484,7 +492,7 @@ class Simulator {
       this.drawHorizontalLine(tree, x, y);
 
       if (deps.length > 1) {
-        const {0: minY, length, [length - 1]: maxY} = deps.map(([id]) => skills[className][id].coords.y).sort();
+        const {0: minY, length, [length - 1]: maxY} = deps.map(([id]) => this.#skills[className][id].coords.y).sort();
 
         this.drawVerticalLine(tree, x, minY, maxY);
       }
@@ -492,7 +500,7 @@ class Simulator {
   }
 
   drawLevel(tree, className, skillName, skill) {
-    const forwards = Object.entries(forward[className][skillName]);
+    const forwards = Object.entries(this.#forward[className][skillName]);
     if (!forwards.length) return;
 
     const level = forwards[0][1];
@@ -540,7 +548,7 @@ class Simulator {
 
     if (level > old) {
       resolve = skillName => {
-        let dep = skills[className][skillName].dep;
+        let dep = this.#skills[className][skillName].dep;
         for (let [depName, depLevel] of Object.entries(dep)) {
           if (self.state[section][depName] < depLevel) {
             self.state[section][depName] = depLevel;
@@ -551,7 +559,7 @@ class Simulator {
     } else {
       resolve = skillName => {
         let level = self.state[section][skillName];
-        let dep = forward[className][skillName];
+        let dep = this.#forward[className][skillName];
         for (let [depName, depLevel] of Object.entries(dep)) {
           if (self.state[section][depName] > 0 && level < depLevel) {
             self.state[section][depName] = 0;
@@ -573,14 +581,14 @@ class Simulator {
       if (skillNode === null) continue;
 
       let a = true;
-      for (let [depName, depLevel] of Object.entries(skills[className][skillName].dep)) {
+      for (let [depName, depLevel] of Object.entries(this.#skills[className][skillName].dep)) {
         if (this.state[section][depName] < depLevel) {
           a = false;
           break;
         }
       }
 
-      if (["Boost", "Break"].includes(skills[className][skillName].type)) continue;
+      if (["Boost", "Break"].includes(this.#skills[className][skillName].type)) continue;
 
       skillNode.childNodes[1].childNodes[0].textContent = skillLevel.toString();
 
@@ -609,3 +617,6 @@ class Simulator {
     this._elements.pointsUsed.textContent = pointsUsed.toString();
   }
 }
+
+
+export default Simulator;

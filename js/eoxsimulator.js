@@ -1,6 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
-  simulator = new EOXSimulator();
-});
+import Simulator from './simulator.js';
+
 
 class EOXSimulator extends Simulator {
   get defaultClass() {
@@ -27,3 +26,6 @@ class EOXSimulator extends Simulator {
     return 2;
   }
 }
+
+
+export default EOXSimulator;
