@@ -1,3 +1,5 @@
+import Class from './class.js';
+
 const allStyles = getComputedStyle(document.documentElement);
 
 const nodeHeight = parseInt(allStyles.getPropertyValue("--node-height").trim().slice(0, -2));
@@ -5,13 +7,7 @@ const verticalPadding = parseInt(allStyles.getPropertyValue("--node-vertical-pad
 
 
 class Simulator {
-  #skills;
-  #forward;
-  #levels;
-
-  get defaultClass() {
-    return "Landsknecht";
-  }
+  #classes = new Map();
 
   get levelCaps() {
     return [70, 80, 90, 99];
@@ -38,9 +34,9 @@ class Simulator {
       throw new TypeError('Abstract class "Simulator" cannot be instantiated directly.');
     }
 
-    this.#skills = skills;
-    this.#forward = forward;
-    this.#levels = levels;
+    for (const [className, classSkillInfo] of Object.entries(skills)) {
+      this.#classes.set(className, new Class(className, classSkillInfo, forward[className], levels[className]));
+    }
 
     this._elements = {
       level: document.getElementById('level'),
@@ -56,8 +52,6 @@ class Simulator {
     Object.freeze(this._elements);
 
     this._retireLevel = 0;
-
-    this.state = { fixed: { }, primary: { }, secondary: { } };
 
     this.setRetireLevels();
     this.setLevelCaps();
@@ -104,10 +98,13 @@ class Simulator {
     return this._class;
   }
   set class(value) {
-    this._class = value;
+    const old = this.class;
+    if (old) old.resetSkillLevels();
+
+    this._class = this.#classes.get(value);
     this._elements.class.value = value;
     this.disableClass(false);
-    this.createSkillNodes("primary", value);
+    this.createSkillNodes(true);
     this.updateSkillPoints();
   }
 
@@ -115,16 +112,19 @@ class Simulator {
     return this._subclass;
   }
   set subclass(value) {
-    this._subclass = value;
-    this._elements.subclass.value = value;
+    const old = this.subclass;
+    if (old) old.resetSkillLevels();
+
+    this._subclass = value !== null ? this.#classes.get(value) : null;
+    this._elements.subclass.value = value !== null ? value : 'None';
     this.disableClass(true);
-    this.createSkillNodes("secondary", value);
+    this.createSkillNodes(false);
     this.updateSkillPoints();
   }
 
   setDefault() {
-    this.class = this.defaultClass;
-    this.subclass = "None";
+    this.class = this.#classes.keys().next().value;
+    this.subclass = null;
     this.levelCap = this.levelCaps[0];
     this.level = 1;
     this.retireLevel = 0;
@@ -194,17 +194,15 @@ class Simulator {
         classSelector.appendChild(option);
       }
 
-      for (const cls in this.#skills) {
-        if (cls === 'common') continue;
-
+      for (const cls of this.#classes.values()) {
         const option = document.createElement('option');
-        option.value = cls;
-        option.textContent = cls;
+        option.value = cls.name;
+        option.textContent = cls.name;
         classSelector.appendChild(option);
       }
 
       classSelector.addEventListener('change', ({target: {value}}) => {
-        this[section] = value;
+        this[section] = value !== 'None' ? value : null;
       });
     }
   }
@@ -216,40 +214,32 @@ class Simulator {
     if (option) option.disabled = false;
 
     const cls = primary ? this.subclass : this.class;
-    if (cls !== 'None') document.querySelector(`${id} option[value='${cls}']`).disabled = true;
+    if (cls) document.querySelector(`${id} option[value='${cls.name}']`).disabled = true;
   }
 
-  createSkillNodes(section, classname) {
-    this.state[section] = {};
-
-    let sectionLayer = this._elements[section === 'primary' ? 'classTree' : 'subclassTree'];
+  createSkillNodes(primary) {
+    const sectionLayer = this._elements[primary ? 'classTree' : 'subclassTree'];
     while (sectionLayer.lastChild) sectionLayer.removeChild(sectionLayer.lastChild);
+    const section = primary ? 'primary' : 'secondary';
 
-    if (section === "secondary" && classname === "None") {
-      return;
-    }
+    const cls = primary ? this.class : this.subclass;
+    if (!cls) return;
 
-    const skillEntries = Object.entries(this.#skills[classname]);
+    for (const skill of cls.skills.values()) if (!skill.unique || primary) this.drawLines(sectionLayer, skill);
 
-    for (const [skillName, skill] of skillEntries) {
-      if (!skill.unique || section !== "secondary") this.drawLines(sectionLayer, classname, skillName, skill);
-    }
+    for (const skill of cls.skills.values()) this.drawLevel(sectionLayer, skill);
 
-    for (const [skillName, skill] of skillEntries) {
-      this.drawLevel(sectionLayer, classname, skillName, skill);
-    }
+    for (const [skillName, skill] of cls.skills) {
+      const skillId = `skill-${cls.name}-${skillName}`;
+      let skillMax = skill.maxLevel;
+      if (!primary) skillMax /= this.secondaryPenalty;
 
-    for (let [skillName, skill] of skillEntries) {
-      let skillId = `skill-${classname}-${skillName}`;
-      let skillMax = skill.maxLevel || skill.max;
-      if (section === "secondary") skillMax /= this.secondaryPenalty;
-
-      this.state[section][skillName] = 0;
-      if (skill.unique && section === "secondary") continue;
+      skill.level = 0;
+      if (skill.unique && !primary) continue;
 
       let a = true;
 
-      for (let level of Object.values(skill.dep)) {
+      for (const level of skill.prereqs.values()) {
         if (level === 0) continue;
         a = false;
         break;
@@ -267,7 +257,7 @@ class Simulator {
       let nameDiv = document.createElement("div");
       nameDiv.classList.add("skill-name");
       nameDiv.classList.add("skill-name-en");
-      nameDiv.textContent = skill.name_en;
+      nameDiv.textContent = skill.name;
       node.appendChild(nameDiv);
 
       let levelNode = document.createElement("div");
@@ -296,36 +286,34 @@ class Simulator {
       sectionLayer.appendChild(node);
     }
 
-    let self = this;
-    let nodes = document.querySelectorAll(`.skill-${section}.skill`);
+    const nodes = document.querySelectorAll(`.skill-${section}.skill`);
 
-    for (let node of nodes) {
+    for (const node of nodes) {
       node.addEventListener("click", () => {
-        let [,className, skillName] = node.id.split("-");
-        let max = this.#skills[className][skillName].maxLevel;
+        const [,className, skillName] = node.id.split("-");
+        const skill = this.#classes.get(className).skills.get(skillName);
+        let max = skill.maxLevel;
 
-        if (section === "secondary") max /= self.secondaryPenalty;
+        if (!primary) max /= this.secondaryPenalty;
 
-        let level = Math.min(self.state[section][skillName] + 1, max);
+        const level = Math.min(skill.level + 1, max);
 
-        self.changeSkillLevel(section, className, skillName, level);
+        this.changeSkillLevel(section, skill, level);
       });
 
-      node.addEventListener("contextmenu", function(e) {
+      node.addEventListener("contextmenu", e => {
         e.preventDefault();
-        let [,className, skillName] = node.id.split("-");
-        let level = Math.max(self.state[section][skillName] - 1, 0);
+        const [,className, skillName] = node.id.split("-");
+        const skill = this.#classes.get(className).skills.get(skillName);
 
-        self.changeSkillLevel(section, className, skillName, level);
+        const level = Math.max(skill.level - 1, 0);
+
+        this.changeSkillLevel(section, skill, level);
       });
 
-      node.addEventListener("mouseenter", function() {
-        self.createInfoNode(section, node);
-      });
+      node.addEventListener("mouseenter", () => this.createInfoNode(section, node));
 
-      node.addEventListener("mouseleave", function() {
-        self.removeInfoNode();
-      });
+      node.addEventListener("mouseleave", () => this.removeInfoNode());
     }
   }
 
@@ -333,13 +321,13 @@ class Simulator {
     this.removeInfoNode();
 
     let [,className, skillName] = node.id.split("-");
-    let skill = this.#skills[className][skillName];
+    const skill = this.#classes.get(className).skills.get(skillName);
 
-    let levelInfo;
+    let levelInfo = skill.levels;
     let maxLevel = 2;
 
     try {
-      levelInfo = this.#levels[className][skillName];
+      levelInfo = skill.levels;
       maxLevel = Object.values(levelInfo)[0].length;
     } catch (error) { }
 
@@ -354,11 +342,8 @@ class Simulator {
 
     let enNameTitle = document.createElement("th");
     enNameTitle.textContent = "Name";
+    enNameTitle.colSpan = 2;
     nameTitleRow.appendChild(enNameTitle);
-
-    let jpNameTitle = document.createElement("th");
-    jpNameTitle.textContent = "名前";
-    nameTitleRow.appendChild(jpNameTitle);
 
     let usesTitle = document.createElement("th");
     usesTitle.textContent = "Uses";
@@ -370,14 +355,11 @@ class Simulator {
     let nameRow = document.createElement("tr");
 
     let enName = document.createElement("td");
-    enName.textContent = skill.name_en;
+    enName.textContent = skill.name;
+    enName.colSpan = 2;
     nameRow.appendChild(enName);
 
-    let jpName = document.createElement("td");
-    jpName.textContent = skill.name_jp;
-    nameRow.appendChild(jpName);
-
-    let usesText = skill.stats.concat(skill.weapon || []).concat(skill.bodyParts || []).join(", ") || "N/A";
+    let usesText = skill.stats.join(", ") || "N/A";
 
     let uses = document.createElement("td");
     uses.textContent = usesText;
@@ -396,7 +378,7 @@ class Simulator {
     infoTable.appendChild(descriptionRow);
 
     if (levelInfo) {
-      let curLevel = this.state[section][skillName];
+      let curLevel = skill.level;
       let levelHeader = document.createElement("tr");
 
       let levelType = document.createElement("th");
@@ -455,7 +437,7 @@ class Simulator {
     skillInfo.style.width = `${width}px`;
     skillInfo.style.left = `${posX}px`;
 
-    description.textContent = skill.desc;
+    description.textContent = skill.description;
 
     infoRect = skillInfo.getBoundingClientRect();
     let height = infoRect.height;
@@ -470,40 +452,39 @@ class Simulator {
     if (info) document.body.removeChild(info);
   }
 
-  drawLines(tree, className, skillName, skill) {
-    const deps = Object.entries(skill.dep);
-    const forwards = Object.entries(this.#forward[className][skillName]);
-
+  drawLines(tree, skill) {
+    const prereqs = skill.prereqs;
+    const forwards = skill.forwards;
     const {x, y} = skill.coords;
 
-    if (forwards.length) {
-      const forwardX = this.#skills[className][forwards[0][0]].coords.x;
+    if (forwards.size) {
+      const forwardX = forwards.keys().next().value.coords.x;
 
       this.drawHorizontalLine(tree, x, y, forwardX);
 
-      if (forwards.length > 1) {
-        const {0: minY, length, [length - 1]: maxY} = forwards.map(([id]) => this.#skills[className][id].coords.y).sort();
+      if (forwards.size > 1) {
+        const {0: minY, length, [length - 1]: maxY} = [...forwards.keys()].map(forward => forward.coords.y).sort();
 
         this.drawVerticalLine(tree, forwardX, minY, maxY);
       }
     }
 
-    if (deps.length) {
+    if (prereqs.size) {
       this.drawHorizontalLine(tree, x, y);
 
-      if (deps.length > 1) {
-        const {0: minY, length, [length - 1]: maxY} = deps.map(([id]) => this.#skills[className][id].coords.y).sort();
+      if (prereqs.size > 1) {
+        const {0: minY, length, [length - 1]: maxY} = [...prereqs.keys()].map(prereq => prereq.coords.y).sort();
 
         this.drawVerticalLine(tree, x, minY, maxY);
       }
     }
   }
 
-  drawLevel(tree, className, skillName, skill) {
-    const forwards = Object.entries(this.#forward[className][skillName]);
-    if (!forwards.length) return;
+  drawLevel(tree, skill) {
+    const forwards = skill.forwards;
+    if (!forwards.size) return;
 
-    const level = forwards[0][1];
+    const level = forwards.values().next().value;
     if (!level) return;
 
     const {x, y} = skill.coords;
@@ -536,61 +517,61 @@ class Simulator {
     tree.appendChild(line);
   }
 
-  changeSkillLevel(section, className, skillName, level) {
+  changeSkillLevel(section, skill, level) {
     level = parseInt(level);
-    let old = this.state[section][skillName];
+    const old = skill.level;
     if (level === old) return;
 
-    this.state[section][skillName] = level;
+    skill.level = level;
 
-    let self = this;
     let resolve;
 
     if (level > old) {
-      resolve = skillName => {
-        let dep = this.#skills[className][skillName].dep;
-        for (let [depName, depLevel] of Object.entries(dep)) {
-          if (self.state[section][depName] < depLevel) {
-            self.state[section][depName] = depLevel;
-            resolve(depName);
+      resolve = skl => {
+        for (let [depSkill, depLevel] of skl.prereqs) {
+          if (depSkill.level < depLevel) {
+            depSkill.level = depLevel;
+            resolve(depSkill);
           }
         }
       };
     } else {
-      resolve = skillName => {
-        let level = self.state[section][skillName];
-        let dep = this.#forward[className][skillName];
-        for (let [depName, depLevel] of Object.entries(dep)) {
-          if (self.state[section][depName] > 0 && level < depLevel) {
-            self.state[section][depName] = 0;
-            resolve(depName);
+      resolve = skl => {
+        for (let [depSkill, depLevel] of skl.forwards) {
+          if (depSkill.level > 0 && skl.level < depLevel) {
+            depSkill.level = 0;
+            resolve(depSkill);
           }
         }
       };
     }
-    resolve(skillName);
+    resolve(skill);
 
-    let node = document.getElementById(`skill-${className}-${skillName}`);
-    this.createInfoNode(section, node);
-    this.updateNodes(section, className);
+    //let node = document.getElementById(`skill-${skill.class.name}-${skill.name}`);
+    //this.createInfoNode(section, node);
+    this.updateNodes(section, skill.class===this.class);
   }
 
-  updateNodes(section, className) {
-    for (let [skillName, skillLevel] of Object.entries(this.state[section])) {
-      let skillNode = document.getElementById(`skill-${className}-${skillName}`);
-      if (skillNode === null) continue;
+  updateNodes(section, primary) {
+    const cls = primary ? this.class : this.subclass;
+
+    if (!cls) return;
+
+    for (const [skillName, skill] of cls.skills) {
+      const skillNode = document.getElementById(`skill-${cls.name}-${skillName}`);
+      if (!skillNode) continue;
 
       let a = true;
-      for (let [depName, depLevel] of Object.entries(this.#skills[className][skillName].dep)) {
-        if (this.state[section][depName] < depLevel) {
+      for (const [depSkill, depLevel] of skill.prereqs) {
+        if (depSkill.level < depLevel) {
           a = false;
           break;
         }
       }
 
-      if (["Boost", "Break"].includes(this.#skills[className][skillName].type)) continue;
+      if (["Boost", "Break"].includes(skill.type)) continue;
 
-      skillNode.childNodes[1].childNodes[0].textContent = skillLevel.toString();
+      skillNode.childNodes[1].childNodes[0].textContent = skill.level.toString();
 
       skillNode.classList.remove(`skill-available`);
       skillNode.classList.remove(`skill-unavailable`);
@@ -602,7 +583,7 @@ class Simulator {
   updateSkillPoints() {
     let points = 2 + this.level;
 
-    if (this.subclass && this.subclass !== "None") points += 5;
+    if (this.subclass) points += 5;
 
     if (this.retireLevel !== 'N/A') points += this.retireBonuses[this._retireLevel][2];
 
@@ -610,8 +591,8 @@ class Simulator {
 
     let pointsUsed = 0;
 
-    for (let section of Object.values(this.state)) {
-      for (let points of Object.values(section)) pointsUsed += points;
+    for (const cls of this.#classes.values()) {
+      for (const skill of cls.skills.values()) pointsUsed += skill.level;
     }
 
     this._elements.pointsUsed.textContent = pointsUsed.toString();

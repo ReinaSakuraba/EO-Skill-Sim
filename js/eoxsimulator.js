@@ -2,10 +2,6 @@ import Simulator from './simulator.js';
 
 
 class EOXSimulator extends Simulator {
-  get defaultClass() {
-    return "Hero";
-  }
-
   get levelCaps() {
     return [99, 109, 119, 130];
   }
