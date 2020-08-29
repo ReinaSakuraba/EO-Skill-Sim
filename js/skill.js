@@ -1,4 +1,5 @@
 class Skill {
+  #level = 0;
   #dep;
   #forwards;
 
@@ -11,7 +12,6 @@ class Skill {
     this.maxLevel = maxLevel;
     this.coords = {x, y};
     this.levels = levels;
-    this.level = 0;
 
     this.#dep = dep;
     this.#forwards = forwards;
@@ -36,6 +36,27 @@ class Skill {
     }
 
     return prereqs;
+  }
+
+  get level() {
+    return this.#level;
+  }
+  set level(value) {
+    value = Math.min(Math.max(value, 0), this.maxLevel);
+    const old = this.#level;
+
+    if (old === value) return;
+
+    this.#level = value;
+
+    if (value > old) {
+      for (const [skill, reqLevel] of this.prereqs) if (skill.level < reqLevel) skill.level = reqLevel;
+    } else {
+      for (const [skill, reqLevel] of this.forwards) if (skill.level > 0 && value < reqLevel) skill.level = 0;
+    }
+
+    const simulator = this.class.simulator;
+    simulator.updateNodes(this.class===simulator.class);
   }
 }
 

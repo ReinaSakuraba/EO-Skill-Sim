@@ -35,7 +35,7 @@ class Simulator {
     }
 
     for (const [className, classSkillInfo] of Object.entries(skills)) {
-      this.#classes.set(className, new Class(className, classSkillInfo, forward[className], levels[className]));
+      this.#classes.set(className, new Class(className, classSkillInfo, forward[className], levels[className], this));
     }
 
     this._elements = {
@@ -296,9 +296,7 @@ class Simulator {
 
         if (!primary) max /= this.secondaryPenalty;
 
-        const level = Math.min(skill.level + 1, max);
-
-        this.changeSkillLevel(section, skill, level);
+        skill.level = Math.min(skill.level + 1, max);
       });
 
       node.addEventListener("contextmenu", e => {
@@ -306,9 +304,7 @@ class Simulator {
         const [,className, skillName] = node.id.split("-");
         const skill = this.#classes.get(className).skills.get(skillName);
 
-        const level = Math.max(skill.level - 1, 0);
-
-        this.changeSkillLevel(section, skill, level);
+        skill.level = Math.max(skill.level - 1, 0);
       });
 
       node.addEventListener("mouseenter", () => this.createInfoNode(section, node));
@@ -517,42 +513,7 @@ class Simulator {
     tree.appendChild(line);
   }
 
-  changeSkillLevel(section, skill, level) {
-    level = parseInt(level);
-    const old = skill.level;
-    if (level === old) return;
-
-    skill.level = level;
-
-    let resolve;
-
-    if (level > old) {
-      resolve = skl => {
-        for (let [depSkill, depLevel] of skl.prereqs) {
-          if (depSkill.level < depLevel) {
-            depSkill.level = depLevel;
-            resolve(depSkill);
-          }
-        }
-      };
-    } else {
-      resolve = skl => {
-        for (let [depSkill, depLevel] of skl.forwards) {
-          if (depSkill.level > 0 && skl.level < depLevel) {
-            depSkill.level = 0;
-            resolve(depSkill);
-          }
-        }
-      };
-    }
-    resolve(skill);
-
-    //let node = document.getElementById(`skill-${skill.class.name}-${skill.name}`);
-    //this.createInfoNode(section, node);
-    this.updateNodes(section, skill.class===this.class);
-  }
-
-  updateNodes(section, primary) {
+  updateNodes(primary) {
     const cls = primary ? this.class : this.subclass;
 
     if (!cls) return;

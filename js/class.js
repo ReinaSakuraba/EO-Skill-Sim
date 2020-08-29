@@ -4,8 +4,9 @@ import Skill from './skill.js';
 class Class {
   skills = new Map();
 
-  constructor(name, skills, forwards, levels) {
+  constructor(name, skills, forwards, levels, simulator) {
     this.name = name;
+    this.simulator = simulator;
 
     for (const [skillName, skillInfo] of Object.entries(skills)) {
       this.skills.set(skillName, new Skill(skillInfo, forwards[skillName], levels[skillName], this));
