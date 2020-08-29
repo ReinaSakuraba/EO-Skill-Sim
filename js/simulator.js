@@ -122,6 +122,22 @@ class Simulator {
     this.updateSkillPoints();
   }
 
+  get retireBonus() {
+    return this.retireBonuses.length !== 0 ? this.retireBonuses[this._retireLevel][2] : 0;
+  }
+
+  get pointsTotal() {
+    return 2 + this.level + (this.subclass ? 5 : 0) + this.retireBonus;
+  }
+
+  get pointsCurrent() {
+    let points = 0;
+
+    for (const cls of [this.class, this.subclass]) if (cls) for (const skill of cls.skills.values()) points += skill.level;
+
+    return points
+  }
+
   setDefault() {
     this.class = this.#classes.keys().next().value;
     this.subclass = null;
@@ -542,21 +558,8 @@ class Simulator {
   }
 
   updateSkillPoints() {
-    let points = 2 + this.level;
-
-    if (this.subclass) points += 5;
-
-    if (this.retireLevel !== 'N/A') points += this.retireBonuses[this._retireLevel][2];
-
-    this._elements.pointsTotal.textContent = points.toString();
-
-    let pointsUsed = 0;
-
-    for (const cls of this.#classes.values()) {
-      for (const skill of cls.skills.values()) pointsUsed += skill.level;
-    }
-
-    this._elements.pointsUsed.textContent = pointsUsed.toString();
+    this._elements.pointsTotal.textContent = this.pointsTotal.toString();
+    this._elements.pointsUsed.textContent = this.pointsCurrent.toString();
   }
 }
 
