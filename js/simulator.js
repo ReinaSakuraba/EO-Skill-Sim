@@ -253,18 +253,12 @@ class Simulator {
       skill.level = 0;
       if (skill.unique && !primary) continue;
 
-      let a = true;
-
-      for (const level of skill.prereqs.values()) {
-        if (level === 0) continue;
-        a = false;
-        break;
-      }
+      const available = [...skill.prereqs].every(([depSkill, depLevel]) => depSkill.level >= depLevel);
 
       let node = document.createElement("div");
       node.classList.add("skill");
       node.classList.add(`skill-${section}`);
-      node.classList.add(`skill-${(a ? '' : 'un') + 'available'}`);
+      node.classList.add(`skill-${(available ? '' : 'un') + 'available'}`);
       node.id = skillId;
 
       node.style.setProperty('--skill-x-pos', skill.coords.x);
@@ -538,13 +532,7 @@ class Simulator {
       const skillNode = document.getElementById(`skill-${cls.name}-${skillName}`);
       if (!skillNode) continue;
 
-      let a = true;
-      for (const [depSkill, depLevel] of skill.prereqs) {
-        if (depSkill.level < depLevel) {
-          a = false;
-          break;
-        }
-      }
+      const available = [...skill.prereqs].every(([depSkill, depLevel]) => depSkill.level >= depLevel);
 
       if (["Boost", "Break"].includes(skill.type)) continue;
 
@@ -552,7 +540,7 @@ class Simulator {
 
       skillNode.classList.remove(`skill-available`);
       skillNode.classList.remove(`skill-unavailable`);
-      skillNode.classList.add(`skill-${(a ? '' : 'un') + 'available'}`);
+      skillNode.classList.add(`skill-${(available ? '' : 'un') + 'available'}`);
     }
     this.updateSkillPoints();
   }
