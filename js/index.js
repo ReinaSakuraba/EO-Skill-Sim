@@ -2,7 +2,7 @@ let simulator;
 
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const gameRegex = new RegExp('^\\/EOSim\\/([a-z]+)\\/(?:index\\.html)?$');
+  const gameRegex = new RegExp('^(?:\\/.+?)*?\\/([a-z]+)\\/(?:index\\.html)?$');
   const game = window.location.pathname.match(gameRegex)[1];
 
   const {default: forward} = await import(`../data/${game}/forward.js`);
