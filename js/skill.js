@@ -30,6 +30,7 @@ class Skill {
       forwards.set(this.class.skills.get(skillName), reqLevel);
     }
 
+    Object.defineProperty(this, 'forwards', {value: forwards, writable: false});
     return forwards;
   }
 
@@ -40,6 +41,7 @@ class Skill {
       prereqs.set(this.class.skills.get(skillName), reqLevel);
     }
 
+    Object.defineProperty(this, 'prereqs', {value: prereqs, writable: false});
     return prereqs;
   }
 
