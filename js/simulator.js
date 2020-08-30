@@ -253,12 +253,10 @@ class Simulator {
       skill.level = 0;
       if (skill.unique && !primary) continue;
 
-      const available = [...skill.prereqs].every(([depSkill, depLevel]) => depSkill.level >= depLevel);
-
       let node = document.createElement("div");
       node.classList.add("skill");
       node.classList.add(`skill-${section}`);
-      node.classList.add(`skill-${(available ? '' : 'un') + 'available'}`);
+      node.classList.add(`skill-${(skill.available ? '' : 'un') + 'available'}`);
       node.id = skillId;
 
       node.style.setProperty('--skill-x-pos', skill.coords.x);
@@ -532,15 +530,13 @@ class Simulator {
       const skillNode = document.getElementById(`skill-${cls.name}-${skillName}`);
       if (!skillNode) continue;
 
-      const available = [...skill.prereqs].every(([depSkill, depLevel]) => depSkill.level >= depLevel);
-
       if (["Boost", "Break"].includes(skill.type)) continue;
 
       skillNode.childNodes[1].childNodes[0].textContent = skill.level.toString();
 
       skillNode.classList.remove(`skill-available`);
       skillNode.classList.remove(`skill-unavailable`);
-      skillNode.classList.add(`skill-${(available ? '' : 'un') + 'available'}`);
+      skillNode.classList.add(`skill-${(skill.available ? '' : 'un') + 'available'}`);
     }
     this.updateSkillPoints();
   }

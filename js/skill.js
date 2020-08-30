@@ -18,6 +18,11 @@ class Skill {
     this.class = class_;
   }
 
+  get available() {
+    for (const [depSkill, depLevel] of this.prereqs) if (depSkill.level < depLevel) return false;
+    return true;
+  }
+
   get forwards() {
     const forwards = new Map();
 
