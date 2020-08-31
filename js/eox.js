@@ -1,7 +1,7 @@
-import Simulator from '../../js/simulator.js';
-import forward from './forward.js';
-import levels from './levels.js';
-import skills from './skills.js';
+import Simulator from './simulator.js';
+import forward from '../data/eox/forward.js';
+import levels from '../data/eox/levels.js';
+import skills from '../data/eox/skills.js';
 
 
 const secondaryPenalty = 2;
