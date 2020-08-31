@@ -7,11 +7,10 @@ const verticalPadding = parseInt(allStyles.getPropertyValue("--node-vertical-pad
 
 
 class Simulator {
-  #classes = new Map();
-
   constructor ({skills, forward, levels, secondaryPenalty, retireBonuses, levelCaps}) {
+    this._classes = new Map();
     for (const [className, classSkillInfo] of Object.entries(skills)) {
-      this.#classes.set(className, new Class(className, classSkillInfo, forward[className], levels[className], this));
+      this._classes.set(className, new Class(className, classSkillInfo, forward[className], levels[className], this));
     }
 
     this._elements = {
@@ -88,7 +87,7 @@ class Simulator {
     const old = this.class;
     if (old) old.resetSkillLevels();
 
-    this._class = this.#classes.get(value);
+    this._class = this._classes.get(value);
     this._elements.class.value = value;
     this.disableClass(false);
     this.createSkillNodes(true);
@@ -102,7 +101,7 @@ class Simulator {
     const old = this.subclass;
     if (old) old.resetSkillLevels();
 
-    this._subclass = value !== null ? this.#classes.get(value) : null;
+    this._subclass = value !== null ? this._classes.get(value) : null;
     this._elements.subclass.value = value !== null ? value : 'None';
     this.disableClass(true);
     this.createSkillNodes(false);
@@ -126,7 +125,7 @@ class Simulator {
   }
 
   setDefault() {
-    this.class = this.#classes.keys().next().value;
+    this.class = this._classes.keys().next().value;
     this.subclass = null;
     this.levelCap = this.levelCaps[0];
     this.level = 1;
@@ -197,7 +196,7 @@ class Simulator {
         classSelector.appendChild(option);
       }
 
-      for (const cls of this.#classes.values()) {
+      for (const cls of this._classes.values()) {
         const option = document.createElement('option');
         option.value = cls.name;
         option.textContent = cls.name;

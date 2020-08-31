@@ -1,10 +1,4 @@
 class Skill {
-  #maxLevel;
-  #level = 0;
-  #dep;
-  #forwards;
-  #node;
-
   constructor({name, desc, stats, unique = false, type = null, maxLevel, coords: {x, y}, dep}, forwards, levels, class_) {
     this.name = name;
     this.description = desc;
@@ -14,9 +8,10 @@ class Skill {
     this.coords = {x, y};
     this.levels = levels;
 
-    this.#maxLevel = maxLevel;
-    this.#dep = dep;
-    this.#forwards = forwards;
+    this._maxLevel = maxLevel;
+    this._dep = dep;
+    this._forwards = forwards;
+    this._level = 0;
     this.class = class_;
   }
 
@@ -28,7 +23,7 @@ class Skill {
   get forwards() {
     const forwards = new Map();
 
-    for (const [skillName, reqLevel] of Object.entries(this.#forwards)) {
+    for (const [skillName, reqLevel] of Object.entries(this._forwards)) {
       forwards.set(this.class.skills.get(skillName), reqLevel);
     }
 
@@ -39,7 +34,7 @@ class Skill {
   get prereqs() {
     const prereqs = new Map();
 
-    for (const [skillName, reqLevel] of Object.entries(this.#dep)) {
+    for (const [skillName, reqLevel] of Object.entries(this._dep)) {
       prereqs.set(this.class.skills.get(skillName), reqLevel);
     }
 
@@ -48,7 +43,7 @@ class Skill {
   }
 
   get maxLevel() {
-    let maxLevel = this.#maxLevel;
+    let maxLevel = this._maxLevel;
 
     if (!this.class.isMain) maxLevel /= this.class.simulator.secondaryPenalty;
 
@@ -56,15 +51,15 @@ class Skill {
   }
 
   get level() {
-    return this.#level;
+    return this._level;
   }
   set level(value) {
     value = Math.min(Math.max(value, 0), this.maxLevel);
-    const old = this.#level;
+    const old = this._level;
 
     if (old === value) return;
 
-    this.#level = value;
+    this._level = value;
 
     if (value > old) {
       for (const [skill, reqLevel] of this.prereqs) if (skill.level < reqLevel) skill.level = reqLevel;
@@ -80,7 +75,7 @@ class Skill {
   }
 
   get node() {
-    if (this.#node) return this.#node;
+    if (this._node) return this._node;
 
     const skillId = `skill-${this.class.name}-${this.name}`;
 
@@ -131,7 +126,7 @@ class Skill {
 
     node.addEventListener('mouseleave', () => this.class.simulator.removeInfoNode());
 
-    return this.#node = node;
+    return this._node = node;
   }
 
   updateNode() {
