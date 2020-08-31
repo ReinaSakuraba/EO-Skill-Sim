@@ -75,8 +75,6 @@ class Skill {
   }
 
   get node() {
-    if (this._node) return this._node;
-
     const skillId = `skill-${this.class.name}-${this.name}`;
 
     const node = document.createElement('div');
@@ -126,7 +124,8 @@ class Skill {
 
     node.addEventListener('mouseleave', () => this.class.simulator.removeInfoNode());
 
-    return this._node = node;
+    Object.defineProperty(this, 'node', {value: node, writable: false});
+    return node;
   }
 
   updateNode() {
