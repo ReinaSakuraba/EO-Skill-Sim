@@ -134,8 +134,10 @@ class Skill {
 
   updateNode() {
     const node = this.node;
-    node.lastChild.lastChild.textContent = this.maxLevel.toString();
-    node.lastChild.firstChild.textContent = this.level.toString();
+    if (!['Boost', 'Break'].includes(this.type)) {
+      node.lastChild.lastChild.textContent = this.maxLevel.toString();
+      node.lastChild.firstChild.textContent = this.level.toString();
+    }
     node.classList.remove('skill-available', 'skill-unavailable');
     node.classList.add(`skill-${this.available ? '' : 'un'}available`);
   }

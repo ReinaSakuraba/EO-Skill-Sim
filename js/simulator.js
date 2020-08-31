@@ -230,7 +230,10 @@ class Simulator {
 
     for (const skill of cls.skills.values()) this.drawLevel(sectionLayer, skill);
 
-    for (const skill of cls.skills.values()) sectionLayer.appendChild(skill.node);
+    for (const skill of cls.skills.values()) if (!skill.unique || primary) {
+      skill.updateNode();
+      sectionLayer.appendChild(skill.node);
+    }
   }
 
   createInfoNode(skill) {
