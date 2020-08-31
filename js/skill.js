@@ -1,4 +1,5 @@
 class Skill {
+  #maxLevel;
   #level = 0;
   #dep;
   #forwards;
@@ -9,10 +10,10 @@ class Skill {
     this.stats = stats;
     this.unique = unique;
     this.type = type;
-    this.maxLevel = maxLevel;
     this.coords = {x, y};
     this.levels = levels;
 
+    this.#maxLevel = maxLevel;
     this.#dep = dep;
     this.#forwards = forwards;
     this.class = class_;
@@ -43,6 +44,14 @@ class Skill {
 
     Object.defineProperty(this, 'prereqs', {value: prereqs, writable: false});
     return prereqs;
+  }
+
+  get maxLevel() {
+    let maxLevel = this.#maxLevel;
+
+    if (!this.class.isMain) maxLevel /= this.class.simulator.secondaryPenalty;
+
+    return maxLevel;
   }
 
   get level() {

@@ -16,6 +16,10 @@ class Class {
   resetSkillLevels() {
     for (const skill of this.skills.values()) skill.level = 0;
   }
+
+  get isMain() {
+    return this === this.simulator.class;
+  }
 }
 
 
