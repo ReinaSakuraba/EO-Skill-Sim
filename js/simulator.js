@@ -236,7 +236,6 @@ class Simulator {
   createSkillNodes(primary) {
     const sectionLayer = this._elements[primary ? 'classTree' : 'subclassTree'];
     while (sectionLayer.lastChild) sectionLayer.removeChild(sectionLayer.lastChild);
-    const section = primary ? 'primary' : 'secondary';
 
     const cls = primary ? this.class : this.subclass;
     if (!cls) return;
@@ -245,87 +244,11 @@ class Simulator {
 
     for (const skill of cls.skills.values()) this.drawLevel(sectionLayer, skill);
 
-    for (const [skillName, skill] of cls.skills) {
-      const skillId = `skill-${cls.name}-${skillName}`;
-      let skillMax = skill.maxLevel;
-      if (!primary) skillMax /= this.secondaryPenalty;
-
-      skill.level = 0;
-      if (skill.unique && !primary) continue;
-
-      let node = document.createElement("div");
-      node.classList.add("skill");
-      node.classList.add(`skill-${section}`);
-      node.classList.add(`skill-${(skill.available ? '' : 'un') + 'available'}`);
-      node.id = skillId;
-
-      node.style.setProperty('--skill-x-pos', skill.coords.x);
-      node.style.setProperty('--skill-y-pos', skill.coords.y);
-
-      let nameDiv = document.createElement("div");
-      nameDiv.classList.add("skill-name");
-      nameDiv.classList.add("skill-name-en");
-      nameDiv.textContent = skill.name;
-      node.appendChild(nameDiv);
-
-      let levelNode = document.createElement("div");
-
-      levelNode.classList.add("skill-type");
-
-      if (["Boost", "Break"].includes(skill.type)) {
-        levelNode.classList.add("skill-type-special");
-        levelNode.textContent = skill.type.toUpperCase();
-      } else {
-        levelNode.classList.add("skill-type-normal");
-
-        let currentLevel = document.createElement("div");
-        currentLevel.classList.add("skill-current-level");
-        currentLevel.textContent = "0";
-        levelNode.appendChild(currentLevel);
-
-        let maxLevel = document.createElement("div");
-        maxLevel.classList.add("skill-max-level");
-        maxLevel.textContent = skillMax;
-        levelNode.appendChild(maxLevel);
-      }
-
-      node.appendChild(levelNode);
-
-      sectionLayer.appendChild(node);
-    }
-
-    const nodes = document.querySelectorAll(`.skill-${section}.skill`);
-
-    for (const node of nodes) {
-      node.addEventListener("click", () => {
-        const [,className, skillName] = node.id.split("-");
-        const skill = this.#classes.get(className).skills.get(skillName);
-        let max = skill.maxLevel;
-
-        if (!primary) max /= this.secondaryPenalty;
-
-        skill.level = Math.min(skill.level + 1, max);
-      });
-
-      node.addEventListener("contextmenu", e => {
-        e.preventDefault();
-        const [,className, skillName] = node.id.split("-");
-        const skill = this.#classes.get(className).skills.get(skillName);
-
-        skill.level = Math.max(skill.level - 1, 0);
-      });
-
-      node.addEventListener("mouseenter", () => this.createInfoNode(section, node));
-
-      node.addEventListener("mouseleave", () => this.removeInfoNode());
-    }
+    for (const skill of cls.skills.values()) sectionLayer.appendChild(skill.node);
   }
 
-  createInfoNode(section, node) {
+  createInfoNode(skill) {
     this.removeInfoNode();
-
-    let [,className, skillName] = node.id.split("-");
-    const skill = this.#classes.get(className).skills.get(skillName);
 
     let levelInfo = skill.levels;
     let maxLevel = 2;
@@ -424,7 +347,7 @@ class Simulator {
     }
     skillInfo.appendChild(infoTable);
 
-    let skillNode = document.getElementById(`skill-${className}-${skillName}`);
+    let skillNode = skill.node;
 
     document.body.appendChild(skillInfo);
 
@@ -519,26 +442,6 @@ class Simulator {
     if (!isDep) line.style.setProperty('--line-x-end-pos', forwardX);
     line.style.setProperty('--line-y-pos', y);
     tree.appendChild(line);
-  }
-
-  updateNodes(primary) {
-    const cls = primary ? this.class : this.subclass;
-
-    if (!cls) return;
-
-    for (const [skillName, skill] of cls.skills) {
-      const skillNode = document.getElementById(`skill-${cls.name}-${skillName}`);
-      if (!skillNode) continue;
-
-      if (["Boost", "Break"].includes(skill.type)) continue;
-
-      skillNode.childNodes[1].childNodes[0].textContent = skill.level.toString();
-
-      skillNode.classList.remove(`skill-available`);
-      skillNode.classList.remove(`skill-unavailable`);
-      skillNode.classList.add(`skill-${(skill.available ? '' : 'un') + 'available'}`);
-    }
-    this.updateSkillPoints();
   }
 
   updateSkillPoints() {
