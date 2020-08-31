@@ -1083,7 +1083,7 @@ let levels = {
       "Percent HP Restore": ["15%", "20%", "25%", "30%", "35%", "60%"],
       "Static TP Restore": ["1", "2", "3", "4", "5", "8"],
       "Percent TP Restore": ["1%", "1%", "1%", "1%", "1%", "3%"],
-	  "Single Type Restore": ["x1.5", "x1.5", "x1.5", "x1.5", "x1.5", "x1.5"],
+      "Single Type Restore": ["x1.5", "x1.5", "x1.5", "x1.5", "x1.5", "x1.5"],
       "Both Types Restore": ["x3", "x3", "x3", "x3", "x3", "x3"]
     },
     majesty: {
