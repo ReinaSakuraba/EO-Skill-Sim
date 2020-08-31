@@ -9,31 +9,7 @@ const verticalPadding = parseInt(allStyles.getPropertyValue("--node-vertical-pad
 class Simulator {
   #classes = new Map();
 
-  get levelCaps() {
-    return [70, 80, 90, 99];
-  }
-
-  get retireBonuses() {
-    return [
-      [0,   'N/A',  0],
-      [1, '30-39',  4],
-      [2, '40-49',  5],
-      [3, '50-59',  6],
-      [4, '60-69',  7],
-      [5, '70-98',  8],
-      [6,    '99', 10],
-    ];
-  }
-
-  get secondaryPenalty() {
-    return 1;
-  }
-
-  constructor ({skills, forward, levels}) {
-    if (this.constructor === Simulator) {
-      throw new TypeError('Abstract class "Simulator" cannot be instantiated directly.');
-    }
-
+  constructor ({skills, forward, levels, secondaryPenalty, retireBonuses, levelCaps}) {
     for (const [className, classSkillInfo] of Object.entries(skills)) {
       this.#classes.set(className, new Class(className, classSkillInfo, forward[className], levels[className], this));
     }
@@ -52,6 +28,17 @@ class Simulator {
     Object.freeze(this._elements);
 
     this._retireLevel = 0;
+    this.secondaryPenalty = secondaryPenalty || 1;
+    this.retireBonuses = retireBonuses || [
+      [0,   'N/A',  0],
+      [1, '30-39',  4],
+      [2, '40-49',  5],
+      [3, '50-59',  6],
+      [4, '60-69',  7],
+      [5, '70-98',  8],
+      [6,    '99', 10],
+    ];
+    this.levelCaps = levelCaps || [70, 80, 90, 99];
 
     this.setRetireLevels();
     this.setLevelCaps();
