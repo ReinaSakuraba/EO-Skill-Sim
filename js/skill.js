@@ -116,12 +116,14 @@ class Skill {
     node.addEventListener('click', () => {
       this.level += 1;
       this.class.simulator.createInfoNode(this);
+      this.class.simulator.updateSkillPoints();
     });
 
     node.addEventListener('contextmenu', e => {
       e.preventDefault();
       this.level -= 1;
       this.class.simulator.createInfoNode(this);
+      this.class.simulator.updateSkillPoints();
     });
 
     node.addEventListener('mouseenter', () => this.class.simulator.createInfoNode(this));
