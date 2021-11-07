@@ -17,59 +17,34 @@
     <script type="text/javascript" src="../js/index.js"></script>
   </head>
   <body class="blue-theme">
-    <div id="header">
-      <div>
-        <img src="../resources/eox-logo.png" height="140px" />
-      </div>
-
+    <header>
       <div id="header-main">
         <div>
           <label>
-            <strong>Level</strong>
-            <select id="level">
-              <option value="0">0</option>
-            </select>
+            Class
+            <select id="class-selector-primary"><option value="N/A">N/A</option></select>
           </label>
-
-          <br>
-
           <label>
-            <strong>Level Cap</strong>
-            <select id="level-cap">
-              <option value="0">0</option>
-            </select>
+            Subclass
+            <select id="class-selector-secondary"><option value="N/A">N/A</option></select>
           </label>
         </div>
-
         <div>
           <label>
-            <strong>Retire Level</strong>
-            <select id="retire">
-              <option value="N/A">N/A</option>
-            </select>
+            Level
+            <select id="level"><option value="N/A">N/A</option></select>
+          </label>
+          <label>
+            /
+            <select id="level-cap"><option value="N/A">N/A</option></select>
+          </label>
+          <label>
+            R
+            <select id="retire"><option value="N/A">N/A</option></select>
           </label>
         </div>
-
         <div>
-          <label>
-            <strong>Class</strong>
-            <select id="class-selector-primary">
-              <option value="None">None</option>
-            </select>
-          </label>
-
-          <br>
-
-          <label>
-            <strong>Subclass</strong>
-            <select id="class-selector-secondary">
-              <option value="None">None</option>
-            </select>
-          </label>
-        </div>
-
-        <div>
-          <strong>Points Used<br><span id="points-current"></span>/<span id="points-total"></span></strong>
+          <span>Points Used: <span id="points-current">N/A</span>/<span id="points-total">N/A</span></span>
         </div>
       </div>
 
@@ -104,8 +79,7 @@
           </svg>
         </a>
       </div>
-    </div>
-
+    </header>
     <div id="main">
       <div class="tree" id="tree-primary"></div>
       <div class="tree" id="tree-secondary"></div>

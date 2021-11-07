@@ -1,30 +1,31 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css");
 
 :root {
-  --node-width: 200px;
-  --node-height: 24px;
+  --node-width: 175px;
+  --node-height: 22px;
   --node-border: 2px;
-  --node-horizontal-padding: 64px;
-  --node-vertical-padding: 12px;
+  --node-horizontal-padding: 56px;
+  --node-vertical-padding: 10px;
   --yellow: #fff133;
 
   --horizontal-nodes: 6;
   --vertical-nodes: 7;
+  --tree-amount: 2;
 
   --tree-width: calc(var(--node-width) * var(--horizontal-nodes) + var(--node-horizontal-padding) * (var(--horizontal-nodes) - 1));
   --tree-height: calc(var(--node-height) * var(--vertical-nodes) + var(--node-vertical-padding) * (var(--vertical-nodes) - 1));
 }
 
 .blue-theme {
-  --body-background: #18515f;
-  --header-background: #002a2b;
+  --body-background: #1c3d70;
+  --header-background: #043150;
 
-  --available-highlight: #a3dad4;
-  --available-background: #036;
-  --available-midtone: #269;
+  --available-highlight: #A3DAD4;
+  --available-background: #003366;
+  --available-midtone: #226699;
 
-  --unavailable-highlight: #a9a9a9;
-  --unavailable-background: #394b61;
+  --unavailable-highlight: #A9A9A9;
+  --unavailable-background: #394B61;
   --unavailable-midtone: #778898;
 }
 
@@ -98,35 +99,43 @@ td {
   background: var(--available-background);
 }
 
-#header {
+header {
+  position: fixed;
   display: flex;
-  flex-direction: row;
-  flex-grow: 0;
-  height: 164px;
-  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
   background-color: var(--header-background);
 }
 
 #header-main {
   display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 73px;
 }
 
-#header-main div, #header-main label {
-  display: flex;
-  flex-direction: column;
-  margin: 0 15px 0 15px;
+#header-main div {
+  height: 36px;
+  padding: 0 12px;
+  margin-right: 1px;
+  line-height: 36px;
+}
+
+#header-main div * {
+  margin-right: 2px;
 }
 
 #header-links {
   display: flex;
-  flex-direction: column;
-}
-
-#header-links a {
-  flex: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  float: right;
+  width: 73px;
+  height: 73px;
 }
 
 #header-links svg {
@@ -139,7 +148,8 @@ td {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 600px;
+  height: calc(var(--tree-height) * var(--tree-amount) + (var(--node-height) + var(--node-vertical-padding)) * var(--tree-amount));
+  padding-top: 95px;
 }
 
 .tree {
@@ -155,7 +165,6 @@ td {
   position: absolute;
   top: calc(var(--skill-y-pos) * (var(--node-height) + var(--node-vertical-padding)));
   left: calc(var(--skill-x-pos) * (var(--node-width) + var(--node-horizontal-padding)));
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -168,8 +177,8 @@ td {
 }
 
 .skill-name {
-  margin-left: 4px;
-  font-size: 15px;
+  margin-left: 10px;
+  font-size: 14px;
   color: var(--highlight);
 }
 
@@ -178,7 +187,7 @@ td {
   display: flex;
   flex-direction: row;
   width: calc(var(--node-width) * 0.225);
-  height: calc(var(--node-height) - var(--node-border) * 2 - 4px);
+  height: calc(var(--node-height) - 4px);
   margin-right: 2px;
   overflow: hidden;
   text-align: center;
@@ -189,7 +198,7 @@ td {
 .skill-type-special {
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
   font-stretch: condensed;
   color: var(--background);
@@ -202,7 +211,7 @@ td {
 
 .skill-type-normal:before {
   position: absolute;
-  left: 33%;
+  left: 29%;
   flex-basis: 100%;
   width: 100%;
   height: 100%;
@@ -214,7 +223,7 @@ td {
 .skill-current-level {
   width: 23px;
   margin: 1px;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--background);
 }
 
@@ -222,7 +231,7 @@ td {
   position: relative;
   width: 15px;
   margin-right: 2px;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .skill-available .skill-max-level { color: var(--highlight); }
@@ -263,7 +272,7 @@ td {
   --line-x-pos: 0;
   --line-y-pos: 0;
 
-  top: calc(var(--line-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2 - 2px);
+  top: calc(var(--line-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2);
   height: 4px;
 }
 
@@ -286,9 +295,17 @@ td {
   position: absolute;
   top: calc(var(--level-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2);
   left: calc(var(--level-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) + var(--node-horizontal-padding) / 2);
-  font-size: 16px;
+  margin: 2px;
+  font-size: 14px;
   font-weight: bold;
   color: var(--yellow);
   text-shadow: -1px -1px 0 #105068, 1px -1px 0 #105068, -1px 1px 0 #105068, 1px 1px 0 #105068;
   transform: translate(-50%, -50%);
+}
+
+select {
+  color: var(--available-highlight);
+  background-color: var(--body-background);
+  border: none;
+  border-radius: 3px;
 }
