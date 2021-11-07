@@ -262,8 +262,8 @@ header {
   --vertical-line-min-y-pos: 0;
   --vertical-line-max-y-pos: 0;
 
-  top: calc(var(--vertical-line-min-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2 - 2px);
-  left: calc(var(--vertical-line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) - var(--node-horizontal-padding) / 2 - 2px);
+  top: calc(var(--vertical-line-min-y-pos) * (var(--node-height) + var(--node-vertical-padding)) + var(--node-height) / 2);
+  left: calc(var(--vertical-line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) - var(--node-horizontal-padding) / 2);
   width: 4px;
   height: calc((var(--node-height) + var(--node-vertical-padding)) * (var(--vertical-line-max-y-pos) - var(--vertical-line-min-y-pos)) + 4px);
 }
@@ -279,13 +279,13 @@ header {
 .forward-line {
   --line-x-end-pos: 0;
 
-  left: calc(var(--line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width) - 1px);
+  left: calc(var(--line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) + var(--node-width));
   width: calc(var(--node-horizontal-padding) / 2 + (var(--line-x-end-pos) - var(--line-x-pos) - 1) * (var(--node-width) + var(--node-horizontal-padding)) + 3px);
 }
 
 .dep-line {
-  left: calc(var(--line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) - var(--node-horizontal-padding) / 2 - 2px);
-  width: calc(var(--node-horizontal-padding) / 2 + 3px);
+  left: calc(var(--line-x-pos) * (var(--node-width) + var(--node-horizontal-padding)) - var(--node-horizontal-padding) / 2);
+  width: calc(var(--node-horizontal-padding) / 2);
 }
 
 .level-req {
