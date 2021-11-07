@@ -12,8 +12,8 @@
   --vertical-nodes: 7;
   --tree-amount: 2;
 
-  --tree-width: calc(var(--node-width) * var(--horizontal-nodes) + var(--node-horizontal-padding) * (var(--horizontal-nodes) - 1));
-  --tree-height: calc(var(--node-height) * var(--vertical-nodes) + var(--node-vertical-padding) * (var(--vertical-nodes) - 1));
+  --tree-width: calc(var(--node-width) * var(--horizontal-nodes) + var(--node-horizontal-padding) * (var(--horizontal-nodes) - 1) + var(--node-border) * 2);
+  --tree-height: calc(var(--node-height) * var(--vertical-nodes) + var(--node-vertical-padding) * (var(--vertical-nodes) - 1) + var(--node-border) * 2);
 }
 
 .blue-theme {
