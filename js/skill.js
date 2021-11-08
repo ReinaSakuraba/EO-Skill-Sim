@@ -113,17 +113,29 @@ class Skill {
 
     node.appendChild(levelNode);
 
-    node.addEventListener('click', () => {
+    const incrementLevel = () => {
       this.level += 1;
       this.class.simulator.createInfoNode(this);
       this.class.simulator.updateSkillPoints();
-    });
+    }
 
-    node.addEventListener('contextmenu', e => {
-      e.preventDefault();
+    const decrementLevel = () => {
       this.level -= 1;
       this.class.simulator.createInfoNode(this);
       this.class.simulator.updateSkillPoints();
+    }
+
+    node.addEventListener('click', incrementLevel);
+
+    node.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      decrementLevel();
+    });
+
+    node.addEventListener('wheel', e => {
+      e.preventDefault();
+      if (e.wheelDelta < 0) incrementLevel();
+      else decrementLevel();
     });
 
     node.addEventListener('mouseenter', () => this.class.simulator.createInfoNode(this));
