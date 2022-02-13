@@ -672,7 +672,6 @@ let levels = {
       "Infliction Chance": ["20%", "25%", "30%", "50%"]
     },
     vampire: {
-      "Static Restore": ["11", "14", "17", "20", "23", "34"],
       "Healing Power": ["50%", "55%", "60%", "65%", "70%", "100%"]
     },
     warEdgeMastery: {
