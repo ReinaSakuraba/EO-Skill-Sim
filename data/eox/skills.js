@@ -3701,7 +3701,7 @@ let skills = {
     },
     oneTwoPunch: {
       name: "One-Two Punch",
-      desc: "Deals melee bash damage to one target. May follow up with Concussion, Arm Breaker, and Low Blow if the target does not have the respective bind. Follow-up skills deal reduced damage.",
+      desc: "Deals melee bash damage to one target. May follow up with Concussion, Arm Breaker, and Low Blow if the target does not have the respective bind. Follow-up skills have reduced damage and infliction.",
       stats: ["STR", "LUC"],
       dep: { concussion: 2, armBreaker: 2, lowBlow: 2 },
       maxLevel: 10,
