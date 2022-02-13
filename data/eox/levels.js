@@ -373,7 +373,7 @@ let levels = {
   },
   Survivalist: {
     illusionStep: {
-      Evasion: ["35%"],
+      Evasion: ["+35%"],
       Speed: ["x2"]
     },
     mirageArrow: {
