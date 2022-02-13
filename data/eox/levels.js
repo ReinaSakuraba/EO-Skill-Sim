@@ -7,7 +7,7 @@ let levels = {
     miracleEdge: {
       Accuracy: ["+200%", "+200%", "+200%"],
       Damage: ["700%", "1100%", "1500%"],
-      "Healing Power": ["75%", "75%", "75%"],
+      "Percent Restore": ["75%", "75%", "75%"],
       "Max Overheal": ["75%", "75%", "75%"]
     },
     afterimage: {
@@ -373,8 +373,8 @@ let levels = {
   },
   Survivalist: {
     illusionStep: {
-      Speed: ["35%"],
-      Evasion: ["x2"]
+      Evasion: ["35%"],
+      Speed: ["x2"]
     },
     mirageArrow: {
       Damage: ["500%", "1200%", "1800%"],
@@ -946,7 +946,7 @@ let levels = {
       TP: ["6", "6", "6", "6", "6", "10"],
       Speed: ["70%", "70%", "70%", "70%", "70%", "250%"],
       "Static Restore": ["15", "19", "23", "27", "31", "50"],
-      "Healing Power": ["10%", "14%", "18%", "22%", "26%", "40%"]
+      "Percent Restore": ["10%", "14%", "18%", "22%", "26%", "40%"]
     },
     popFlares: {
       TP: ["4", "4", "4", "4", "4", "7"],
